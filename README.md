@@ -2,7 +2,7 @@
 
 ## 🎯 팀 슬로건
 
-> 팀 슬로건을 작성합니다..
+> Error507: Insufficient Brain Storage
 
 ## 🖼️ 팀 포스터
 
@@ -21,16 +21,12 @@
 
 ## 1️⃣ 팀원 소개
 
-| **이름** | **전공** | **관심사** |
-| --- | --- | --- |
-| **홍길동** | 인공지능전공 | 해외인턴, 인공지능, 프론트엔드 |
-| **김영희** | 인공지능전공 | 보안, 프론트엔드, 백엔드, 인공지능 |
-| **이철수** | 인공지능전공 | 알고리즘, 시스템 프로그래밍, 스타트업 |
-| **박민수** | 인공지능전공 | UX/UI, 모바일 앱, 창업 |
-| **최지현** | 인공지능전공 | 분산 시스템, 데이터베이스, 오픈소스 |
-
-유레카프로젝트 팀 생성을 축하합니다.
-팀의 제목과 슬로건, 팀원의 이름 및 관심사를 변경하세요.
+| **이름**  | **전공** | **관심사**                   |
+| ------- | ------ | ------------------------- |
+| **서재민** | 인공지능전공 | 인공지능, 웹, 창업, 로봇, 돈        |
+| **송채원** | 인공지능전공 | 인공지능, 보안, 암호              |
+| **윤서후** | 인공지능전공 | 인공지능,게임,창업,기타             |
+| **하준서** | 인공지능전공 | 인공지능, 디지털 헬스케어, 의료 데이터 분석 |
 
 ### 팀 소개
 
@@ -100,31 +96,7 @@
 🔗학번 이름  
 > "소감 내용을 여기에 작성합니다."
 
-
-## Markdown을 사용하여 내용꾸미기를 익히세요.
-
-Markdown은 작문을 스타일링하기위한 가볍고 사용하기 쉬운 구문입니다. 여기에는 다음을위한 규칙이 포함됩니다.
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-자세한 내용은 [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
+---
 ### Support or Contact
 
 readme 파일 생성에 추가적인 도움이 필요하면 [도움말](https://help.github.com/articles/about-readmes/) 이나 [contact support](https://github.com/contact) 을 이용하세요.
