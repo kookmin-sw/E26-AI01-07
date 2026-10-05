@@ -97,6 +97,12 @@
 
 </details>
 
+<details open>
+<summary><strong>📅 10월 2일</strong></summary>
+
+</details>
+
+
 ***
 
 ## 4️⃣ 인상 깊은 활동
