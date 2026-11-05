@@ -1,5 +1,9 @@
 # Welcome to E26-AI01-07
 
+## 발표 자료
+슬라이드: https://think-room.zanviq.dev/
+포스터: https://think-room.zanviq.dev/poster/
+
 ## 🎯 팀 슬로건
 
 > Error507: Insufficient Brain Storage
