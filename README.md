@@ -6,7 +6,7 @@
 
 ## 🖼️ 팀 포스터
 
-<div class="poster"><img src="poster.jpg" alt="팀 포스터" width="600"/></div>
+<div class="poster"><img src="think-room-presentation/poster/Think-Room-preview.png" alt="팀 포스터" width="600"/></div>
 
 ***
 
