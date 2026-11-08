@@ -3,7 +3,8 @@
 
 [여는 방법]
   1. 이 폴더(think-room-presentation)를 통째로 복사하거나 내려받는다.
-  2. index.html 을 크롬(Chrome)이나 엣지(Edge)로 연다. (더블클릭)
+  2. deck.html 을 크롬(Chrome)이나 엣지(Edge)로 연다. (더블클릭)
+     (index.html 은 QR 로 들어오는 모바일 소개 페이지다. 슬라이드는 deck.html 이다.)
      인터넷 연결, 설치, 서버가 필요 없다. 폴더 안의 파일만 있으면 된다.
   3. F 키로 전체 화면. 창 크기가 달라도 16:9 비율로 자동 맞춤된다.
 
@@ -21,16 +22,18 @@
   주소 끝에 #5 를 붙이면 5번 슬라이드부터 시작한다.
 
 [폴더 구성]
-  index.html              슬라이드 15장의 글과 구조. 글을 고칠 때는 여기만 본다.
+  index.html              모바일 소개 페이지(포스터 QR 이 가리키는 곳). 60초 생각 챌린지, 한눈에 보기, 링크.
+                          쓰는 글자가 바뀌면 assets/fonts/NotoSansKR-intro.woff 를 다시 만들어야 한다(없는 글자는 기본 글꼴로 나온다).
+  deck.html               슬라이드 15장의 글과 구조. 글을 고칠 때는 여기만 본다.
   css/style.css           색, 글자 크기, 배치, 애니메이션. 색은 파일 위쪽 :root 에 있다.
   js/deck.js              넘김, 단계별 등장, 타자기 효과, 타이머 (외부 라이브러리 없음)
-  poster/                 A0 포스터. index.html(웹 포스터) + Think-Room-A0.pdf(인쇄용) + 미리보기 PNG
+  poster/                 A0 포스터. index.html(웹 포스터) + E26-AI01-07.pdf(제출·인쇄용) + 미리보기 PNG
   assets/img/             그림 11장 (생성형 AI로 제작, 글자 없음)
   backup/                 삭제하거나 교체한 슬라이드와 그림 보관(되살릴 때만 사용)
   assets/fonts/           Noto Sans KR (SIL Open Font License 1.1). 한글 전체 포함, 굵기 100~900
 
 [수정 요령]
-  - 글 고치기: index.html 에서 해당 문구를 바꾼다.
+  - 글 고치기: deck.html 에서 해당 문구를 바꾼다.
   - 속도 조절: js/deck.js 위쪽의 SPEED(등장 지연 배율), STAGGER(요소 간격), TYPE_MS(타이핑 속도).
   - 예전처럼 → 한 번에 요소 하나씩 보이게 하려면 js/deck.js 의 STEP_MODE 를 true 로 바꾼다.
     (요소의 data-step="N" 숫자가 "몇 번째 → 에서 나타나는가"이다.)
@@ -44,6 +47,7 @@
 [포스터]
   poster/index.html 을 열면 A0 포스터가 한 화면에 보인다. 구역(1~6)을 클릭하거나 숫자 키를 누르면 그 구역이 확대된다.
     1~6 구역 확대 / → ← 다음·이전 구역 / 0 또는 Esc 전체 보기 / F 전체 화면. 마우스를 움직이면 아래에 이동 버튼이 나타난다.
-  인쇄는 poster/Think-Room-A0.pdf 를 쓴다(841×1189mm, 이미지 242 DPI 이상). 웹 포스터를 크롬에서 직접 인쇄해도
+  포스터 오른쪽 위의 QR 은 https://think-room.zanviq.dev/ (모바일 소개 페이지)로 연결된다.
+  인쇄는 poster/E26-AI01-07.pdf 를 쓴다(841×1189mm, 이미지 260 DPI 이상). 웹 포스터를 크롬에서 직접 인쇄해도
     A0 크기로 나온다(배경 그래픽 켜기).
   글을 고친 뒤 PDF 를 다시 만들려면 크롬에서 poster/index.html 을 열고 인쇄 > PDF로 저장(용지 A0, 여백 없음).
