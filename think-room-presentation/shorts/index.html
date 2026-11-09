@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>생각의 방 — 숏츠 시안 (초안)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0E1F">
+<link rel="icon" href="data:,">
+<style>
+@font-face { font-family: 'Noto Sans KR'; src: url('../assets/fonts/NotoSansKR-shorts.woff') format('woff'); font-weight: 100 900; font-style: normal; font-display: swap; }
+@property --n { syntax: '<integer>'; inherits: false; initial-value: 0; }
+:root { --cobalt: #2457FF; --ink: #0A0E1F; --lilac: #E6E9FF; --hi: #FFE45C; --paper: #F6F7FB; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; background: #04060D; }
+body { font-family: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; word-break: keep-all; -webkit-font-smoothing: antialiased; color: var(--ink); overflow: hidden; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+a { color: inherit; }
+
+/* 휴대폰 틀: 모바일은 화면 전체, 데스크톱은 9:16 */
+.phone { position: relative; width: min(100vw, calc(100vh * .5625)); width: min(100vw, calc(100dvh * .5625)); height: 100vh; height: 100dvh; margin: 0 auto; overflow: hidden; background: var(--ink); }
+.reel { height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; overscroll-behavior: contain; }
+.reel::-webkit-scrollbar { display: none; }
+.scene { position: relative; height: 100%; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; container-type: size; color: #fff; user-select: none; -webkit-user-select: none; }
+.scene.dk { color: var(--ink); }
+
+/* 글자 크기는 장면 너비(cqw) 기준 */
+.blk { position: absolute; left: 7cqw; right: 15cqw; }
+.h { font-weight: 900; letter-spacing: -.065em; line-height: 1.04; }
+.xl { font-size: 19cqw; } .lg { font-size: 12.5cqw; } .md { font-size: 9cqw; } .sm { font-size: 5cqw; letter-spacing: -.04em; font-weight: 700; line-height: 1.3; }
+.bg { position: absolute; inset: 0; }
+
+/* 등장/퇴장: 시작(--s)과 길이(--l)만 정하면 된다 */
+.beat, .keep, .cut, .pop { opacity: 0; }
+.play .beat { animation: beat var(--l, 3s) var(--s, 0s) both; }
+.play .keep { animation: keep .5s var(--s, 0s) both; }
+.play .cut { animation: cut var(--l, 3s) var(--s, 0s) both steps(1, end); }
+@keyframes beat { 0% { opacity: 0; transform: translateY(2cqh) scale(1.07); } 6% { opacity: 1; transform: none; } 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes keep { 0% { opacity: 0; transform: translateY(2cqh) scale(1.07); } 100% { opacity: 1; transform: none; } }
+@keyframes cut { 0% { opacity: 0; } 1% { opacity: 1; } 99% { opacity: 1; } 100% { opacity: 0; } }
+.paused, .paused * { animation-play-state: paused !important; }
+
+/* 1편 */
+.ring { position: absolute; left: 50%; top: 56cqh; width: 40cqw; height: 40cqw; margin-left: -23cqw; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 7; }
+.ring .bgc { stroke: rgba(255, 255, 255, .28); }
+.ring .fgc { stroke: #fff; stroke-dasharray: 289; stroke-dashoffset: 0; }
+.play .ring .fgc { animation: ringgo 3s linear both; }
+@keyframes ringgo { to { stroke-dashoffset: 289; } }
+.ring .dg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 17cqw; font-weight: 900; letter-spacing: -.05em; opacity: 0; }
+.play .ring .dg { animation: beat 1s var(--s) both; }
+.door { position: absolute; left: 7cqw; top: 52cqh; width: 30cqw; height: 24cqh; }
+.door svg { width: 100%; height: 100%; overflow: visible; }
+.door .leaf { transform-origin: 8% 50%; transform-box: fill-box; }
+.play .door .leaf { animation: opendoor 1.2s 9.1s cubic-bezier(.7, 0, .2, 1) both; }
+@keyframes opendoor { from { transform: scaleX(1); } to { transform: scaleX(.1); } }
+.chev { position: absolute; left: 50%; bottom: 24cqh; width: 9cqw; margin-left: -6cqw; }
+.play .chev { animation: bob 1s 11.3s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.2cqh); } }
+
+/* 2편 */
+.bar2 { position: absolute; left: 7cqw; right: 15cqw; }
+.bar2 .lb { font-size: 4.8cqw; font-weight: 800; letter-spacing: -.04em; margin-bottom: 1.2cqw; display: flex; justify-content: space-between; }
+.bar2 .tr { position: relative; height: 5cqw; }
+.bar2 .dot { position: absolute; left: 0; top: 0; bottom: 0; width: 1.6cqw; background: var(--ink); }
+.bar2 .lg2 { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
+.play .bar2 .lg2 { animation: grow 4s 1.8s linear both; }
+@keyframes grow { to { transform: scaleX(1); } }
+.days { display: flex; justify-content: space-between; font-size: 3.8cqw; font-weight: 700; margin-top: 1.4cqw; }
+.days span { opacity: 0; }
+.play .days span { animation: keep .3s calc(1.8s + var(--k) * 1.33s) both; }
+.stamp { position: absolute; left: 4cqw; right: 8cqw; top: 22cqh; padding: 3cqw 3cqw 4cqw; background: var(--cobalt); color: #fff; transform: rotate(-4deg); }
+.play .stamp { animation: stampin 2.8s 5.7s both; }
+@keyframes stampin { 0% { opacity: 0; transform: scale(2.5) rotate(-10deg); } 12% { opacity: 1; transform: scale(.93) rotate(-4deg); } 20% { transform: scale(1.03) rotate(-4deg); } 28%, 88% { opacity: 1; transform: scale(1) rotate(-4deg); } 100% { opacity: 0; transform: scale(1) rotate(-4deg); } }
+.chart { position: absolute; left: 7cqw; right: 15cqw; top: 30cqh; height: 44cqh; opacity: 0; }
+.play .chart { animation: keep .4s 11.2s both; }
+.col { position: absolute; bottom: 5cqh; width: 25cqw; transform-origin: 50% 100%; transform: scaleY(0); }
+.play .col { animation: growy 1.2s var(--s) cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes growy { to { transform: scaleY(1); } }
+.col b { position: absolute; left: 0; right: 0; top: 2cqw; text-align: center; color: var(--ink); font-size: 4.6cqw; font-weight: 900; letter-spacing: -.04em; }
+.col i { position: absolute; left: 0; right: 0; bottom: -6cqh; text-align: center; font-style: normal; font-size: 3.8cqw; font-weight: 700; line-height: 1.2; }
+.cmp { position: absolute; left: 0; right: 0; border-top: .5cqw dashed rgba(255, 255, 255, .8); }
+
+/* 3편 */
+.room { position: absolute; left: 7cqw; top: 33cqh; width: 78cqw; }
+.room svg { width: 100%; display: block; }
+.blinkdot { animation: blk 1s steps(2, end) infinite; }
+@keyframes blk { 50% { opacity: .15; } }
+.clock { position: absolute; left: 8cqw; top: 56cqh; width: 30cqw; }
+.face { position: relative; width: 24cqw; height: 24cqw; border: .9cqw solid #fff; border-radius: 50%; }
+.hand { position: absolute; left: 50%; top: 50%; width: .9cqw; height: 10cqw; margin-left: -.45cqw; margin-top: -10cqw; background: var(--hi); transform-origin: 50% 100%; }
+.play .hand { animation: handgo 6s 1.6s linear both; }
+@keyframes handgo { to { transform: rotate(360deg); } }
+.num { margin-top: 2cqw; font-size: 9cqw; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+.num small { display: block; font-size: 3.8cqw; font-weight: 700; letter-spacing: -.02em; opacity: .85; margin-bottom: .6cqw; }
+.mins { --n: 0; counter-reset: m var(--n); }
+.mins::after { content: counter(m) '분'; }
+.play .mins { animation: cntm 6s 1.6s linear both; }
+@keyframes cntm { to { --n: 60; } }
+.cal { position: absolute; left: 50cqw; top: 56cqh; width: 40cqw; }
+.cells { display: grid; grid-template-columns: repeat(7, 1fr); gap: .8cqw; margin-bottom: 3cqw; }
+.cell { aspect-ratio: 1; background: rgba(255, 255, 255, .14); }
+.play .cell { animation: lit .01s calc(1.7s + var(--i) * .24s) forwards; }
+@keyframes lit { to { background: var(--cobalt); } }
+.dys { --n: 0; counter-reset: d var(--n); }
+.dys::after { content: counter(d) '일'; }
+.play .dys { animation: cntd 5.1s 1.7s linear both; }
+@keyframes cntd { to { --n: 21; } }
+.mem { position: absolute; width: 3.2cqw; height: 3.2cqw; background: var(--hi); border-radius: 50%; opacity: 0; }
+.play .mem { animation: fly 1.5s calc(7.9s + var(--k) * .13s) cubic-bezier(.5, 0, .3, 1) both; }
+@keyframes fly { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
+.flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+.play .flash { animation: flashy .6s 7.6s ease-out forwards; }
+@keyframes flashy { 0% { opacity: .85; } 100% { opacity: 0; } }
+
+/* 4편 */
+.row4 { position: absolute; left: 7cqw; right: 15cqw; }
+.row4 .nm { font-size: 8cqw; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+.row4 .st { font-size: 4.2cqw; font-weight: 700; letter-spacing: -.03em; margin-top: 1cqw; }
+.segs { display: flex; gap: 1.2cqw; margin-top: 2cqw; }
+.segs i { flex: 1; height: 5cqw; border: .7cqw solid var(--ink); position: relative; }
+.segs i::after { content: ''; position: absolute; inset: 0; background: var(--cobalt); transform-origin: 0 50%; transform: scaleX(0); }
+.segs i.n::after { display: none; }
+.segs.as i { border-style: dashed; border-color: var(--cobalt); }
+.play .segs i.f::after { animation: grow .35s calc(var(--s) + var(--k) * .3s) both; }
+.choices { position: absolute; left: 7cqw; right: 15cqw; top: 56cqh; display: grid; gap: 2.4cqw; }
+.choices button { padding: 4.2cqw 4cqw; font-size: 6.2cqw; font-weight: 900; letter-spacing: -.05em; text-align: left; border: .8cqw solid var(--ink); }
+.choices .y { background: var(--ink); color: #fff; }
+.res { position: absolute; left: 7cqw; right: 15cqw; top: 56cqh; font-size: 6.2cqw; font-weight: 900; letter-spacing: -.05em; line-height: 1.25; opacity: 0; pointer-events: none; }
+.chosen .choices { display: none; }
+.chosen .res { opacity: 1; animation: keep .4s both; }
+.chosen .res small { display: block; margin-top: 2cqw; font-size: 4.4cqw; font-weight: 700; letter-spacing: -.03em; opacity: .75; }
+
+/* 릴스 겉틀(인스타그램풍 인터페이스) */
+.chrome { position: absolute; inset: 0; z-index: 5; pointer-events: none; color: #fff; transition: opacity .45s, color .25s; text-shadow: 0 0 14px rgba(0, 0, 0, .12); }
+.phone[data-tone="dark"] .chrome { color: var(--ink); text-shadow: none; }
+.phone.docmode .chrome { opacity: 0; }
+.phone.docmode .chrome * { pointer-events: none !important; }
+.chrome button, .chrome a { pointer-events: auto; }
+.prog { position: absolute; left: 12px; right: 12px; top: calc(env(safe-area-inset-top, 0px) + 10px); display: flex; gap: 4px; }
+.prog i { flex: 1; height: 3px; background: currentColor; opacity: .3; position: relative; overflow: hidden; border-radius: 2px; }
+.prog i::after { content: ''; position: absolute; inset: 0; background: currentColor; opacity: 1; transform-origin: 0 50%; transform: scaleX(0); }
+.prog i { opacity: 1; background: color-mix(in srgb, currentColor 30%, transparent); }
+.prog i.done::after { transform: scaleX(1); }
+.prog i.on::after { animation: pf var(--T, 12s) linear both; }
+.phone.paused .prog i.on::after { animation-play-state: paused; }
+@keyframes pf { to { transform: scaleX(1); } }
+.ttl { position: absolute; left: 14px; top: calc(env(safe-area-inset-top, 0px) + 26px); font-size: 20px; font-weight: 900; letter-spacing: -.04em; }
+.rail { position: absolute; right: 8px; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.rail button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; width: 48px; }
+.rail svg { width: 28px; height: 28px; fill: currentColor; }
+.rail .heart.on svg { fill: #FF3B5C; animation: heartpop .4s; }
+@keyframes heartpop { 40% { transform: scale(1.35); } }
+.meta { position: absolute; left: 14px; right: 72px; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); font-size: 14px; line-height: 1.4; }
+.who { display: flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -.02em; }
+.av { width: 30px; height: 30px; border-radius: 50%; background: var(--cobalt); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; border: 1.5px solid currentColor; text-shadow: none; }
+.fol { margin-left: 2px; padding: 3px 10px; border: 1.5px solid currentColor; border-radius: 6px; font-size: 12px; font-weight: 800; }
+.cap { margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; letter-spacing: -.02em; }
+.aud { margin-top: 6px; font-size: 12px; font-weight: 600; opacity: .9; }
+.pauseicon { position: absolute; left: 50%; top: 46%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; background: rgba(0, 0, 0, .45); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; z-index: 6; pointer-events: none; }
+.pauseicon.show { opacity: 1; }
+.pauseicon svg { width: 34px; height: 34px; fill: #fff; }
+.bigheart { position: absolute; left: 50%; top: 44%; width: 110px; margin: -55px 0 0 -55px; fill: #FF3B5C; opacity: 0; z-index: 6; pointer-events: none; }
+.bigheart.show { animation: bh .8s both; }
+@keyframes bh { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; transform: scale(1.15); } 70% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
+.toast { position: absolute; left: 50%; bottom: 120px; transform: translateX(-50%); padding: 10px 16px; background: rgba(10, 14, 31, .92); color: #fff; font-size: 14px; font-weight: 700; z-index: 8; opacity: 0; pointer-events: none; transition: opacity .25s; white-space: nowrap; }
+.toast.show { opacity: 1; }
+
+/* 5. 설명 글 (인스타 UI 없음) */
+.doc { min-height: 100%; scroll-snap-align: start; background: var(--paper); color: var(--ink); padding: 56px 22px 64px; }
+.doc .in { max-width: 520px; margin: 0 auto; }
+.doc h1 { font-size: 58px; font-weight: 900; letter-spacing: -.07em; line-height: 1; }
+.doc .lead { margin-top: 12px; font-size: 26px; font-weight: 900; letter-spacing: -.05em; line-height: 1.25; color: var(--cobalt); }
+.doc p { margin-top: 14px; font-size: 17px; line-height: 1.75; letter-spacing: -.01em; }
+.doc h2 { margin-top: 44px; font-size: 25px; font-weight: 900; letter-spacing: -.05em; line-height: 1.25; }
+.doc strong { font-weight: 800; background: linear-gradient(transparent 60%, var(--hi) 60%); }
+.doc ol { margin-top: 14px; list-style: none; border-top: 2px solid var(--ink); }
+.doc li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid #C9CFE0; font-size: 16px; line-height: 1.6; }
+.doc li b { font-size: 20px; font-weight: 900; letter-spacing: -.05em; }
+.acts { margin-top: 40px; display: grid; gap: 10px; }
+.acts a { display: block; padding: 16px 18px; font-size: 17px; font-weight: 800; text-decoration: none; border: 2px solid var(--ink); }
+.acts a.p { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.doc .fine { margin-top: 36px; font-size: 13px; line-height: 1.65; color: #4A5468; }
+.doc .fine b { color: var(--ink); }
+.skip { position: absolute; z-index: 9; left: 12px; top: -60px; background: #fff; color: var(--ink); padding: 8px 12px; font-weight: 700; }
+.skip:focus { top: 12px; }
+@media (prefers-reduced-motion: reduce) { .pauseicon, .bigheart { display: none; } }
+</style>
+</head>
+<body>
+<div class="phone" id="phone" data-tone="light">
+  <a class="skip" href="#doc">설명 글로 바로 가기</a>
+
+  <div class="reel" id="reel">
+
+    <!-- 1편: 멈추게 한다 (주목) -->
+    <section class="scene s1" data-t="12500" data-tone="light" data-cap="이 영상, 3초 안에 넘기려고 했죠? 끝까지 보면 3주가 1시간이 되는 이야기">
+      <div class="bg" style="background:var(--cobalt)"></div>
+      <div class="beat blk" style="--s:0s;--l:3s;top:13cqh">
+        <p class="h md">이 영상,</p>
+        <p class="h xl">3초 안에</p>
+        <p class="h lg">넘기려고 했죠?</p>
+      </div>
+      <div class="ring beat" style="--s:0s;--l:3s">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bgc" cx="50" cy="50" r="46"/><circle class="fgc" cx="50" cy="50" r="46"/></svg>
+        <div class="dg" style="--s:0s">3</div><div class="dg" style="--s:1s">2</div><div class="dg" style="--s:2s">1</div>
+      </div>
+      <div class="bg cut" style="--s:3s;--l:4s;background:var(--ink)"></div>
+      <div class="beat blk" style="--s:3s;--l:4s;top:14cqh"><p class="h lg">AI가 답을<br>주는 시대.</p></div>
+      <div class="beat blk" style="--s:4.2s;--l:2.8s;top:38cqh"><p class="h lg">마지막으로<br>끝까지 스스로<br>생각한 건</p></div>
+      <div class="beat blk" style="--s:5.5s;--l:1.5s;top:68cqh;color:var(--hi)"><p class="h xl">언제?</p></div>
+      <div class="beat blk" style="--s:7s;--l:2.6s;top:14cqh"><p class="h lg">그래서 우리는<br>그 시간을 되찾는<br>방을 상상했다.</p></div>
+      <div class="door keep" style="--s:8.4s"><svg viewBox="0 0 100 160" aria-hidden="true"><rect x="2" y="2" width="96" height="156" fill="#E6E9FF" stroke="#fff" stroke-width="4"/><rect class="leaf" x="2" y="2" width="96" height="156" fill="#fff"/><circle cx="82" cy="84" r="4" fill="#2457FF"/></svg></div>
+      <div class="blk keep" style="--s:9.7s;top:13cqh"><p class="h xl">생각의<br>방</p></div>
+      <div class="blk keep" style="--s:10.6s;top:50cqh;left:42cqw"><p class="h md">1시간 접속,<br>몇 주 치<br>생각.</p></div>
+      <svg class="chev keep" style="--s:11.4s" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>
+    </section>
+
+    <!-- 2편: 숫자로 설득한다 (관심) -->
+    <section class="scene dk s2" data-t="18500" data-tone="dark" data-cap="답은 1분, 생각은 3일. 4,320배 차이가 우리를 어떻게 바꿨을까?">
+      <div class="bg" style="background:var(--hi)"></div>
+      <div class="beat blk" style="--s:0s;--l:5.5s;top:11cqh"><p class="h lg">답 받는 데<br>1분.</p></div>
+      <div class="beat bar2" style="--s:.5s;--l:5s;top:38cqh"><div class="lb"><span>AI에게 묻기</span><span>1분</span></div><div class="tr"><div class="dot"></div></div></div>
+      <div class="beat bar2" style="--s:1.2s;--l:4.3s;top:49cqh"><div class="lb"><span>직접 생각하기</span><span>약 3일</span></div><div class="tr"><div class="lg2"></div></div><div class="days"><span style="--k:0">1일</span><span style="--k:1">2일</span><span style="--k:2">3일</span></div></div>
+      <div class="beat blk" style="--s:2.2s;--l:3.3s;top:64cqh"><p class="h md">스스로 생각하는 데 3일.</p></div>
+      <div class="stamp"><p class="h xl">4,320배</p><p class="h md" style="margin-top:1cqw">차이가 난다</p></div>
+      <div class="beat blk" style="--s:6.5s;--l:2s;top:58cqh"><p class="h lg">그래서 우리는<br>생각을 맡긴다.</p></div>
+      <div class="bg cut" style="--s:8.6s;--l:9.9s;background:var(--cobalt)"></div>
+      <div class="beat blk" style="--s:8.7s;--l:2.2s;top:14cqh;color:#fff"><p class="h lg">효율적이다.</p></div>
+      <div class="beat blk" style="--s:9.9s;--l:1.5s;top:34cqh;color:#fff"><p class="h lg">그런데<br>효과적일까?</p></div>
+      <div class="chart" style="color:#fff">
+        <div class="cmp" style="bottom:calc(5cqh + 25cqh)"></div>
+        <div class="col" style="--s:11.4s;left:3cqw;height:25cqh;background:#fff"><b class="keep" style="--s:11.7s">46,225편</b><i class="keep" style="--s:11.7s">2025년<br>1~12월</i></div>
+        <div class="col" style="--s:12.5s;left:34cqw;height:33cqh;background:var(--hi)"><b class="keep" style="--s:12.8s">57,255편</b><i class="keep" style="--s:12.8s">2026년<br>1~10월</i></div>
+      </div>
+      <div class="beat blk" style="--s:13.6s;--l:3.1s;top:11cqh;color:#fff"><p class="h md">수학 논문, 올해 10개월이<br>작년 12개월을 넘었다.</p></div>
+      <div class="blk keep" style="--s:16.9s;top:11cqh;color:#fff"><p class="h lg">이해할 시간은?</p></div>
+    </section>
+
+    <!-- 3편: 장면을 보여 준다 (욕구) -->
+    <section class="scene s3" data-t="15500" data-tone="light" data-cap="오전 9시에 접속하면, 눈 뜰 때 3주 치 생각이 내 기억에 남아 있다 (2045년, 우리가 그린 장면)">
+      <div class="bg" style="background:var(--ink)"></div>
+      <div class="beat blk" style="--s:0s;--l:1.8s;top:9cqh"><p class="h lg">오전 9시,<br>접속.</p></div>
+      <div class="beat blk" style="--s:1.8s;--l:5.8s;top:9cqh"><p class="h lg">시계는 1시간.<br>머릿속은 3주.</p></div>
+      <div class="beat blk" style="--s:8.3s;--l:3.6s;top:9cqh"><p class="h lg">눈을 뜨면<br>3주 치 생각이<br>내 기억에.</p></div>
+      <div class="blk keep" style="--s:12s;top:11cqh"><p class="h md">2045년의 아침.<br><span class="sm" style="display:block;margin-top:2cqw;opacity:.8">우리가 그린 장면입니다.<br>아직은 가정입니다.</span></p></div>
+      <div class="room keep" style="--s:0s"><svg viewBox="0 0 300 130" aria-hidden="true"><rect x="3" y="3" width="294" height="124" fill="none" stroke="#fff" stroke-width="3"/><line x1="3" y1="105" x2="297" y2="105" stroke="#fff" stroke-width="3"/><path d="M92 105 L108 48 Q111 40 120 40 L138 40 Q146 40 148 48 L165 82 L218 82 L218 105 Z" fill="#2457FF"/><rect x="122" y="60" width="86" height="26" rx="13" transform="rotate(-16 122 60)" fill="#E6E9FF"/><circle cx="128" cy="44" r="12" fill="#fff"/><path d="M115 42 Q128 27 141 42" stroke="#2457FF" stroke-width="4.5" fill="none"/><circle class="blinkdot" cx="128" cy="32" r="3" fill="#FFE45C"/></svg></div>
+      <div class="beat clock" style="--s:1.2s;--l:6.4s"><div class="face"><div class="hand"></div></div><div class="num"><small>현실의 시간</small><span class="mins"></span></div></div>
+      <div class="beat cal" style="--s:1.2s;--l:6.4s"><div class="cells"><i class="cell" style="--i:0"></i><i class="cell" style="--i:1"></i><i class="cell" style="--i:2"></i><i class="cell" style="--i:3"></i><i class="cell" style="--i:4"></i><i class="cell" style="--i:5"></i><i class="cell" style="--i:6"></i><i class="cell" style="--i:7"></i><i class="cell" style="--i:8"></i><i class="cell" style="--i:9"></i><i class="cell" style="--i:10"></i><i class="cell" style="--i:11"></i><i class="cell" style="--i:12"></i><i class="cell" style="--i:13"></i><i class="cell" style="--i:14"></i><i class="cell" style="--i:15"></i><i class="cell" style="--i:16"></i><i class="cell" style="--i:17"></i><i class="cell" style="--i:18"></i><i class="cell" style="--i:19"></i><i class="cell" style="--i:20"></i></div><div class="num"><small>머릿속의 시간</small><span class="dys"></span></div></div>
+      <i class="mem" style="--k:0;left:56cqw;top:59cqh;--dx:-12cqw;--dy:-21cqh"></i><i class="mem" style="--k:1;left:64cqw;top:64cqh;--dx:-20cqw;--dy:-26cqh"></i><i class="mem" style="--k:2;left:72cqw;top:59cqh;--dx:-26cqw;--dy:-21cqh"></i><i class="mem" style="--k:3;left:80cqw;top:64cqh;--dx:-34cqw;--dy:-26cqh"></i><i class="mem" style="--k:4;left:60cqw;top:69cqh;--dx:-16cqw;--dy:-31cqh"></i><i class="mem" style="--k:5;left:68cqw;top:69cqh;--dx:-24cqw;--dy:-31cqh"></i><i class="mem" style="--k:6;left:76cqw;top:69cqh;--dx:-32cqw;--dy:-31cqh"></i><i class="mem" style="--k:7;left:84cqw;top:59cqh;--dx:-40cqw;--dy:-21cqh"></i>
+      <div class="flash"></div>
+    </section>
+
+    <!-- 4편: 솔직하게 말하고 말을 건다 (행동) -->
+    <section class="scene dk s4" data-t="17000" data-tone="dark" data-cap="아직 없는 기술입니다. 그래서 질문으로 남겼어요. 당신이라면 접속하시겠어요?">
+      <div class="bg" style="background:var(--lilac)"></div>
+      <div class="beat blk" style="--s:0s;--l:2.4s;top:12cqh"><p class="h" style="font-size:42cqw;line-height:.95">아직</p><p class="h lg" style="margin-top:2cqw">없는 기술입니다.</p></div>
+      <div class="beat row4" style="--s:2.5s;--l:5.3s;top:13cqh"><div class="nm">읽기</div><div class="st">마비 환자 임상이 진행 중</div><div class="segs"><i class="f" style="--s:2.9s;--k:0"></i><i class="f" style="--s:2.9s;--k:1"></i><i class="f" style="--s:2.9s;--k:2"></i><i class="n"></i></div></div>
+      <div class="beat row4" style="--s:3.9s;--l:3.9s;top:34cqh"><div class="nm">쓰기</div><div class="st">감각은 일부, 기억은 초기 연구</div><div class="segs"><i class="f" style="--s:4.3s;--k:0"></i><i class="f" style="--s:4.3s;--k:1"></i><i class="n"></i><i class="n"></i></div></div>
+      <div class="beat row4" style="--s:5.3s;--l:2.5s;top:55cqh"><div class="nm">복제·가속</div><div class="st">근거가 없는 가정</div><div class="segs as"><i class="n"></i><i class="n"></i><i class="n"></i><i class="n"></i></div></div>
+      <div class="beat blk" style="--s:8s;--l:2.8s;top:15cqh"><p class="h lg">그래서 이건<br>완성품이 아니라<br>던져 보는<br>질문입니다.</p></div>
+      <div class="blk keep" style="--s:11s;top:12cqh"><p class="h lg">당신이라면,<br>접속하시겠어요?</p></div>
+      <div class="choices keep" style="--s:12.4s"><button class="y" type="button" data-pick="y">접속해 본다</button><button type="button" data-pick="n">아직은 망설여진다</button></div>
+      <div class="res"><span id="resTxt"></span><small>그 이유를 포스터 앞 발표자에게 들려주세요.</small></div>
+    </section>
+
+    <!-- 5: 인스타 UI 없이, 설명하는 글 -->
+    <article class="doc" id="doc" data-tone="dark">
+      <div class="in">
+        <h1>생각의 방</h1>
+        <p class="lead">1시간 접속, 몇 주 치 생각.</p>
+        <p>AI가 답을 주는 시대입니다. 질문 하나에 1분이면 답이 오고, 직접 생각하면 사흘쯤 걸립니다. 4,320배 차이입니다. 그래서 우리는 간단한 생각조차 AI에게 맡깁니다. 효율적인 선택이지만, 이해에는 효과적이지 않습니다.</p>
+        <p>수학 논문(arXiv 수학 분야)은 2025년 한 해 46,225편이었고, 2026년은 1~10월만 57,255편이 올라와 <strong>이미 작년 전체를 넘었습니다.</strong></p>
+
+        <h2>생각의 방은 이렇게 작동합니다</h2>
+        <ol>
+          <li><b>읽기</b><span>헤드밴드가 뇌 신호를 측정하고 AI가 해독합니다.</span></li>
+          <li><b>가속</b><span>내 뇌를 모사한 모델이 가상 공간에서 몇 주 치 생각을 1시간으로 압축합니다.</span></li>
+          <li><b>귀환</b><span>생각한 과정이 결론과 함께 내 기억으로 돌아옵니다.</span></li>
+          <li><b>복기</b><span>생각이 글과 영상으로 남아, 막힌 곳부터 다시 볼 수 있습니다.</span></li>
+        </ol>
+
+        <h2>혼자 깊이 생각할 시간이 필요한 사람을 위한 방입니다</h2>
+        <p>진리를 탐구하는 수학자, 진짜 바쁜 창업가, 마음이 힘든 직장인. 이 시간을 낼 수 없었던 사람들이 눈을 뜨면 몇 주 동안 씨름한 기억을 갖고 돌아옵니다.</p>
+
+        <h2>솔직히, 아직 없는 기술입니다</h2>
+        <p>읽기는 마비 환자 대상 임상이 진행 중이며 승인된 기기는 아직 없습니다. 쓰기는 감각 신호 일부와 간질 환자 대상 초기 연구가 있을 뿐이고, 복제와 가속은 근거가 없는 가정입니다. 1회 최대 4시간, 사용 후 뇌 정보 삭제 같은 안전장치도 우리가 가정한 정책입니다. 우리는 2045년의 한 장면을 그려 보고, 무엇부터 검증해야 하는지를 질문으로 남겼습니다.</p>
+
+        <div class="acts">
+          <a class="p" href="../">60초 생각 챌린지 해 보기</a>
+          <a href="../deck.html">발표 슬라이드 보기</a>
+          <a href="../poster/E26-AI01-07.pdf">포스터 PDF 보기</a>
+          <a href="https://github.com/kookmin-sw/E26-AI01-07">GitHub 저장소</a>
+        </div>
+
+        <p class="fine"><b>팀 E26-AI01-07</b> 서재민(퍼실리테이터) · 송채원(사용자 관찰자) · 하준서(기록자) · 윤서후(시각화 담당)<br><b>AI 활용</b> 삽화는 Google Gemini로 생성했고 문안 정리에 생성형 AI를 보조로 사용했습니다. 내용의 판단과 결정은 팀이 했습니다.<br><b>참고자료</b> 인간수학협회(AHM) 성명(2026.10.7), OpenAI 증명 원고 공개(2026.10.6), arXiv 수학 분야 연도별 통계, 뇌-컴퓨터 인터페이스 임상 연구 동향, 해마 기억 보철 연구(2018·2022), 칠레 헌법 개정(2021), 콜로라도·캘리포니아 신경 데이터 보호법(2024), 유네스코 신경기술 윤리 권고(2025)<br>이 페이지는 개인정보를 수집하지 않습니다. 숏츠 형식은 초안입니다.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- 릴스 겉틀 -->
+  <div class="chrome" id="chrome" aria-hidden="false">
+    <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
+    <div class="ttl">릴스</div>
+    <div class="rail">
+      <button type="button" class="heart" id="heart" aria-label="좋아요"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="hc">4,320</span></button>
+      <button type="button" id="cm" aria-label="댓글"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><span>3주</span></button>
+      <button type="button" id="sh" aria-label="공유"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg><span>공유</span></button>
+      <button type="button" aria-label="더보기"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
+    </div>
+    <div class="meta">
+      <div class="who"><span class="av">방</span>think.room<span class="fol">팔로우</span></div>
+      <div class="cap" id="cap"></div>
+      <div class="aud">소리 없이도 이해되는 영상</div>
+    </div>
+  </div>
+  <div class="pauseicon" id="pi"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg></div>
+  <svg class="bigheart" id="bh" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+(function () {
+  var phone = document.getElementById('phone'), reel = document.getElementById('reel');
+  var scenes = [].slice.call(document.querySelectorAll('.scene'));
+  var doc = document.getElementById('doc');
+  var segs = [].slice.call(document.querySelectorAll('#prog i'));
+  var cap = document.getElementById('cap');
+  var toast = document.getElementById('toast'), pi = document.getElementById('pi'), bh = document.getElementById('bh');
+  var heart = document.getElementById('heart'), hc = document.getElementById('hc');
+  var cur = -1, st = null, paused = false, tt = 0;
+
+  function say(m) { toast.textContent = m; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 1800); }
+
+  function begin(sc, i) {
+    clearTimeout(st && st.timer);
+    sc.classList.remove('play', 'paused', 'chosen');
+    void sc.offsetWidth;
+    sc.classList.add('play');
+    var T = +sc.dataset.t;
+    st = { sc: sc, T: T, t0: performance.now(), rem: T, timer: setTimeout(function () { begin(sc, i); }, T) };
+    segs.forEach(function (s, k) { s.classList.toggle('done', k < i); s.classList.remove('on'); });
+    void phone.offsetWidth;
+    segs[i].style.setProperty('--T', T + 'ms');
+    segs[i].classList.add('on');
+  }
+  function end(sc) {
+    if (st && st.sc === sc) clearTimeout(st.timer);
+    sc.classList.remove('play', 'paused', 'chosen');
+  }
+  function setPause(p) {
+    if (!st) return;
+    paused = p;
+    phone.classList.toggle('paused', p);
+    st.sc.classList.toggle('paused', p);
+    if (p) { clearTimeout(st.timer); st.rem = st.T - (performance.now() - st.t0); }
+    else { st.t0 = performance.now() - (st.T - st.rem); var sc = st.sc, i = scenes.indexOf(sc); st.timer = setTimeout(function () { begin(sc, i); }, st.rem); }
+    pi.querySelector('svg').innerHTML = p ? '<path d="M7 4l13 8-13 8z"/>' : '<rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/>';
+    pi.classList.add('show'); setTimeout(function () { pi.classList.remove('show'); }, 450);
+  }
+
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var i = scenes.indexOf(e.target);
+      if (e.isIntersecting && e.intersectionRatio >= .6) {
+        if (cur !== i) {
+          if (cur >= 0) end(scenes[cur]);
+          cur = i; paused = false; phone.classList.remove('paused');
+          phone.dataset.tone = e.target.dataset.tone;
+          cap.textContent = e.target.dataset.cap;
+          begin(e.target, i);
+        }
+      } else if (!e.isIntersecting && cur === i) {
+        end(e.target); cur = -1;
+      }
+    });
+  }, { root: reel, threshold: [0, .6] });
+  scenes.forEach(function (s) { io.observe(s); });
+
+  var io2 = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var on = e.isIntersecting && e.intersectionRatio > .45;
+      phone.classList.toggle('docmode', on);
+      if (on) { segs.forEach(function (s) { s.classList.add('done'); s.classList.remove('on'); }); }
+    });
+  }, { root: reel, threshold: [0, .45] });
+  io2.observe(doc);
+
+  /* 탭: 일시정지, 두 번 탭: 좋아요 */
+  var lastTap = 0, tapTimer = 0;
+  function like() {
+    if (!heart.classList.contains('on')) { heart.classList.add('on'); hc.textContent = '4,321'; }
+    bh.classList.remove('show'); void bh.getBoundingClientRect(); bh.classList.add('show');
+  }
+  reel.addEventListener('click', function (e) {
+    if (e.target.closest('button, a, .doc')) return;
+    var now = Date.now();
+    if (now - lastTap < 320) { clearTimeout(tapTimer); lastTap = 0; like(); return; }
+    lastTap = now;
+    tapTimer = setTimeout(function () { setPause(!paused); }, 320);
+  });
+  heart.addEventListener('click', function () {
+    var on = heart.classList.toggle('on'); hc.textContent = on ? '4,321' : '4,320';
+  });
+  document.getElementById('cm').addEventListener('click', function () { say('3주 치 생각은 포스터 앞 발표자와 나눠 보세요'); });
+  document.getElementById('sh').addEventListener('click', function () {
+    var u = location.href;
+    if (navigator.share) { navigator.share({ title: '생각의 방', url: u }).catch(function () {}); }
+    else if (navigator.clipboard) { navigator.clipboard.writeText(u).then(function () { say('링크를 복사했어요'); }); }
+  });
+  [].forEach.call(document.querySelectorAll('[data-pick]'), function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var sc = b.closest('.scene');
+      document.getElementById('resTxt').textContent = b.dataset.pick === 'y' ? '좋아요. 3주 치 생각을 해 보세요.' : '그 망설임이 우리의 검증 질문입니다.';
+      sc.classList.add('chosen');
+      if (st && st.sc === sc) clearTimeout(st.timer);
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === ' ' ) { e.preventDefault(); setPause(!paused); }
+  });
+
+  /* 점검용: ?s=장면번호(0~3, 4=설명 글)&t=초 로 그 시점에 멈춘 화면을 본다 */
+  var m = location.search.match(/[?&]s=(\d)(?:&t=([\d.]+))?/);
+  if (m) {
+    var n = +m[1], secs = parseFloat(m[2] || '0');
+    var target = n < scenes.length ? scenes[n] : doc;
+    target.scrollIntoView({ behavior: 'instant' });
+    setTimeout(function () {
+      if (st) clearTimeout(st.timer);
+      document.getAnimations().forEach(function (a) { a.pause(); a.currentTime = secs * 1000; });
+    }, 700);
+  }
+})();
+</script>
+</body>
+</html>
