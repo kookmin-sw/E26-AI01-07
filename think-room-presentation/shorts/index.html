@@ -80,7 +80,12 @@ a { color: inherit; }
 
 /* 3편 */
 .room { position: absolute; left: 7cqw; top: 33cqh; width: 78cqw; }
-.room svg { width: 100%; display: block; }
+.room { border: .8cqw solid #fff; overflow: hidden; }
+.room img { width: 100%; display: block; aspect-ratio: 1500 / 636; object-fit: cover; transform: scale(1.5); transform-origin: 54% 54%; }
+.ph { position: absolute; overflow: hidden; border: .8cqw solid #fff; box-shadow: 2.2cqw 2.2cqw 0 var(--sh, var(--hi)); background: #fff; }
+.ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.bgimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; opacity: .8; pointer-events: none; transform: translateY(12cqh); -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 24%); mask-image: linear-gradient(180deg, transparent 0, #000 24%); }
+.fig img { display: block; width: 100%; margin-top: 14px; border: 2px solid var(--ink); }
 .blinkdot { animation: blk 1s steps(2, end) infinite; }
 @keyframes blk { 50% { opacity: .15; } }
 .clock { position: absolute; left: 8cqw; top: 56cqh; width: 30cqw; }
@@ -135,10 +140,10 @@ a { color: inherit; }
 /* 5편 */
 @keyframes growy { to { transform: scaleY(1); } }
 .tl5 { position: absolute; left: 7cqw; right: 15cqw; top: 20cqh; height: 52cqh; }
-.tl5 .ln { position: absolute; left: 3.4cqw; top: 3cqw; bottom: 3cqw; width: .9cqw; background: #fff; transform-origin: 50% 0; transform: scaleY(0); }
+.tl5 .ln { position: absolute; left: 6.6cqw; top: 3cqw; bottom: 3cqw; width: .9cqw; background: #fff; transform-origin: 50% 0; transform: scaleY(0); }
 .play .tl5 .ln { animation: growy 6.2s 3s linear both; }
-.nd { position: absolute; left: 0; right: 0; display: grid; grid-template-columns: 8cqw 1fr; column-gap: 4.5cqw; align-items: start; }
-.nd .dt { display: block; width: 7.8cqw; height: 7.8cqw; border-radius: 50%; background: var(--hi); border: .9cqw solid #fff; }
+.nd { position: absolute; left: 0; right: 0; display: grid; grid-template-columns: 14cqw 1fr; column-gap: 4cqw; align-items: start; }
+.nd .dt { display: block; width: 13cqw; height: 13cqw; border-radius: 50%; background: var(--hi); border: .9cqw solid #fff; object-fit: cover; }
 .nd.as .dt { background: var(--ink); border-style: dashed; }
 .nd.go .dt { background: var(--cobalt); }
 .nd .yr { font-size: 9cqw; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
@@ -167,20 +172,20 @@ a { color: inherit; }
 .prog i.on::after { animation: pf var(--T, 12s) linear both; }
 @keyframes pf { to { transform: scaleX(1); } }
 .ttl { position: absolute; left: 14px; top: calc(env(safe-area-inset-top, 0px) + 26px); font-size: 20px; font-weight: 900; letter-spacing: -.04em; }
-.rail { position: absolute; right: 8px; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.rail { position: absolute; right: 8px; bottom: calc(env(safe-area-inset-bottom, 0px) + 56px); display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .rail button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; width: 48px; transition: transform .12s; }
 .rail button:active { transform: scale(.88); }
 .rail svg { width: 28px; height: 28px; fill: currentColor; }
 .rail .heart.on svg { fill: #FF3B5C; animation: heartpop .4s; }
 @keyframes heartpop { 40% { transform: scale(1.35); } }
-.meta { position: absolute; left: 14px; right: 72px; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); font-size: 14px; line-height: 1.4; }
+.meta { position: absolute; left: 14px; right: 72px; bottom: calc(env(safe-area-inset-bottom, 0px) + 52px); font-size: 14px; line-height: 1.4; }
 .who { display: flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -.02em; }
 .av { width: 30px; height: 30px; border-radius: 50%; background: var(--cobalt); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; border: 1.5px solid currentColor; text-shadow: none; }
 .fol { margin-left: 2px; padding: 3px 10px; border: 1.5px solid currentColor; border-radius: 6px; font-size: 12px; font-weight: 800; }
 .fol.on { opacity: .7; }
 .cap { margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; letter-spacing: -.02em; }
 .aud { margin-top: 6px; font-size: 12px; font-weight: 600; opacity: .9; }
-.swipe { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); margin-left: -34px; width: 68px; text-align: center; font-size: 11px; font-weight: 800; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.swipe { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 134px); margin-left: -34px; width: 68px; text-align: center; font-size: 11px; font-weight: 800; opacity: 0; transition: opacity .3s; pointer-events: none; }
 .swipe.show { opacity: .95; animation: bob 1.1s ease-in-out infinite; }
 .swipe svg { display: block; margin: 0 auto 2px; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 3; }
 .hud { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); padding: 10px 18px; background: rgba(10, 14, 31, .78); color: #fff; font-size: 26px; font-weight: 900; letter-spacing: -.02em; z-index: 7; opacity: 0; transition: opacity .15s; pointer-events: none; font-variant-numeric: tabular-nums; }
@@ -193,6 +198,21 @@ a { color: inherit; }
 @keyframes bh { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; transform: scale(1.15); } 70% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
 .toast { position: absolute; left: 50%; bottom: 120px; transform: translateX(-50%); padding: 10px 16px; background: rgba(10, 14, 31, .92); color: #fff; font-size: 14px; font-weight: 700; z-index: 9; opacity: 0; pointer-events: none; transition: opacity .25s; white-space: nowrap; }
 .toast.show { opacity: 1; }
+.ttl small { margin-left: 8px; font-size: 13px; font-weight: 800; letter-spacing: 0; opacity: .85; font-variant-numeric: tabular-nums; }
+.pb { position: absolute; right: 6px; top: calc(env(safe-area-inset-top, 0px) + 18px); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: transform .12s; }
+.pb:active { transform: scale(.88); }
+.pb svg { width: 24px; height: 24px; fill: currentColor; }
+.gauge { position: absolute; left: 10px; right: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); height: 34px; display: flex; align-items: center; gap: 8px; pointer-events: auto; touch-action: none; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; cursor: pointer; }
+.gauge .gt { min-width: 40px; }
+.gauge .gt:last-child { text-align: right; }
+.gbar { position: relative; flex: 1; height: 6px; background: color-mix(in srgb, currentColor 28%, transparent); transition: height .15s; }
+.gauge.on .gbar { height: 12px; }
+.gbar i { position: absolute; inset: 0; background: currentColor; transform-origin: 0 50%; transform: scaleX(0); }
+.gbar b { position: absolute; top: 50%; left: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; background: currentColor; transform: scale(.55); transition: transform .15s; }
+.gauge.on .gbar b { transform: scale(1.2); }
+.holdb { position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 64px); transform: translateX(-50%); padding: 6px 12px; background: rgba(10, 14, 31, .82); color: #fff; font-size: 13px; font-weight: 800; z-index: 7; opacity: 0; transition: opacity .15s; pointer-events: none; }
+.holdb.show { opacity: 1; }
+.scene { -webkit-touch-callout: none; }
 .sheetbg { position: absolute; inset: 0; background: rgba(4, 6, 13, .5); z-index: 10; opacity: 0; pointer-events: none; transition: opacity .25s; }
 .sheetbg.show { opacity: 1; pointer-events: auto; }
 .sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 11; background: #fff; color: var(--ink); padding: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 16px); transform: translateY(105%); transition: transform .32s cubic-bezier(.2, .8, .2, 1); max-height: 70%; display: flex; flex-direction: column; }
@@ -293,7 +313,8 @@ a { color: inherit; }
       <div class="beat blk" style="--s:0s;--l:2.7s;top:14cqh"><p class="h md">인류의 이름에는</p><p class="h lg">힘도, 속도도</p><p class="h xl">없다.</p></div>
       <div class="bg cut" style="--s:2.7s;--l:3s;background:var(--ink)"></div>
       <div class="beat blk" style="--s:2.8s;--l:2.9s;top:15cqh"><p class="h sm" style="opacity:.7;margin-bottom:2cqw">우리 종의 학명</p><p class="h latin">Homo<br>sapiens</p></div>
-      <div class="beat blk" style="--s:4.2s;--l:1.5s;top:55cqh"><p class="h lg">= 슬기로운<br>사람.</p></div>
+      <div class="beat ph" style="--s:2.8s;--l:2.9s;left:7cqw;top:36cqh;width:50cqw;aspect-ratio:1"><img src="img/c1.webp" alt="생각하는 사람 자세의 파란 캐릭터"></div>
+      <div class="beat blk" style="--s:4.2s;--l:1.5s;top:68cqh"><p class="h md">= 슬기로운 사람.</p></div>
       <div class="beat blk" style="--s:5.7s;--l:2.6s;top:15cqh"><p class="h md">스스로를 힘이 아니라</p><p class="h xl hi" style="margin-top:1cqw">‘지혜’로</p><p class="h lg">정의한 존재.</p></div>
       <div class="bg cut" style="--s:8.3s;--l:3s;background:var(--ink)"></div>
       <div class="beat blk" style="--s:8.4s;--l:2.9s;top:14cqh"><p class="h lg">AI가 답을 주는<br>4년 동안,</p></div>
@@ -318,9 +339,7 @@ a { color: inherit; }
       <div class="beat blk" style="--s:8.8s;--l:1.2s;top:14cqh;color:#fff"><p class="h lg">효율적이다.</p></div>
       <div class="beat blk" style="--s:9.9s;--l:1.5s;top:14cqh;color:#fff"><p class="h lg">그런데<br>효과적일까?</p></div>
       <div class="beat blk" style="--s:11.6s;--l:3.1s;top:13cqh;color:#fff"><p class="h md">OpenAI가 하루에</p><p class="h xl cnt" style="margin-top:1cqw"></p></div>
-      <div class="pile beat" style="--s:11.6s;--l:3.1s">
-        <i class="pg" style="--k:0;--r:-5deg;left:2cqw;bottom:0"></i><i class="pg" style="--k:1;--r:4deg;left:34cqw;bottom:0"></i><i class="pg" style="--k:2;--r:-3deg;left:16cqw;bottom:3.4cqw"></i><i class="pg" style="--k:3;--r:6deg;left:44cqw;bottom:3.4cqw"></i><i class="pg" style="--k:4;--r:-6deg;left:4cqw;bottom:7cqw"></i><i class="pg" style="--k:5;--r:3deg;left:30cqw;bottom:7cqw"></i><i class="pg" style="--k:6;--r:-2deg;left:18cqw;bottom:10.6cqw"></i><i class="pg" style="--k:7;--r:7deg;left:42cqw;bottom:10.6cqw"></i><i class="pg" style="--k:8;--r:-4deg;left:8cqw;bottom:14.2cqw"></i><i class="pg" style="--k:9;--r:2deg;left:32cqw;bottom:14.2cqw"></i>
-      </div>
+      <div class="beat ph" style="--s:11.6s;--l:3.1s;left:7cqw;top:38cqh;width:70cqw;aspect-ratio:4/3"><img src="img/m1.webp" alt="원고를 쏟아내는 기계"></div>
       <div class="beat blk" style="--s:14.9s;--l:3.5s;top:12cqh;color:#fff"><p class="h sm">다음 날, 수학자 단체(AHM)가 성명을 냈다</p></div>
       <div class="beat say" style="--s:15.4s;--l:3s;top:22cqh"><p class="h md">학술이 아니라<br>힘의 과시다.</p></div>
       <div class="beat say" style="--s:16.9s;--l:1.5s;top:46cqh"><p class="h" style="font-size:7.6cqw">인간의 이해를 중심에 두는<br>과학으로 돌아가자.</p></div>
@@ -335,10 +354,10 @@ a { color: inherit; }
       <div class="beat blk" style="--s:1.8s;--l:5.8s;top:9cqh"><p class="h lg">시계는 1시간.<br>머릿속은 3주.</p></div>
       <div class="beat blk" style="--s:8.3s;--l:3.6s;top:9cqh"><p class="h lg">눈을 뜨면<br>3주 치 생각이<br>내 기억에.</p></div>
       <div class="blk keep" style="--s:12s;top:11cqh"><p class="h md">2045년의 아침.<br><span class="sm" style="display:block;margin-top:2cqw;opacity:.8">우리가 그린 장면입니다.<br>아직은 가정입니다.</span></p></div>
-      <div class="room keep" style="--s:0s;--off:0s"><svg viewBox="0 0 300 130" aria-hidden="true"><rect x="3" y="3" width="294" height="124" fill="none" stroke="#fff" stroke-width="3"/><line x1="3" y1="105" x2="297" y2="105" stroke="#fff" stroke-width="3"/><path d="M92 105 L108 48 Q111 40 120 40 L138 40 Q146 40 148 48 L165 82 L218 82 L218 105 Z" fill="#2457FF"/><rect x="122" y="60" width="86" height="26" rx="13" transform="rotate(-16 122 60)" fill="#E6E9FF"/><circle cx="128" cy="44" r="12" fill="#fff"/><path d="M115 42 Q128 27 141 42" stroke="#2457FF" stroke-width="4.5" fill="none"/><circle class="blinkdot" cx="128" cy="32" r="3" fill="#FFE45C"/></svg></div>
+      <div class="room keep" style="--s:0s;--off:0s"><img src="img/c2.webp" alt="리클라이닝 장치에 누워 접속한 캐릭터"></div>
       <div class="beat clock" style="--s:1.2s;--l:6.4s"><div class="face"><div class="hand"></div></div><div class="num"><small>현실의 시간</small><span class="mins"></span></div></div>
       <div class="beat cal" style="--s:1.2s;--l:6.4s"><div class="cells"><i class="cell" style="--i:0"></i><i class="cell" style="--i:1"></i><i class="cell" style="--i:2"></i><i class="cell" style="--i:3"></i><i class="cell" style="--i:4"></i><i class="cell" style="--i:5"></i><i class="cell" style="--i:6"></i><i class="cell" style="--i:7"></i><i class="cell" style="--i:8"></i><i class="cell" style="--i:9"></i><i class="cell" style="--i:10"></i><i class="cell" style="--i:11"></i><i class="cell" style="--i:12"></i><i class="cell" style="--i:13"></i><i class="cell" style="--i:14"></i><i class="cell" style="--i:15"></i><i class="cell" style="--i:16"></i><i class="cell" style="--i:17"></i><i class="cell" style="--i:18"></i><i class="cell" style="--i:19"></i><i class="cell" style="--i:20"></i></div><div class="num"><small>머릿속의 시간</small><span class="dys"></span></div></div>
-      <i class="mem" style="--k:0;left:56cqw;top:59cqh;--dx:-12cqw;--dy:-21cqh"></i><i class="mem" style="--k:1;left:64cqw;top:64cqh;--dx:-20cqw;--dy:-26cqh"></i><i class="mem" style="--k:2;left:72cqw;top:59cqh;--dx:-26cqw;--dy:-21cqh"></i><i class="mem" style="--k:3;left:80cqw;top:64cqh;--dx:-34cqw;--dy:-26cqh"></i><i class="mem" style="--k:4;left:60cqw;top:69cqh;--dx:-16cqw;--dy:-31cqh"></i><i class="mem" style="--k:5;left:68cqw;top:69cqh;--dx:-24cqw;--dy:-31cqh"></i><i class="mem" style="--k:6;left:76cqw;top:69cqh;--dx:-32cqw;--dy:-31cqh"></i><i class="mem" style="--k:7;left:84cqw;top:59cqh;--dx:-40cqw;--dy:-21cqh"></i>
+      <i class="mem" style="--k:0;left:56cqw;top:59cqh;--dx:-6cqw;--dy:-21cqh"></i><i class="mem" style="--k:1;left:64cqw;top:64cqh;--dx:-14cqw;--dy:-26cqh"></i><i class="mem" style="--k:2;left:72cqw;top:59cqh;--dx:-22cqw;--dy:-21cqh"></i><i class="mem" style="--k:3;left:80cqw;top:64cqh;--dx:-30cqw;--dy:-26cqh"></i><i class="mem" style="--k:4;left:60cqw;top:69cqh;--dx:-10cqw;--dy:-31cqh"></i><i class="mem" style="--k:5;left:68cqw;top:69cqh;--dx:-18cqw;--dy:-31cqh"></i><i class="mem" style="--k:6;left:76cqw;top:69cqh;--dx:-26cqw;--dy:-31cqh"></i><i class="mem" style="--k:7;left:84cqw;top:59cqh;--dx:-34cqw;--dy:-21cqh"></i>
       <div class="flash"></div>
     </section>
 
@@ -346,6 +365,7 @@ a { color: inherit; }
     <section class="scene dk s4" data-mode="ask" data-t="12500" data-tone="dark" data-cap="이거 만들 수 있을까요? 아직은 불가능합니다. 그런데도 우리는 만들 수 있다고 생각합니다. 왜?">
       <div class="bg" style="background:var(--lilac)"></div>
       <div class="askgrp">
+        <img class="bgimg" src="img/m2.webp" alt="">
         <div class="keep blk" style="--s:0s;top:12cqh"><p class="h xl" style="font-size:20cqw">이거<br>만들 수<br>있을까요?</p></div>
         <div class="keep blk" style="--s:.9s;top:52cqh"><p class="sm">2045년의 ‘생각의 방’. 뇌를 읽고, 가상 공간에서 3주를 1시간으로 압축해, 기억으로 돌려보내는 장치입니다.</p></div>
         <div class="choices keep" style="--s:1.4s;top:64cqh"><button class="y nudge" type="button" data-pick="y">만들 수 있다</button><button type="button" data-pick="n">어렵다고 본다</button></div>
@@ -368,10 +388,10 @@ a { color: inherit; }
       <div class="beat blk" style="--s:2.8s;--l:7.2s;top:9cqh"><p class="h md">기술은 이렇게 온다</p></div>
       <div class="tl5 beat" style="--s:2.8s;--l:7.2s">
         <div class="ln"></div>
-        <div class="nd keep" style="--s:3.1s;top:0"><i class="dt"></i><div><div class="yr">2026</div><div class="lb">환자 대상 임상이 진행 중</div></div></div>
-        <div class="nd as keep" style="--s:4.9s;top:13cqh"><i class="dt"></i><div><div class="yr">2036경<span class="tg">가정</span></div><div class="lb">일상 기기로 확산</div></div></div>
+        <div class="nd keep" style="--s:3.1s;top:0"><img class="dt" src="img/t1.webp" alt=""><div><div class="yr">2026</div><div class="lb">환자 대상 임상이 진행 중</div></div></div>
+        <div class="nd keep" style="--s:4.9s;top:13cqh"><img class="dt" src="img/t2.webp" alt=""><div><div class="yr">2036경<span class="tg">가정</span></div><div class="lb">일상 기기로 확산</div></div></div>
         <div class="nd as keep" style="--s:6.7s;top:26cqh"><i class="dt"></i><div><div class="yr">2040년대<span class="tg">가정</span></div><div class="lb">시대에 맞춘 규제와 정책</div></div></div>
-        <div class="nd go keep" style="--s:8.5s;top:39cqh"><i class="dt"></i><div><div class="yr">2045</div><div class="lb">생각의 방이 열린다</div></div></div>
+        <div class="nd go keep" style="--s:8.5s;top:39cqh"><img class="dt" src="img/t3.webp" alt=""><div><div class="yr">2045</div><div class="lb">생각의 방이 열린다</div></div></div>
       </div>
       <div class="bg cut" style="--s:10s;--l:5.6s;background:var(--hi)"></div>
       <div class="beat blk" style="--s:10.1s;--l:5.4s;top:9cqh;color:var(--ink)"><p class="h lg">처음엔 모두<br>걱정이었다.</p></div>
@@ -448,6 +468,7 @@ a { color: inherit; }
         </div>
 
         <h2>생각의 방은 이렇게 작동합니다</h2>
+        <figure class="fig"><img src="img/c2.webp" alt="리클라이닝 장치에 누워 접속한 캐릭터와 연결된 기계" loading="lazy"></figure>
         <ol class="steps">
           <li><b>읽기</b><span>헤드밴드가 뇌 신호를 측정하고 AI가 해독합니다.</span></li>
           <li><b>가속</b><span>내 뇌를 모사한 모델이 가상 공간에서 몇 주 치 생각을 1시간으로 압축합니다.</span></li>
@@ -484,7 +505,8 @@ a { color: inherit; }
   <!-- 릴스 겉틀 -->
   <div class="chrome" id="chrome">
     <div class="prog" id="prog" aria-label="영상 이동"><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="ttl">릴스</div>
+    <div class="ttl">릴스<small id="ord">1/5</small></div>
+    <button type="button" class="pb" id="pb" aria-label="일시정지"></button>
     <div class="swipe" id="swipe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>밀어서 다음</div>
     <div class="rail">
       <button type="button" class="heart" id="heart" aria-label="좋아요"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="hc">4,320</span></button>
@@ -496,8 +518,10 @@ a { color: inherit; }
       <div class="cap" id="cap"></div>
       <div class="aud">소리 없이도 이해되는 영상</div>
     </div>
+    <div class="gauge" id="gauge" role="slider" aria-label="영상 진행도" aria-valuemin="0" aria-valuemax="100"><span class="gt" id="gcur">0:00</span><div class="gbar" id="gbar"><i id="gfill"></i><b id="gthumb"></b></div><span class="gt" id="gtot">0:00</span></div>
   </div>
   <div class="hud" id="hud">0:00 / 0:00</div>
+  <div class="holdb" id="holdb">꾹 누르는 동안 멈춤</div>
   <div class="pauseicon" id="pi"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg></div>
   <svg class="bigheart" id="bh" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
   <div class="toast" id="toast"></div>
@@ -520,6 +544,10 @@ a { color: inherit; }
   var cap = $('cap'), toast = $('toast'), pi = $('pi'), bh = $('bh'), hud = $('hud'), swipe = $('swipe');
   var heart = $('heart'), hc = $('hc');
   var cur = -1, st = null, tt = 0;
+  var gauge = $('gauge'), gbar = $('gbar'), gfill = $('gfill'), gthumb = $('gthumb'), gcur = $('gcur'), gtot = $('gtot'), pb = $('pb'), ord = $('ord'), holdb = $('holdb');
+  var PAUSE = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>', PLAY = '<svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>';
+  function syncPb() { var on = st && st.playing; pb.innerHTML = on ? PAUSE : PLAY; pb.setAttribute('aria-label', on ? '일시정지' : '재생'); }
+  syncPb();
 
   function say(m) { toast.textContent = m; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 1800); }
   function buzz(ms) { if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} } }
@@ -561,6 +589,7 @@ a { color: inherit; }
     var ask = sc.dataset.mode === 'ask';
     st = { sc: sc, i: i, T: +sc.dataset.t, t0: performance.now(), hold: 0, playing: true, tm: [], loop: 0, seq: (st ? st.seq : 0) + 1, ask: ask, noloop: sc.dataset.noloop === '1' };
     segs.forEach(function (s, k) { s.classList.toggle('done', k < i); s.classList.remove('on'); });
+    ord.textContent = (i + 1) + '/5'; syncPb();
     void phone.offsetWidth;
     if (!ask) {
       segs[i].style.setProperty('--T', st.T + 'ms'); segs[i].classList.add('on');
@@ -576,14 +605,14 @@ a { color: inherit; }
     if (!st || !st.playing) return;
     st.hold = pos(); st.playing = false; clearTimers();
     anims().forEach(function (a) { try { a.pause(); } catch (e) {} });
-    if (icon) flashIcon(true);
+    syncPb(); if (icon) flashIcon(true);
   }
   function resume(icon) {
     if (!st || st.playing) return;
     st.t0 = performance.now() - st.hold; st.playing = true;
     anims().forEach(function (a) { try { a.play(); } catch (e) {} });
     if (!st.ask || st.revealed) arm(st.hold);
-    if (icon) flashIcon(false);
+    syncPb(); if (icon) flashIcon(false);
   }
   function seek(ms) {
     ms = Math.max(0, Math.min(st.T - 30, ms));
@@ -643,33 +672,46 @@ a { color: inherit; }
     if (!heart.classList.contains('on')) { heart.classList.add('on'); hc.textContent = '4,321'; buzz(12); }
     bh.classList.remove('show'); void bh.getBoundingClientRect(); bh.classList.add('show');
   }
+  function canHold() { return st && st.playing && !(st.ask && !st.revealed); }
+  function endHold() { holdb.classList.remove('show'); pi.classList.remove('show'); }
+  reel.addEventListener('contextmenu', function (e) { if (!e.target.closest('.doc')) e.preventDefault(); });
   reel.addEventListener('pointerdown', function (e) {
     if (e.target.closest('button, a, input, textarea, .doc')) { g = null; return; }
-    g = { x: e.clientX, y: e.clientY, drag: false, was: false, base: 0, w: reel.clientWidth, t: Date.now() };
+    g = { x: e.clientX, y: e.clientY, drag: false, was: false, base: 0, w: reel.clientWidth, held: false, ht: 0 };
+    var me = g;
+    g.ht = setTimeout(function () {
+      if (g !== me || me.drag || !canHold()) return;
+      me.held = true; pause(false);
+      pi.querySelector('svg').innerHTML = '<rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/>';
+      pi.classList.add('show'); holdb.classList.add('show'); buzz(10);
+    }, 260);
   });
   reel.addEventListener('pointermove', function (e) {
-    if (!g || !st || st.ask) return;
+    if (!g || !st || (st.ask && !st.revealed)) return;
     var dx = e.clientX - g.x, dy = e.clientY - g.y;
     if (!g.drag && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.3) {
-      g.drag = true; g.was = !st.playing; g.base = pos(); pause(false); hud.classList.add('show');
-    }
-    if (g.drag) {
-      seek(g.base + dx / g.w * st.T * 1.1);
-      hud.textContent = fmt(st.hold) + ' / ' + fmt(st.T);
-    }
+      clearTimeout(g.ht);
+      if (g.held) { g.held = false; g.was = false; endHold(); } else { g.was = !st.playing; }
+      g.drag = true; g.base = pos(); pause(false); hud.classList.add('show');
+    } else if (!g.drag && (Math.abs(dx) > 14 || Math.abs(dy) > 14)) { clearTimeout(g.ht); }
+    if (g.drag) { seek(g.base + dx / g.w * st.T * 1.1); hud.textContent = fmt(st.hold) + ' / ' + fmt(st.T); }
   });
   function up(e) {
     if (!g) return;
-    var gg = g; g = null;
+    var gg = g; g = null; clearTimeout(gg.ht);
     if (gg.drag) { hud.classList.remove('show'); if (!gg.was) resume(false); return; }
-    if (Math.abs(e.clientX - gg.x) > 8 || Math.abs(e.clientY - gg.y) > 8 || e.type === 'pointercancel') return;
+    if (gg.held) { endHold(); resume(false); return; }
+    if (Math.abs(e.clientX - gg.x) > 8 || Math.abs(e.clientY - gg.y) > 8) return;
     var now = Date.now();
     if (now - lastTap < 320) { clearTimeout(tapTimer); lastTap = 0; like(); return; }
     lastTap = now;
-    tapTimer = setTimeout(function () { if (!st || st.ask && !st.revealed) return; if (st.playing) pause(true); else resume(true); }, 320);
+    tapTimer = setTimeout(function () { if (!st || (st.ask && !st.revealed)) return; if (st.playing) pause(true); else resume(true); }, 320);
   }
   reel.addEventListener('pointerup', up);
-  reel.addEventListener('pointercancel', function () { if (g && g.drag) { hud.classList.remove('show'); if (!g.was) resume(false); } g = null; });
+  reel.addEventListener('pointercancel', function () {
+    if (!g) return; var gg = g; g = null; clearTimeout(gg.ht);
+    if (gg.drag) { hud.classList.remove('show'); if (!gg.was) resume(false); } else if (gg.held) { endHold(); resume(false); }
+  });
 
   /* 진행 막대를 누르면 그 편으로 */
   prog.addEventListener('click', function (e) {
@@ -714,6 +756,36 @@ a { color: inherit; }
     else if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); reel.scrollBy({ top: reel.clientHeight, behavior: 'smooth' }); }
     else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); reel.scrollBy({ top: -reel.clientHeight, behavior: 'smooth' }); }
   });
+
+  /* ---------- 진행도 게이지와 멈춤 버튼 ---------- */
+  function fmtT(ms) { var t = Math.round(ms / 1000); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
+  pb.addEventListener('click', function (e) { e.stopPropagation(); if (!st || (st.ask && !st.revealed)) { say('답을 고르면 이어집니다'); return; } if (st.playing) pause(true); else resume(true); });
+  (function frame() {
+    if (st && !phone.classList.contains('docmode')) {
+      var waiting = st.ask && !st.revealed;
+      var p = waiting ? 0 : Math.min(1, pos() / st.T);
+      gfill.style.transform = 'scaleX(' + p + ')'; gthumb.style.left = (p * 100) + '%';
+      gcur.textContent = waiting ? '대기' : fmt(Math.min(pos(), st.T));
+      gtot.textContent = waiting ? '선택 대기' : fmtT(st.T);
+      gauge.setAttribute('aria-valuenow', String(Math.round(p * 100)));
+    }
+    requestAnimationFrame(frame);
+  })();
+  var gd = null;
+  function gseek(e) { var r = gbar.getBoundingClientRect(); var p = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); seek(p * st.T); }
+  gauge.addEventListener('pointerdown', function (e) {
+    if (!st) return;
+    if (st.ask && !st.revealed) { say('답을 고르면 이어집니다'); return; }
+    e.stopPropagation();
+    gd = { was: !st.playing }; try { gauge.setPointerCapture(e.pointerId); } catch (err) {}
+    gauge.classList.add('on'); pause(false); gseek(e);
+  });
+  gauge.addEventListener('pointermove', function (e) { if (gd) gseek(e); });
+  function gup() { if (!gd) return; var was = gd.was; gd = null; gauge.classList.remove('on'); if (!was) resume(false); }
+  gauge.addEventListener('pointerup', gup); gauge.addEventListener('pointercancel', gup);
+  try {
+    if (!sessionStorage.getItem('tr-hint')) { sessionStorage.setItem('tr-hint', '1'); setTimeout(function () { say('꾹 누르면 멈춰요. 아래 막대를 끌어 이동할 수 있어요'); }, 1600); }
+  } catch (err) {}
 
   /* ---------- 60초 생각 실험 ---------- */
   var Q = {
