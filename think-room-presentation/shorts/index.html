@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>생각의 방 — 숏츠 시안 (초안)</title>
+<title>생각의 방 — 숏츠 시안 (초안 2)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0A0E1F">
@@ -10,6 +10,7 @@
 <style>
 @font-face { font-family: 'Noto Sans KR'; src: url('../assets/fonts/NotoSansKR-shorts.woff') format('woff'); font-weight: 100 900; font-style: normal; font-display: swap; }
 @property --n { syntax: '<integer>'; inherits: false; initial-value: 0; }
+@property --p { syntax: '<integer>'; inherits: false; initial-value: 0; }
 :root { --cobalt: #2457FF; --ink: #0A0E1F; --lilac: #E6E9FF; --hi: #FFE45C; --paper: #F6F7FB; }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { height: 100%; background: #04060D; }
@@ -17,47 +18,40 @@ body { font-family: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 a { color: inherit; }
 
-/* 휴대폰 틀: 모바일은 화면 전체, 데스크톱은 9:16 */
 .phone { position: relative; width: min(100vw, calc(100vh * .5625)); width: min(100vw, calc(100dvh * .5625)); height: 100vh; height: 100dvh; margin: 0 auto; overflow: hidden; background: var(--ink); }
 .reel { height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; overscroll-behavior: contain; }
 .reel::-webkit-scrollbar { display: none; }
-.scene { position: relative; height: 100%; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; container-type: size; color: #fff; user-select: none; -webkit-user-select: none; }
+.scene { position: relative; height: 100%; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; container-type: size; color: #fff; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
 .scene.dk { color: var(--ink); }
 
-/* 글자 크기는 장면 너비(cqw) 기준 */
 .blk { position: absolute; left: 7cqw; right: 15cqw; }
 .h { font-weight: 900; letter-spacing: -.065em; line-height: 1.04; }
 .xl { font-size: 19cqw; } .lg { font-size: 12.5cqw; } .md { font-size: 9cqw; } .sm { font-size: 5cqw; letter-spacing: -.04em; font-weight: 700; line-height: 1.3; }
 .bg { position: absolute; inset: 0; }
 
-/* 등장/퇴장: 시작(--s)과 길이(--l)만 정하면 된다 */
-.beat, .keep, .cut, .pop { opacity: 0; }
-.play .beat { animation: beat var(--l, 3s) var(--s, 0s) both; }
-.play .keep { animation: keep .5s var(--s, 0s) both; }
-.play .cut { animation: cut var(--l, 3s) var(--s, 0s) both steps(1, end); }
+/* 등장/퇴장: 시작(--s)과 길이(--l). 장면 전체를 미루려면 --off */
+.beat, .keep, .cut, .r-beat, .r-keep, .r-cut { opacity: 0; }
+.play .beat { animation: beat var(--l, 3s) calc(var(--s, 0s) + var(--off, 0s)) both; }
+.play .keep { animation: keep .5s calc(var(--s, 0s) + var(--off, 0s)) both; }
+.play .cut { animation: cut var(--l, 3s) calc(var(--s, 0s) + var(--off, 0s)) both steps(1, end); }
+.rv .r-beat { animation: beat var(--l, 3s) var(--s, 0s) both; }
+.rv .r-keep { animation: keep .5s var(--s, 0s) both; }
+.rv .r-cut { animation: cut var(--l, 3s) var(--s, 0s) both steps(1, end); }
 @keyframes beat { 0% { opacity: 0; transform: translateY(2cqh) scale(1.07); } 6% { opacity: 1; transform: none; } 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes keep { 0% { opacity: 0; transform: translateY(2cqh) scale(1.07); } 100% { opacity: 1; transform: none; } }
 @keyframes cut { 0% { opacity: 0; } 1% { opacity: 1; } 99% { opacity: 1; } 100% { opacity: 0; } }
-.paused, .paused * { animation-play-state: paused !important; }
+.hi { color: var(--hi); }
 
 /* 1편 */
-.ring { position: absolute; left: 50%; top: 56cqh; width: 40cqw; height: 40cqw; margin-left: -23cqw; }
-.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.ring circle { fill: none; stroke-width: 7; }
-.ring .bgc { stroke: rgba(255, 255, 255, .28); }
-.ring .fgc { stroke: #fff; stroke-dasharray: 289; stroke-dashoffset: 0; }
-.play .ring .fgc { animation: ringgo 3s linear both; }
-@keyframes ringgo { to { stroke-dashoffset: 289; } }
-.ring .dg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 17cqw; font-weight: 900; letter-spacing: -.05em; opacity: 0; }
-.play .ring .dg { animation: beat 1s var(--s) both; }
 .door { position: absolute; left: 7cqw; top: 52cqh; width: 30cqw; height: 24cqh; }
 .door svg { width: 100%; height: 100%; overflow: visible; }
 .door .leaf { transform-origin: 8% 50%; transform-box: fill-box; }
-.play .door .leaf { animation: opendoor 1.2s 9.1s cubic-bezier(.7, 0, .2, 1) both; }
+.play .door .leaf { animation: opendoor 1.2s 11.7s cubic-bezier(.7, 0, .2, 1) both; }
 @keyframes opendoor { from { transform: scaleX(1); } to { transform: scaleX(.1); } }
-.chev { position: absolute; left: 50%; bottom: 24cqh; width: 9cqw; margin-left: -6cqw; }
-.play .chev { animation: bob 1s 11.3s ease-in-out infinite; }
+.chev { position: absolute; left: 50%; bottom: 24cqh; width: 9cqw; margin-left: -6cqw; opacity: 0; }
+.play .chev { animation: keep .5s 14.1s both, bob 1s 14.1s ease-in-out infinite; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.2cqh); } }
+.latin { font-size: 15cqw; letter-spacing: -.05em; line-height: 1; }
 
 /* 2편 */
 .bar2 { position: absolute; left: 7cqw; right: 15cqw; }
@@ -65,22 +59,24 @@ a { color: inherit; }
 .bar2 .tr { position: relative; height: 5cqw; }
 .bar2 .dot { position: absolute; left: 0; top: 0; bottom: 0; width: 1.6cqw; background: var(--ink); }
 .bar2 .lg2 { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
-.play .bar2 .lg2 { animation: grow 4s 1.8s linear both; }
+.play .bar2 .lg2 { animation: grow 2.8s 3.2s linear both; }
 @keyframes grow { to { transform: scaleX(1); } }
 .days { display: flex; justify-content: space-between; font-size: 3.8cqw; font-weight: 700; margin-top: 1.4cqw; }
 .days span { opacity: 0; }
-.play .days span { animation: keep .3s calc(1.8s + var(--k) * 1.33s) both; }
-.stamp { position: absolute; left: 4cqw; right: 8cqw; top: 22cqh; padding: 3cqw 3cqw 4cqw; background: var(--cobalt); color: #fff; transform: rotate(-4deg); }
-.play .stamp { animation: stampin 2.8s 5.7s both; }
-@keyframes stampin { 0% { opacity: 0; transform: scale(2.5) rotate(-10deg); } 12% { opacity: 1; transform: scale(.93) rotate(-4deg); } 20% { transform: scale(1.03) rotate(-4deg); } 28%, 88% { opacity: 1; transform: scale(1) rotate(-4deg); } 100% { opacity: 0; transform: scale(1) rotate(-4deg); } }
-.chart { position: absolute; left: 7cqw; right: 15cqw; top: 30cqh; height: 44cqh; opacity: 0; }
-.play .chart { animation: keep .4s 11.2s both; }
-.col { position: absolute; bottom: 5cqh; width: 25cqw; transform-origin: 50% 100%; transform: scaleY(0); }
-.play .col { animation: growy 1.2s var(--s) cubic-bezier(.2, .8, .2, 1) both; }
-@keyframes growy { to { transform: scaleY(1); } }
-.col b { position: absolute; left: 0; right: 0; top: 2cqw; text-align: center; color: var(--ink); font-size: 4.6cqw; font-weight: 900; letter-spacing: -.04em; }
-.col i { position: absolute; left: 0; right: 0; bottom: -6cqh; text-align: center; font-style: normal; font-size: 3.8cqw; font-weight: 700; line-height: 1.2; }
-.cmp { position: absolute; left: 0; right: 0; border-top: .5cqw dashed rgba(255, 255, 255, .8); }
+.play .days span { animation: keep .3s calc(3.2s + var(--k) * .93s) both; }
+.stamp { position: absolute; left: 4cqw; right: 8cqw; top: 22cqh; padding: 3cqw 3cqw 4cqw; background: var(--cobalt); color: #fff; transform: rotate(-4deg); opacity: 0; }
+.play .stamp { animation: stampin 2.4s 6.3s both; }
+@keyframes stampin { 0% { opacity: 0; transform: scale(2.5) rotate(-10deg); } 12% { opacity: 1; transform: scale(.93) rotate(-4deg); } 20% { transform: scale(1.03) rotate(-4deg); } 28%, 86% { opacity: 1; transform: scale(1) rotate(-4deg); } 100% { opacity: 0; transform: scale(1) rotate(-4deg); } }
+.pile { position: absolute; left: 7cqw; right: 15cqw; top: 40cqh; height: 34cqh; }
+.pg { position: absolute; width: 30cqw; height: 19cqw; background: #fff; border: .6cqw solid var(--ink); opacity: 0; background-image: repeating-linear-gradient(transparent 0 2.2cqw, #C5CCE6 2.2cqw 2.7cqw); background-origin: content-box; padding: 2cqw; background-clip: content-box; }
+.play .pg { animation: pgin .28s calc(11.9s + var(--k) * .2s) both; }
+@keyframes pgin { from { opacity: 0; transform: translateY(-9cqh) rotate(var(--r)); } to { opacity: 1; transform: translateY(0) rotate(var(--r)); } }
+.cnt { --p: 0; counter-reset: pc var(--p); }
+.cnt::after { content: counter(pc) '편'; }
+.play .cnt { animation: cntp 2.2s 11.8s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes cntp { to { --p: 700; } }
+.say { position: absolute; left: 7cqw; right: 15cqw; background: #fff; color: var(--ink); padding: 4cqw 4.4cqw; }
+.say::after { content: ''; position: absolute; left: 6cqw; bottom: -3.2cqw; border: 2.2cqw solid transparent; border-top-color: #fff; border-bottom: 0; }
 
 /* 3편 */
 .room { position: absolute; left: 7cqw; top: 33cqh; width: 78cqw; }
@@ -90,31 +86,33 @@ a { color: inherit; }
 .clock { position: absolute; left: 8cqw; top: 56cqh; width: 30cqw; }
 .face { position: relative; width: 24cqw; height: 24cqw; border: .9cqw solid #fff; border-radius: 50%; }
 .hand { position: absolute; left: 50%; top: 50%; width: .9cqw; height: 10cqw; margin-left: -.45cqw; margin-top: -10cqw; background: var(--hi); transform-origin: 50% 100%; }
-.play .hand { animation: handgo 6s 1.6s linear both; }
+.play .hand { animation: handgo 6s calc(1.6s + var(--off, 0s)) linear both; }
 @keyframes handgo { to { transform: rotate(360deg); } }
 .num { margin-top: 2cqw; font-size: 9cqw; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
 .num small { display: block; font-size: 3.8cqw; font-weight: 700; letter-spacing: -.02em; opacity: .85; margin-bottom: .6cqw; }
 .mins { --n: 0; counter-reset: m var(--n); }
 .mins::after { content: counter(m) '분'; }
-.play .mins { animation: cntm 6s 1.6s linear both; }
+.play .mins { animation: cntm 6s calc(1.6s + var(--off, 0s)) linear both; }
 @keyframes cntm { to { --n: 60; } }
 .cal { position: absolute; left: 50cqw; top: 56cqh; width: 40cqw; }
 .cells { display: grid; grid-template-columns: repeat(7, 1fr); gap: .8cqw; margin-bottom: 3cqw; }
 .cell { aspect-ratio: 1; background: rgba(255, 255, 255, .14); }
-.play .cell { animation: lit .01s calc(1.7s + var(--i) * .24s) forwards; }
+.play .cell { animation: lit .01s calc(1.7s + var(--off, 0s) + var(--i) * .24s) forwards; }
 @keyframes lit { to { background: var(--cobalt); } }
 .dys { --n: 0; counter-reset: d var(--n); }
 .dys::after { content: counter(d) '일'; }
-.play .dys { animation: cntd 5.1s 1.7s linear both; }
+.play .dys { animation: cntd 5.1s calc(1.7s + var(--off, 0s)) linear both; }
 @keyframes cntd { to { --n: 21; } }
 .mem { position: absolute; width: 3.2cqw; height: 3.2cqw; background: var(--hi); border-radius: 50%; opacity: 0; }
-.play .mem { animation: fly 1.5s calc(7.9s + var(--k) * .13s) cubic-bezier(.5, 0, .3, 1) both; }
+.play .mem { animation: fly 1.5s calc(7.9s + var(--off, 0s) + var(--k) * .13s) cubic-bezier(.5, 0, .3, 1) both; }
 @keyframes fly { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
 .flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
-.play .flash { animation: flashy .6s 7.6s ease-out forwards; }
+.play .flash { animation: flashy .6s calc(7.6s + var(--off, 0s)) ease-out forwards; }
 @keyframes flashy { 0% { opacity: .85; } 100% { opacity: 0; } }
 
 /* 4편 */
+.askgrp { position: absolute; inset: 0; }
+.rv .askgrp { display: none; }
 .row4 { position: absolute; left: 7cqw; right: 15cqw; }
 .row4 .nm { font-size: 8cqw; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
 .row4 .st { font-size: 4.2cqw; font-weight: 700; letter-spacing: -.03em; margin-top: 1cqw; }
@@ -123,32 +121,33 @@ a { color: inherit; }
 .segs i::after { content: ''; position: absolute; inset: 0; background: var(--cobalt); transform-origin: 0 50%; transform: scaleX(0); }
 .segs i.n::after { display: none; }
 .segs.as i { border-style: dashed; border-color: var(--cobalt); }
-.play .segs i.f::after { animation: grow .35s calc(var(--s) + var(--k) * .3s) both; }
-.choices { position: absolute; left: 7cqw; right: 15cqw; top: 56cqh; display: grid; gap: 2.4cqw; }
-.choices button { padding: 4.2cqw 4cqw; font-size: 6.2cqw; font-weight: 900; letter-spacing: -.05em; text-align: left; border: .8cqw solid var(--ink); }
+.rv .segs i.f::after { animation: grow .35s calc(var(--s) + var(--k) * .3s) both; }
+.choices { position: absolute; left: 7cqw; right: 15cqw; top: 58cqh; display: grid; gap: 2.4cqw; }
+.choices button { padding: 4.4cqw 4cqw; font-size: 6.4cqw; font-weight: 900; letter-spacing: -.05em; text-align: left; border: .8cqw solid var(--ink); transition: transform .12s; }
+.choices button:active { transform: scale(.97); }
 .choices .y { background: var(--ink); color: #fff; }
-.res { position: absolute; left: 7cqw; right: 15cqw; top: 56cqh; font-size: 6.2cqw; font-weight: 900; letter-spacing: -.05em; line-height: 1.25; opacity: 0; pointer-events: none; }
-.chosen .choices { display: none; }
-.chosen .res { opacity: 1; animation: keep .4s both; }
-.chosen .res small { display: block; margin-top: 2cqw; font-size: 4.4cqw; font-weight: 700; letter-spacing: -.03em; opacity: .75; }
+.nudge { animation: nudge 1.4s 4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: none; } 20% { transform: translateX(-1.2cqw); } 40% { transform: translateX(1.2cqw); } 60% { transform: none; } }
+.cta { position: absolute; left: 7cqw; right: 15cqw; top: 54cqh; display: grid; gap: 2.4cqw; }
+.cta a, .cta button { display: block; padding: 4.4cqw 4cqw; font-size: 5.6cqw; font-weight: 900; letter-spacing: -.04em; text-align: left; text-decoration: none; border: .8cqw solid var(--ink); }
+.cta .p { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
 
-/* 릴스 겉틀(인스타그램풍 인터페이스) */
+/* 릴스 겉틀 */
 .chrome { position: absolute; inset: 0; z-index: 5; pointer-events: none; color: #fff; transition: opacity .45s, color .25s; text-shadow: 0 0 14px rgba(0, 0, 0, .12); }
 .phone[data-tone="dark"] .chrome { color: var(--ink); text-shadow: none; }
 .phone.docmode .chrome { opacity: 0; }
 .phone.docmode .chrome * { pointer-events: none !important; }
 .chrome button, .chrome a { pointer-events: auto; }
-.prog { position: absolute; left: 12px; right: 12px; top: calc(env(safe-area-inset-top, 0px) + 10px); display: flex; gap: 4px; }
-.prog i { flex: 1; height: 3px; background: currentColor; opacity: .3; position: relative; overflow: hidden; border-radius: 2px; }
-.prog i::after { content: ''; position: absolute; inset: 0; background: currentColor; opacity: 1; transform-origin: 0 50%; transform: scaleX(0); }
-.prog i { opacity: 1; background: color-mix(in srgb, currentColor 30%, transparent); }
+.prog { position: absolute; left: 6px; right: 6px; top: calc(env(safe-area-inset-top, 0px) + 4px); display: flex; gap: 4px; pointer-events: auto; padding: 6px; }
+.prog i { flex: 1; height: 3px; position: relative; overflow: hidden; border-radius: 2px; background: color-mix(in srgb, currentColor 30%, transparent); }
+.prog i::after { content: ''; position: absolute; inset: 0; background: currentColor; transform-origin: 0 50%; transform: scaleX(0); }
 .prog i.done::after { transform: scaleX(1); }
 .prog i.on::after { animation: pf var(--T, 12s) linear both; }
-.phone.paused .prog i.on::after { animation-play-state: paused; }
 @keyframes pf { to { transform: scaleX(1); } }
 .ttl { position: absolute; left: 14px; top: calc(env(safe-area-inset-top, 0px) + 26px); font-size: 20px; font-weight: 900; letter-spacing: -.04em; }
 .rail { position: absolute; right: 8px; bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.rail button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; width: 48px; }
+.rail button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; width: 48px; transition: transform .12s; }
+.rail button:active { transform: scale(.88); }
 .rail svg { width: 28px; height: 28px; fill: currentColor; }
 .rail .heart.on svg { fill: #FF3B5C; animation: heartpop .4s; }
 @keyframes heartpop { 40% { transform: scale(1.35); } }
@@ -156,18 +155,36 @@ a { color: inherit; }
 .who { display: flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -.02em; }
 .av { width: 30px; height: 30px; border-radius: 50%; background: var(--cobalt); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; border: 1.5px solid currentColor; text-shadow: none; }
 .fol { margin-left: 2px; padding: 3px 10px; border: 1.5px solid currentColor; border-radius: 6px; font-size: 12px; font-weight: 800; }
+.fol.on { opacity: .7; }
 .cap { margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; letter-spacing: -.02em; }
 .aud { margin-top: 6px; font-size: 12px; font-weight: 600; opacity: .9; }
+.swipe { position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); margin-left: -34px; width: 68px; text-align: center; font-size: 11px; font-weight: 800; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.swipe.show { opacity: .95; animation: bob 1.1s ease-in-out infinite; }
+.swipe svg { display: block; margin: 0 auto 2px; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 3; }
+.hud { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); padding: 10px 18px; background: rgba(10, 14, 31, .78); color: #fff; font-size: 26px; font-weight: 900; letter-spacing: -.02em; z-index: 7; opacity: 0; transition: opacity .15s; pointer-events: none; font-variant-numeric: tabular-nums; }
+.hud.show { opacity: 1; }
 .pauseicon { position: absolute; left: 50%; top: 46%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; background: rgba(0, 0, 0, .45); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; z-index: 6; pointer-events: none; }
 .pauseicon.show { opacity: 1; }
 .pauseicon svg { width: 34px; height: 34px; fill: #fff; }
 .bigheart { position: absolute; left: 50%; top: 44%; width: 110px; margin: -55px 0 0 -55px; fill: #FF3B5C; opacity: 0; z-index: 6; pointer-events: none; }
 .bigheart.show { animation: bh .8s both; }
 @keyframes bh { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; transform: scale(1.15); } 70% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
-.toast { position: absolute; left: 50%; bottom: 120px; transform: translateX(-50%); padding: 10px 16px; background: rgba(10, 14, 31, .92); color: #fff; font-size: 14px; font-weight: 700; z-index: 8; opacity: 0; pointer-events: none; transition: opacity .25s; white-space: nowrap; }
+.toast { position: absolute; left: 50%; bottom: 120px; transform: translateX(-50%); padding: 10px 16px; background: rgba(10, 14, 31, .92); color: #fff; font-size: 14px; font-weight: 700; z-index: 9; opacity: 0; pointer-events: none; transition: opacity .25s; white-space: nowrap; }
 .toast.show { opacity: 1; }
+.sheetbg { position: absolute; inset: 0; background: rgba(4, 6, 13, .5); z-index: 10; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.sheetbg.show { opacity: 1; pointer-events: auto; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 11; background: #fff; color: var(--ink); padding: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 16px); transform: translateY(105%); transition: transform .32s cubic-bezier(.2, .8, .2, 1); max-height: 70%; display: flex; flex-direction: column; }
+.sheet.show { transform: none; }
+.sheet h3 { font-size: 17px; font-weight: 900; letter-spacing: -.03em; }
+.sheet p { margin-top: 4px; font-size: 14px; line-height: 1.5; color: #4A5468; }
+.sheet ul { list-style: none; margin: 12px 0; overflow-y: auto; min-height: 20px; }
+.sheet li { padding: 8px 0; border-bottom: 1px solid #E1E5F0; font-size: 14px; line-height: 1.5; }
+.sheet li b { margin-right: 6px; }
+.sheet form { display: flex; gap: 8px; }
+.sheet input { flex: 1; min-width: 0; padding: 12px; font: inherit; font-size: 15px; border: 2px solid var(--ink); border-radius: 0; background: #fff; color: var(--ink); }
+.sheet form button { padding: 0 16px; background: var(--cobalt); color: #fff; font-weight: 800; }
 
-/* 5. 설명 글 (인스타 UI 없음) */
+/* 5. 설명 글 + 실험 (인스타 UI 없음) */
 .doc { min-height: 100%; scroll-snap-align: start; background: var(--paper); color: var(--ink); padding: 56px 22px 64px; }
 .doc .in { max-width: 520px; margin: 0 auto; }
 .doc h1 { font-size: 58px; font-weight: 900; letter-spacing: -.07em; line-height: 1; }
@@ -175,17 +192,70 @@ a { color: inherit; }
 .doc p { margin-top: 14px; font-size: 17px; line-height: 1.75; letter-spacing: -.01em; }
 .doc h2 { margin-top: 44px; font-size: 25px; font-weight: 900; letter-spacing: -.05em; line-height: 1.25; }
 .doc strong { font-weight: 800; background: linear-gradient(transparent 60%, var(--hi) 60%); }
-.doc ol { margin-top: 14px; list-style: none; border-top: 2px solid var(--ink); }
-.doc li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid #C9CFE0; font-size: 16px; line-height: 1.6; }
-.doc li b { font-size: 20px; font-weight: 900; letter-spacing: -.05em; }
+.doc ol.steps { margin-top: 14px; list-style: none; border-top: 2px solid var(--ink); }
+.doc ol.steps li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid #C9CFE0; font-size: 16px; line-height: 1.6; }
+.doc ol.steps li b { font-size: 20px; font-weight: 900; letter-spacing: -.05em; }
 .acts { margin-top: 40px; display: grid; gap: 10px; }
 .acts a { display: block; padding: 16px 18px; font-size: 17px; font-weight: 800; text-decoration: none; border: 2px solid var(--ink); }
-.acts a.p { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
 .doc .fine { margin-top: 36px; font-size: 13px; line-height: 1.65; color: #4A5468; }
 .doc .fine b { color: var(--ink); }
-.skip { position: absolute; z-index: 9; left: 12px; top: -60px; background: #fff; color: var(--ink); padding: 8px 12px; font-weight: 700; }
+.skip { position: absolute; z-index: 12; left: 12px; top: -60px; background: #fff; color: var(--ink); padding: 8px 12px; font-weight: 700; }
 .skip:focus { top: 12px; }
-@media (prefers-reduced-motion: reduce) { .pauseicon, .bigheart { display: none; } }
+
+.lab { margin-top: 40px; border: 3px solid var(--ink); background: #fff; padding: 22px 18px 24px; scroll-margin-top: 12px; }
+.lab h2 { margin-top: 0; }
+.lab .k { font-size: 13px; font-weight: 800; color: var(--cobalt); letter-spacing: -.01em; }
+.lab p { font-size: 15.5px; line-height: 1.65; }
+.lab [hidden] { display: none !important; }
+.lab button { font-weight: 800; }
+.lab .chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.lab .chip { padding: 8px 14px; border: 2px solid var(--ink); font-size: 14px; }
+.lab .chip.on { background: var(--ink); color: #fff; }
+.lab .qt { margin-top: 14px; padding: 14px 16px; background: var(--lilac); font-size: 18px; font-weight: 800; line-height: 1.5; letter-spacing: -.03em; }
+.lab .modes { margin-top: 14px; display: grid; gap: 10px; }
+.lab .mode { padding: 16px; text-align: left; border: 2px solid var(--ink); font-size: 17px; line-height: 1.35; }
+.lab .mode small { display: block; margin-top: 2px; font-size: 13px; font-weight: 600; color: #4A5468; }
+.lab .mode.p { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.lab .mode.p small { color: #DCE4FF; }
+.timer { margin-top: 14px; display: flex; align-items: center; gap: 14px; }
+.timer .ring { position: relative; width: 78px; height: 78px; flex: none; }
+.timer .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.timer .ring circle { fill: none; stroke-width: 9; }
+.timer .ring .a { stroke: #D9DEEE; }
+.timer .ring .b { stroke: var(--cobalt); stroke-dasharray: 282.74; stroke-dashoffset: 0; }
+.timer .ring b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.timer .tx { font-size: 14px; line-height: 1.5; color: #4A5468; }
+.trace { margin-top: 12px; display: flex; gap: 8px; }
+.trace input, .lab textarea { flex: 1; min-width: 0; padding: 13px; font: inherit; font-size: 16px; border: 2px solid var(--ink); border-radius: 0; background: #fff; color: var(--ink); }
+.trace button { padding: 0 16px; background: var(--ink); color: #fff; }
+.tools { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.tools button { padding: 11px 6px; border: 2px solid var(--ink); font-size: 14px; }
+.tools button.stuck { border-color: var(--ink); background: var(--hi); }
+.tools button[disabled] { opacity: .4; }
+.log { list-style: none; margin-top: 12px; border-top: 2px solid var(--ink); }
+.log li { display: grid; grid-template-columns: 46px 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid #D7DCEB; font-size: 15px; line-height: 1.55; }
+.log li i { font-style: normal; font-weight: 800; color: var(--cobalt); font-variant-numeric: tabular-nums; }
+.log li.s { background: #FFF6BF; }
+.log li.s i { color: var(--ink); }
+.log li.h i { color: #7A5C00; }
+.tline { position: relative; height: 54px; margin-top: 18px; border-bottom: 3px solid var(--ink); }
+.tline span { position: absolute; bottom: -9px; width: 14px; height: 14px; margin-left: -7px; background: var(--cobalt); }
+.tline span.s { background: var(--hi); border: 2px solid var(--ink); transform: rotate(45deg); }
+.tline span.h { background: #fff; border: 2px solid var(--ink); border-radius: 50%; }
+.tline em { position: absolute; bottom: -34px; font-style: normal; font-size: 11px; color: #4A5468; }
+.ans { margin-top: 14px; padding: 14px 16px; border: 2px solid var(--cobalt); background: #F2F5FF; font-size: 15.5px; line-height: 1.65; }
+.ans b { color: var(--cobalt); }
+.lab .row2 { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lab .row3 { margin-top: 12px; display: grid; grid-template-columns: 1fr; gap: 8px; }
+.lab .btn { padding: 14px 12px; border: 2px solid var(--ink); font-size: 15px; text-align: center; }
+.lab .btn.p { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.lab textarea { width: 100%; margin-top: 10px; min-height: 84px; resize: vertical; }
+.sum { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sum div { border: 2px solid var(--ink); padding: 10px 8px; text-align: center; }
+.sum b { display: block; font-size: 28px; font-weight: 900; letter-spacing: -.05em; }
+.sum span { font-size: 12.5px; color: #4A5468; }
+.link { margin-top: 16px; padding: 14px 16px; background: var(--ink); color: #fff; font-size: 15.5px; line-height: 1.65; }
+.link b { color: var(--hi); }
 </style>
 </head>
 <body>
@@ -194,170 +264,276 @@ a { color: inherit; }
 
   <div class="reel" id="reel">
 
-    <!-- 1편: 멈추게 한다 (주목) -->
-    <section class="scene s1" data-t="12500" data-tone="light" data-cap="이 영상, 3초 안에 넘기려고 했죠? 끝까지 보면 3주가 1시간이 되는 이야기">
+    <!-- 1편: 인류의 이름으로 멈추게 한다 (주목) -->
+    <section class="scene s1" data-t="15000" data-tone="light" data-hap="2700,5700,8300,12600" data-cap="인류의 이름에는 힘도 속도도 없다. 그런데 AI가 답을 주는 4년 동안, 우리는 얼마나 생각했을까?">
       <div class="bg" style="background:var(--cobalt)"></div>
-      <div class="beat blk" style="--s:0s;--l:3s;top:13cqh">
-        <p class="h md">이 영상,</p>
-        <p class="h xl">3초 안에</p>
-        <p class="h lg">넘기려고 했죠?</p>
-      </div>
-      <div class="ring beat" style="--s:0s;--l:3s">
-        <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bgc" cx="50" cy="50" r="46"/><circle class="fgc" cx="50" cy="50" r="46"/></svg>
-        <div class="dg" style="--s:0s">3</div><div class="dg" style="--s:1s">2</div><div class="dg" style="--s:2s">1</div>
-      </div>
-      <div class="bg cut" style="--s:3s;--l:4s;background:var(--ink)"></div>
-      <div class="beat blk" style="--s:3s;--l:4s;top:14cqh"><p class="h lg">AI가 답을<br>주는 시대.</p></div>
-      <div class="beat blk" style="--s:4.2s;--l:2.8s;top:38cqh"><p class="h lg">마지막으로<br>끝까지 스스로<br>생각한 건</p></div>
-      <div class="beat blk" style="--s:5.5s;--l:1.5s;top:68cqh;color:var(--hi)"><p class="h xl">언제?</p></div>
-      <div class="beat blk" style="--s:7s;--l:2.6s;top:14cqh"><p class="h lg">그래서 우리는<br>그 시간을 되찾는<br>방을 상상했다.</p></div>
-      <div class="door keep" style="--s:8.4s"><svg viewBox="0 0 100 160" aria-hidden="true"><rect x="2" y="2" width="96" height="156" fill="#E6E9FF" stroke="#fff" stroke-width="4"/><rect class="leaf" x="2" y="2" width="96" height="156" fill="#fff"/><circle cx="82" cy="84" r="4" fill="#2457FF"/></svg></div>
-      <div class="blk keep" style="--s:9.7s;top:13cqh"><p class="h xl">생각의<br>방</p></div>
-      <div class="blk keep" style="--s:10.6s;top:50cqh;left:42cqw"><p class="h md">1시간 접속,<br>몇 주 치<br>생각.</p></div>
-      <svg class="chev keep" style="--s:11.4s" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>
+      <div class="beat blk" style="--s:0s;--l:2.7s;top:14cqh"><p class="h md">인류의 이름에는</p><p class="h lg">힘도, 속도도</p><p class="h xl">없다.</p></div>
+      <div class="bg cut" style="--s:2.7s;--l:3s;background:var(--ink)"></div>
+      <div class="beat blk" style="--s:2.8s;--l:2.9s;top:15cqh"><p class="h sm" style="opacity:.7;margin-bottom:2cqw">우리 종의 학명</p><p class="h latin">Homo<br>sapiens</p></div>
+      <div class="beat blk" style="--s:4.2s;--l:1.5s;top:55cqh"><p class="h lg">= 슬기로운<br>사람.</p></div>
+      <div class="beat blk" style="--s:5.7s;--l:2.6s;top:15cqh"><p class="h md">스스로를 힘이 아니라</p><p class="h xl hi" style="margin-top:1cqw">‘지혜’로</p><p class="h lg">정의한 존재.</p></div>
+      <div class="bg cut" style="--s:8.3s;--l:3s;background:var(--ink)"></div>
+      <div class="beat blk" style="--s:8.4s;--l:2.9s;top:14cqh"><p class="h lg">AI가 답을 주는<br>4년 동안,</p></div>
+      <div class="beat blk" style="--s:9.6s;--l:1.7s;top:44cqh"><p class="h lg">우리는<br>얼마나<br><span class="hi">생각했을까?</span></p></div>
+      <div class="door keep" style="--s:11.5s"><svg viewBox="0 0 100 160" aria-hidden="true"><rect x="2" y="2" width="96" height="156" fill="#E6E9FF" stroke="#fff" stroke-width="4"/><rect class="leaf" x="2" y="2" width="96" height="156" fill="#fff"/><circle cx="82" cy="84" r="4" fill="#2457FF"/></svg></div>
+      <div class="blk keep" style="--s:12.5s;top:13cqh"><p class="h xl">생각의<br>방</p></div>
+      <div class="blk keep" style="--s:13.4s;top:50cqh;left:42cqw"><p class="h md">1시간 접속,<br>몇 주 치<br>생각.</p></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>
     </section>
 
-    <!-- 2편: 숫자로 설득한다 (관심) -->
-    <section class="scene dk s2" data-t="18500" data-tone="dark" data-cap="답은 1분, 생각은 3일. 4,320배 차이가 우리를 어떻게 바꿨을까?">
+    <!-- 2편: 숫자와 수학계의 반응으로 설득한다 (관심) -->
+    <section class="scene dk s2" data-t="20500" data-tone="dark" data-hap="6400,11800,15500" data-cap="게으른 게 아니라 효율적이었다. 그런데 AI가 증명 700편을 쏟아내자, 수학자들은 인간의 이해로 돌아가자고 했다.">
       <div class="bg" style="background:var(--hi)"></div>
-      <div class="beat blk" style="--s:0s;--l:5.5s;top:11cqh"><p class="h lg">답 받는 데<br>1분.</p></div>
-      <div class="beat bar2" style="--s:.5s;--l:5s;top:38cqh"><div class="lb"><span>AI에게 묻기</span><span>1분</span></div><div class="tr"><div class="dot"></div></div></div>
-      <div class="beat bar2" style="--s:1.2s;--l:4.3s;top:49cqh"><div class="lb"><span>직접 생각하기</span><span>약 3일</span></div><div class="tr"><div class="lg2"></div></div><div class="days"><span style="--k:0">1일</span><span style="--k:1">2일</span><span style="--k:2">3일</span></div></div>
-      <div class="beat blk" style="--s:2.2s;--l:3.3s;top:64cqh"><p class="h md">스스로 생각하는 데 3일.</p></div>
+      <div class="beat blk" style="--s:0s;--l:2.2s;top:12cqh"><p class="h md" style="font-size:8cqw">우리가 생각을 안 하는 건</p><p class="h lg" style="margin-top:1cqw">게으르기<br>때문이 아니다.</p></div>
+      <div class="beat blk" style="--s:2.2s;--l:4.1s;top:11cqh"><p class="h lg">답 받는 데<br>1분.</p></div>
+      <div class="beat bar2" style="--s:2.6s;--l:3.7s;top:38cqh"><div class="lb"><span>AI에게 묻기</span><span>1분</span></div><div class="tr"><div class="dot"></div></div></div>
+      <div class="beat bar2" style="--s:3s;--l:3.3s;top:49cqh"><div class="lb"><span>직접 생각하기</span><span>약 3일</span></div><div class="tr"><div class="lg2"></div></div><div class="days"><span style="--k:0">1일</span><span style="--k:1">2일</span><span style="--k:2">3일</span></div></div>
+      <div class="beat blk" style="--s:4.2s;--l:2.1s;top:64cqh"><p class="h md">스스로 생각하는 데 3일.</p></div>
       <div class="stamp"><p class="h xl">4,320배</p><p class="h md" style="margin-top:1cqw">차이가 난다</p></div>
-      <div class="beat blk" style="--s:6.5s;--l:2s;top:58cqh"><p class="h lg">그래서 우리는<br>생각을 맡긴다.</p></div>
-      <div class="bg cut" style="--s:8.6s;--l:9.9s;background:var(--cobalt)"></div>
-      <div class="beat blk" style="--s:8.7s;--l:2.2s;top:14cqh;color:#fff"><p class="h lg">효율적이다.</p></div>
-      <div class="beat blk" style="--s:9.9s;--l:1.5s;top:34cqh;color:#fff"><p class="h lg">그런데<br>효과적일까?</p></div>
-      <div class="chart" style="color:#fff">
-        <div class="cmp" style="bottom:calc(5cqh + 25cqh)"></div>
-        <div class="col" style="--s:11.4s;left:3cqw;height:25cqh;background:#fff"><b class="keep" style="--s:11.7s">46,225편</b><i class="keep" style="--s:11.7s">2025년<br>1~12월</i></div>
-        <div class="col" style="--s:12.5s;left:34cqw;height:33cqh;background:var(--hi)"><b class="keep" style="--s:12.8s">57,255편</b><i class="keep" style="--s:12.8s">2026년<br>1~10월</i></div>
+      <div class="beat blk" style="--s:6.9s;--l:1.7s;top:58cqh"><p class="h lg">그래서 우리는<br>생각을 맡긴다.</p></div>
+      <div class="bg cut" style="--s:8.7s;--l:11.8s;background:var(--cobalt)"></div>
+      <div class="beat blk" style="--s:8.8s;--l:1.2s;top:14cqh;color:#fff"><p class="h lg">효율적이다.</p></div>
+      <div class="beat blk" style="--s:9.9s;--l:1.5s;top:14cqh;color:#fff"><p class="h lg">그런데<br>효과적일까?</p></div>
+      <div class="beat blk" style="--s:11.6s;--l:3.1s;top:13cqh;color:#fff"><p class="h md">OpenAI가 하루에</p><p class="h xl cnt" style="margin-top:1cqw"></p></div>
+      <div class="pile beat" style="--s:11.6s;--l:3.1s">
+        <i class="pg" style="--k:0;--r:-5deg;left:2cqw;bottom:0"></i><i class="pg" style="--k:1;--r:4deg;left:34cqw;bottom:0"></i><i class="pg" style="--k:2;--r:-3deg;left:16cqw;bottom:3.4cqw"></i><i class="pg" style="--k:3;--r:6deg;left:44cqw;bottom:3.4cqw"></i><i class="pg" style="--k:4;--r:-6deg;left:4cqw;bottom:7cqw"></i><i class="pg" style="--k:5;--r:3deg;left:30cqw;bottom:7cqw"></i><i class="pg" style="--k:6;--r:-2deg;left:18cqw;bottom:10.6cqw"></i><i class="pg" style="--k:7;--r:7deg;left:42cqw;bottom:10.6cqw"></i><i class="pg" style="--k:8;--r:-4deg;left:8cqw;bottom:14.2cqw"></i><i class="pg" style="--k:9;--r:2deg;left:32cqw;bottom:14.2cqw"></i>
       </div>
-      <div class="beat blk" style="--s:13.6s;--l:3.1s;top:11cqh;color:#fff"><p class="h md">수학 논문, 올해 10개월이<br>작년 12개월을 넘었다.</p></div>
-      <div class="blk keep" style="--s:16.9s;top:11cqh;color:#fff"><p class="h lg">이해할 시간은?</p></div>
+      <div class="beat blk" style="--s:14.9s;--l:3.5s;top:12cqh;color:#fff"><p class="h sm">다음 날, 수학자 단체(AHM)가 성명을 냈다</p></div>
+      <div class="beat say" style="--s:15.4s;--l:3s;top:22cqh"><p class="h md">학술이 아니라<br>힘의 과시다.</p></div>
+      <div class="beat say" style="--s:16.9s;--l:1.5s;top:46cqh"><p class="h" style="font-size:7.6cqw">인간의 이해를 중심에 두는<br>과학으로 돌아가자.</p></div>
+      <div class="blk keep" style="--s:18.4s;top:12cqh;color:#fff"><p class="h lg">답은 쏟아진다.<br>이해할 시간은?</p></div>
     </section>
 
     <!-- 3편: 장면을 보여 준다 (욕구) -->
-    <section class="scene s3" data-t="15500" data-tone="light" data-cap="오전 9시에 접속하면, 눈 뜰 때 3주 치 생각이 내 기억에 남아 있다 (2045년, 우리가 그린 장면)">
+    <section class="scene s3" data-t="17300" data-tone="light" data-hap="9400" data-cap="생각할 시간을 만들 수 있다면? 오전 9시에 접속하면 눈 뜰 때 3주 치 생각이 내 기억에 남아 있다 (2045년, 우리가 그린 장면)" style="--off:1.8s">
       <div class="bg" style="background:var(--ink)"></div>
+      <div class="beat blk" style="--s:0s;--l:1.8s;--off:0s;top:9cqh"><p class="h lg">생각할 시간을<br>만들 수 있다면?</p></div>
       <div class="beat blk" style="--s:0s;--l:1.8s;top:9cqh"><p class="h lg">오전 9시,<br>접속.</p></div>
       <div class="beat blk" style="--s:1.8s;--l:5.8s;top:9cqh"><p class="h lg">시계는 1시간.<br>머릿속은 3주.</p></div>
       <div class="beat blk" style="--s:8.3s;--l:3.6s;top:9cqh"><p class="h lg">눈을 뜨면<br>3주 치 생각이<br>내 기억에.</p></div>
       <div class="blk keep" style="--s:12s;top:11cqh"><p class="h md">2045년의 아침.<br><span class="sm" style="display:block;margin-top:2cqw;opacity:.8">우리가 그린 장면입니다.<br>아직은 가정입니다.</span></p></div>
-      <div class="room keep" style="--s:0s"><svg viewBox="0 0 300 130" aria-hidden="true"><rect x="3" y="3" width="294" height="124" fill="none" stroke="#fff" stroke-width="3"/><line x1="3" y1="105" x2="297" y2="105" stroke="#fff" stroke-width="3"/><path d="M92 105 L108 48 Q111 40 120 40 L138 40 Q146 40 148 48 L165 82 L218 82 L218 105 Z" fill="#2457FF"/><rect x="122" y="60" width="86" height="26" rx="13" transform="rotate(-16 122 60)" fill="#E6E9FF"/><circle cx="128" cy="44" r="12" fill="#fff"/><path d="M115 42 Q128 27 141 42" stroke="#2457FF" stroke-width="4.5" fill="none"/><circle class="blinkdot" cx="128" cy="32" r="3" fill="#FFE45C"/></svg></div>
+      <div class="room keep" style="--s:0s;--off:0s"><svg viewBox="0 0 300 130" aria-hidden="true"><rect x="3" y="3" width="294" height="124" fill="none" stroke="#fff" stroke-width="3"/><line x1="3" y1="105" x2="297" y2="105" stroke="#fff" stroke-width="3"/><path d="M92 105 L108 48 Q111 40 120 40 L138 40 Q146 40 148 48 L165 82 L218 82 L218 105 Z" fill="#2457FF"/><rect x="122" y="60" width="86" height="26" rx="13" transform="rotate(-16 122 60)" fill="#E6E9FF"/><circle cx="128" cy="44" r="12" fill="#fff"/><path d="M115 42 Q128 27 141 42" stroke="#2457FF" stroke-width="4.5" fill="none"/><circle class="blinkdot" cx="128" cy="32" r="3" fill="#FFE45C"/></svg></div>
       <div class="beat clock" style="--s:1.2s;--l:6.4s"><div class="face"><div class="hand"></div></div><div class="num"><small>현실의 시간</small><span class="mins"></span></div></div>
       <div class="beat cal" style="--s:1.2s;--l:6.4s"><div class="cells"><i class="cell" style="--i:0"></i><i class="cell" style="--i:1"></i><i class="cell" style="--i:2"></i><i class="cell" style="--i:3"></i><i class="cell" style="--i:4"></i><i class="cell" style="--i:5"></i><i class="cell" style="--i:6"></i><i class="cell" style="--i:7"></i><i class="cell" style="--i:8"></i><i class="cell" style="--i:9"></i><i class="cell" style="--i:10"></i><i class="cell" style="--i:11"></i><i class="cell" style="--i:12"></i><i class="cell" style="--i:13"></i><i class="cell" style="--i:14"></i><i class="cell" style="--i:15"></i><i class="cell" style="--i:16"></i><i class="cell" style="--i:17"></i><i class="cell" style="--i:18"></i><i class="cell" style="--i:19"></i><i class="cell" style="--i:20"></i></div><div class="num"><small>머릿속의 시간</small><span class="dys"></span></div></div>
       <i class="mem" style="--k:0;left:56cqw;top:59cqh;--dx:-12cqw;--dy:-21cqh"></i><i class="mem" style="--k:1;left:64cqw;top:64cqh;--dx:-20cqw;--dy:-26cqh"></i><i class="mem" style="--k:2;left:72cqw;top:59cqh;--dx:-26cqw;--dy:-21cqh"></i><i class="mem" style="--k:3;left:80cqw;top:64cqh;--dx:-34cqw;--dy:-26cqh"></i><i class="mem" style="--k:4;left:60cqw;top:69cqh;--dx:-16cqw;--dy:-31cqh"></i><i class="mem" style="--k:5;left:68cqw;top:69cqh;--dx:-24cqw;--dy:-31cqh"></i><i class="mem" style="--k:6;left:76cqw;top:69cqh;--dx:-32cqw;--dy:-31cqh"></i><i class="mem" style="--k:7;left:84cqw;top:59cqh;--dx:-40cqw;--dy:-21cqh"></i>
       <div class="flash"></div>
     </section>
 
-    <!-- 4편: 솔직하게 말하고 말을 건다 (행동) -->
-    <section class="scene dk s4" data-t="17000" data-tone="dark" data-cap="아직 없는 기술입니다. 그래서 질문으로 남겼어요. 당신이라면 접속하시겠어요?">
+    <!-- 4편: 묻고, 인정하고, 직접 해 보게 한다 (행동) -->
+    <section class="scene dk s4" data-mode="ask" data-t="12500" data-tone="dark" data-cap="이거 만들 수 있을까요? 아직은 불가능합니다. 그래서 질문으로 남겼어요. 60초만 직접 생각해 볼까요?">
       <div class="bg" style="background:var(--lilac)"></div>
-      <div class="beat blk" style="--s:0s;--l:2.4s;top:12cqh"><p class="h" style="font-size:42cqw;line-height:.95">아직</p><p class="h lg" style="margin-top:2cqw">없는 기술입니다.</p></div>
-      <div class="beat row4" style="--s:2.5s;--l:5.3s;top:13cqh"><div class="nm">읽기</div><div class="st">마비 환자 임상이 진행 중</div><div class="segs"><i class="f" style="--s:2.9s;--k:0"></i><i class="f" style="--s:2.9s;--k:1"></i><i class="f" style="--s:2.9s;--k:2"></i><i class="n"></i></div></div>
-      <div class="beat row4" style="--s:3.9s;--l:3.9s;top:34cqh"><div class="nm">쓰기</div><div class="st">감각은 일부, 기억은 초기 연구</div><div class="segs"><i class="f" style="--s:4.3s;--k:0"></i><i class="f" style="--s:4.3s;--k:1"></i><i class="n"></i><i class="n"></i></div></div>
-      <div class="beat row4" style="--s:5.3s;--l:2.5s;top:55cqh"><div class="nm">복제·가속</div><div class="st">근거가 없는 가정</div><div class="segs as"><i class="n"></i><i class="n"></i><i class="n"></i><i class="n"></i></div></div>
-      <div class="beat blk" style="--s:8s;--l:2.8s;top:15cqh"><p class="h lg">그래서 이건<br>완성품이 아니라<br>던져 보는<br>질문입니다.</p></div>
-      <div class="blk keep" style="--s:11s;top:12cqh"><p class="h lg">당신이라면,<br>접속하시겠어요?</p></div>
-      <div class="choices keep" style="--s:12.4s"><button class="y" type="button" data-pick="y">접속해 본다</button><button type="button" data-pick="n">아직은 망설여진다</button></div>
-      <div class="res"><span id="resTxt"></span><small>그 이유를 포스터 앞 발표자에게 들려주세요.</small></div>
+      <div class="askgrp">
+        <div class="keep blk" style="--s:0s;top:12cqh"><p class="h xl" style="font-size:20cqw">이거<br>만들 수<br>있을까요?</p></div>
+        <div class="keep blk" style="--s:.9s;top:52cqh"><p class="sm">2045년의 ‘생각의 방’. 뇌를 읽고, 가상 공간에서 3주를 1시간으로 압축해, 기억으로 돌려보내는 장치입니다.</p></div>
+        <div class="choices keep" style="--s:1.4s;top:64cqh"><button class="y nudge" type="button" data-pick="y">만들 수 있다</button><button type="button" data-pick="n">어렵다고 본다</button></div>
+      </div>
+      <div class="r-cut bg" style="--s:0s;--l:2.8s;background:var(--ink)"></div>
+      <div class="r-beat blk" style="--s:0s;--l:2.8s;top:16cqh;color:#fff"><p class="h sm" id="echo" style="opacity:.75;margin-bottom:3cqw"></p><p class="h" style="font-size:21cqw;line-height:.98">아직<br>불가능<br>합니다.</p></div>
+      <div class="r-beat row4" style="--s:2.9s;--l:5s;top:13cqh"><div class="nm">읽기</div><div class="st">마비 환자 임상이 진행 중</div><div class="segs"><i class="f" style="--s:3.3s;--k:0"></i><i class="f" style="--s:3.3s;--k:1"></i><i class="f" style="--s:3.3s;--k:2"></i><i class="n"></i></div></div>
+      <div class="r-beat row4" style="--s:4.3s;--l:3.6s;top:34cqh"><div class="nm">쓰기</div><div class="st">감각은 일부, 기억은 초기 연구</div><div class="segs"><i class="f" style="--s:4.7s;--k:0"></i><i class="f" style="--s:4.7s;--k:1"></i><i class="n"></i><i class="n"></i></div></div>
+      <div class="r-beat row4" style="--s:5.7s;--l:2.2s;top:55cqh"><div class="nm">복제·가속</div><div class="st">근거가 없는 가정</div><div class="segs as"><i class="n"></i><i class="n"></i><i class="n"></i><i class="n"></i></div></div>
+      <div class="r-beat blk" style="--s:8.1s;--l:2.5s;top:15cqh"><p class="h lg">그래서 이건<br>완성품이 아니라<br>던져 보는<br>질문입니다.</p></div>
+      <div class="r-keep blk" style="--s:10.7s;top:12cqh"><p class="h lg">60초만,<br>직접 생각해<br>볼까요?</p></div>
+      <div class="r-keep cta" style="--s:11.3s;top:50cqh"><button class="p" type="button" id="toLab">60초 생각 실험 시작</button><button type="button" id="toDoc">설명 글 읽기</button></div>
     </section>
 
-    <!-- 5: 인스타 UI 없이, 설명하는 글 -->
-    <article class="doc" id="doc" data-tone="dark">
+    <!-- 5: 인스타 UI 없이, 설명하는 글과 실험 -->
+    <article class="doc" id="doc">
       <div class="in">
         <h1>생각의 방</h1>
         <p class="lead">1시간 접속, 몇 주 치 생각.</p>
-        <p>AI가 답을 주는 시대입니다. 질문 하나에 1분이면 답이 오고, 직접 생각하면 사흘쯤 걸립니다. 4,320배 차이입니다. 그래서 우리는 간단한 생각조차 AI에게 맡깁니다. 효율적인 선택이지만, 이해에는 효과적이지 않습니다.</p>
-        <p>수학 논문(arXiv 수학 분야)은 2025년 한 해 46,225편이었고, 2026년은 1~10월만 57,255편이 올라와 <strong>이미 작년 전체를 넘었습니다.</strong></p>
+        <p>인류의 학명은 호모 사피엔스, ‘슬기로운 사람’입니다. 인간은 스스로를 힘이 아니라 지혜로 정의했습니다. 그런데 AI가 답을 주는 지금, 질문 하나에 1분이면 답이 오고 직접 생각하면 사흘쯤 걸립니다. 4,320배 차이입니다. 그래서 우리는 간단한 생각조차 AI에게 맡깁니다. 효율적인 선택이지만, 이해에는 효과적이지 않습니다.</p>
+        <p>2026년 10월 6일, OpenAI가 수학 증명 원고 700여 편을 한꺼번에 공개했습니다. 이튿날 수학자 단체 AHM(Association for Human Mathematics)은 성명을 내고, 이 방식을 <strong>학술이 아니라 힘의 과시</strong>라고 비판하며 인간의 이해를 중심에 두는 과학으로 돌아가자고 촉구했습니다. 답을 만드는 속도는 AI가 앞서지만, 이해는 사람의 몫으로 남아 있습니다.</p>
+
+        <div class="lab" id="lab">
+          <div class="k">직접 해 보기</div>
+          <h2>60초 생각 실험</h2>
+          <p>AI에게 묻는 데는 1초, 직접 생각하는 데는 60초가 걸립니다. 어느 쪽이 내 것이 되는지 확인해 보세요. 쓴 내용은 이 기기 안에만 남고 어디로도 전송되지 않습니다.</p>
+
+          <div id="stPick">
+            <div class="chips" id="chips"></div>
+            <p class="qt" id="qt"></p>
+            <div class="modes">
+              <button class="mode p" type="button" id="mThink">60초 직접 생각하기<small>생각 흔적을 기록하고, 막힌 곳을 표시합니다</small></button>
+              <button class="mode" type="button" id="mAI">AI에게 바로 묻기<small>답을 받은 뒤, 내 말로 설명해 봅니다</small></button>
+            </div>
+          </div>
+
+          <div id="stThink" hidden>
+            <p class="qt" id="qt2"></p>
+            <div class="timer"><div class="ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="a" cx="50" cy="50" r="45"/><circle class="b" id="rb" cx="50" cy="50" r="45"/></svg><b id="tn">60</b></div><div class="tx">떠오르는 생각을 한 줄씩 적고 Enter를 누르세요. 막히면 ‘막혔어요’를 누르세요.</div></div>
+            <form class="trace" id="traceForm"><input id="traceIn" type="text" autocomplete="off" placeholder="지금 떠오른 생각" aria-label="생각 흔적"><button type="submit">기록</button></form>
+            <div class="tools"><button type="button" class="stuck" id="bStuck">막혔어요</button><button type="button" id="bHint">힌트 보기 (0/2)</button><button type="button" id="bDone">다 했어요</button></div>
+            <ul class="log" id="liveLog"></ul>
+            <ul class="log" id="hintLog"></ul>
+          </div>
+
+          <div id="stReview" hidden>
+            <h3 style="margin-top:18px;font-size:20px;letter-spacing:-.04em">복기</h3>
+            <p style="margin-top:6px">내 60초를 시간 순서로 다시 봅니다. 노란 마름모는 막힌 곳, 파란 네모는 생각 한 줄, 흰 동그라미는 힌트입니다.</p>
+            <div class="tline" id="tline" aria-hidden="true"></div>
+            <ul class="log" id="reviewLog" style="margin-top:46px"></ul>
+            <div class="row3"><button class="btn p" type="button" id="bReveal">풀이 보기</button></div>
+            <div class="ans" id="ansBox" hidden></div>
+            <div id="selfBox" hidden><p style="margin-top:14px"><b>내 생각과 비교하면 어땠나요?</b></p><div class="row3"><button class="btn" type="button" data-self="같았다">내 생각과 같았다</button><button class="btn" type="button" data-self="일부">일부만 맞았다</button><button class="btn" type="button" data-self="달랐다">전혀 달랐다 / 몰랐다</button></div></div>
+          </div>
+
+          <div id="stAI" hidden>
+            <p class="qt" id="qt3"></p>
+            <div class="sum"><div><b>1초</b><span>답을 받는 데 걸린 시간</span></div></div>
+            <div class="ans" id="aiAns"></div>
+            <p style="margin-top:14px"><b>이제 이 풀이를 내 말로 한 줄로 설명해 보세요.</b></p>
+            <textarea id="explain" placeholder="다른 사람에게 말하듯이 써 보세요" aria-label="내 말로 설명"></textarea>
+            <div class="timer" style="margin-top:8px"><div class="tx">설명을 쓰는 데 <b id="expT">0</b>초 걸렸습니다.</div></div>
+            <div class="row2"><button class="btn" type="button" data-ex="할 수 있다">설명할 수 있다</button><button class="btn" type="button" data-ex="어렵다">아직 어렵다</button></div>
+          </div>
+
+          <div id="stWrap" hidden>
+            <h3 style="margin-top:18px;font-size:20px;letter-spacing:-.04em" id="wrapT"></h3>
+            <div class="sum" id="wrapSum"></div>
+            <div class="link" id="wrapMsg"></div>
+            <div class="row3"><button class="btn p" type="button" id="bOther"></button><button class="btn" type="button" id="bCopy">내 기록 복사하기</button><button class="btn" type="button" id="bAgain">다른 질문으로 다시</button></div>
+          </div>
+        </div>
 
         <h2>생각의 방은 이렇게 작동합니다</h2>
-        <ol>
+        <ol class="steps">
           <li><b>읽기</b><span>헤드밴드가 뇌 신호를 측정하고 AI가 해독합니다.</span></li>
           <li><b>가속</b><span>내 뇌를 모사한 모델이 가상 공간에서 몇 주 치 생각을 1시간으로 압축합니다.</span></li>
           <li><b>귀환</b><span>생각한 과정이 결론과 함께 내 기억으로 돌아옵니다.</span></li>
           <li><b>복기</b><span>생각이 글과 영상으로 남아, 막힌 곳부터 다시 볼 수 있습니다.</span></li>
         </ol>
 
-        <h2>혼자 깊이 생각할 시간이 필요한 사람을 위한 방입니다</h2>
-        <p>진리를 탐구하는 수학자, 진짜 바쁜 창업가, 마음이 힘든 직장인. 이 시간을 낼 수 없었던 사람들이 눈을 뜨면 몇 주 동안 씨름한 기억을 갖고 돌아옵니다.</p>
-
         <h2>솔직히, 아직 없는 기술입니다</h2>
         <p>읽기는 마비 환자 대상 임상이 진행 중이며 승인된 기기는 아직 없습니다. 쓰기는 감각 신호 일부와 간질 환자 대상 초기 연구가 있을 뿐이고, 복제와 가속은 근거가 없는 가정입니다. 1회 최대 4시간, 사용 후 뇌 정보 삭제 같은 안전장치도 우리가 가정한 정책입니다. 우리는 2045년의 한 장면을 그려 보고, 무엇부터 검증해야 하는지를 질문으로 남겼습니다.</p>
 
         <div class="acts">
-          <a class="p" href="../">60초 생각 챌린지 해 보기</a>
           <a href="../deck.html">발표 슬라이드 보기</a>
           <a href="../poster/E26-AI01-07.pdf">포스터 PDF 보기</a>
           <a href="https://github.com/kookmin-sw/E26-AI01-07">GitHub 저장소</a>
         </div>
 
-        <p class="fine"><b>팀 E26-AI01-07</b> 서재민(퍼실리테이터) · 송채원(사용자 관찰자) · 하준서(기록자) · 윤서후(시각화 담당)<br><b>AI 활용</b> 삽화는 Google Gemini로 생성했고 문안 정리에 생성형 AI를 보조로 사용했습니다. 내용의 판단과 결정은 팀이 했습니다.<br><b>참고자료</b> 인간수학협회(AHM) 성명(2026.10.7), OpenAI 증명 원고 공개(2026.10.6), arXiv 수학 분야 연도별 통계, 뇌-컴퓨터 인터페이스 임상 연구 동향, 해마 기억 보철 연구(2018·2022), 칠레 헌법 개정(2021), 콜로라도·캘리포니아 신경 데이터 보호법(2024), 유네스코 신경기술 윤리 권고(2025)<br>이 페이지는 개인정보를 수집하지 않습니다. 숏츠 형식은 초안입니다.</p>
+        <p class="fine"><b>팀 E26-AI01-07</b> 서재민(퍼실리테이터) · 송채원(사용자 관찰자) · 하준서(기록자) · 윤서후(시각화 담당)<br><b>AI 활용</b> 삽화는 Google Gemini로 생성했고 문안 정리에 생성형 AI를 보조로 사용했습니다. 내용의 판단과 결정은 팀이 했습니다.<br><b>참고자료</b> 인간수학협회(Association for Human Mathematics) 성명(2026.10.7), OpenAI 수학 원고 공개(2026.10.6), 필즈상 수상자 공동 선언(2026.9.11), 뇌-컴퓨터 인터페이스 임상 연구 동향, 해마 기억 보철 연구(2018·2022), 칠레 헌법 개정(2021), 콜로라도·캘리포니아 신경 데이터 보호법(2024), 유네스코 신경기술 윤리 권고(2025)<br>60초 생각 실험은 학술 실험이 아니라 체험입니다. 이 페이지는 개인정보를 수집하지 않습니다. 숏츠 형식은 초안입니다.</p>
       </div>
     </article>
   </div>
 
   <!-- 릴스 겉틀 -->
-  <div class="chrome" id="chrome" aria-hidden="false">
-    <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
+  <div class="chrome" id="chrome">
+    <div class="prog" id="prog" aria-label="영상 이동"><i></i><i></i><i></i><i></i></div>
     <div class="ttl">릴스</div>
+    <div class="swipe" id="swipe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>밀어서 다음</div>
     <div class="rail">
       <button type="button" class="heart" id="heart" aria-label="좋아요"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="hc">4,320</span></button>
-      <button type="button" id="cm" aria-label="댓글"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><span>3주</span></button>
+      <button type="button" id="cm" aria-label="댓글"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><span id="cc">3주</span></button>
       <button type="button" id="sh" aria-label="공유"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg><span>공유</span></button>
-      <button type="button" aria-label="더보기"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
     </div>
     <div class="meta">
-      <div class="who"><span class="av">방</span>think.room<span class="fol">팔로우</span></div>
+      <div class="who"><span class="av">방</span>think.room<button type="button" class="fol" id="fol">팔로우</button></div>
       <div class="cap" id="cap"></div>
       <div class="aud">소리 없이도 이해되는 영상</div>
     </div>
   </div>
+  <div class="hud" id="hud">0:00 / 0:00</div>
   <div class="pauseicon" id="pi"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg></div>
   <svg class="bigheart" id="bh" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
   <div class="toast" id="toast"></div>
+  <div class="sheetbg" id="sheetbg"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-label="댓글">
+    <h3>댓글</h3>
+    <p>3주 치 생각이 생긴다면, 어디에 쓰고 싶나요? 쓴 글은 이 화면에서만 보입니다.</p>
+    <ul id="cmList"></ul>
+    <form id="cmForm"><input id="cmIn" type="text" autocomplete="off" placeholder="댓글 달기" aria-label="댓글"><button type="submit">게시</button></form>
+  </div>
 </div>
 
 <script>
 (function () {
-  var phone = document.getElementById('phone'), reel = document.getElementById('reel');
+  var $ = function (id) { return document.getElementById(id); };
+  var phone = $('phone'), reel = $('reel');
   var scenes = [].slice.call(document.querySelectorAll('.scene'));
-  var doc = document.getElementById('doc');
-  var segs = [].slice.call(document.querySelectorAll('#prog i'));
-  var cap = document.getElementById('cap');
-  var toast = document.getElementById('toast'), pi = document.getElementById('pi'), bh = document.getElementById('bh');
-  var heart = document.getElementById('heart'), hc = document.getElementById('hc');
-  var cur = -1, st = null, paused = false, tt = 0;
+  var doc = $('doc');
+  var prog = $('prog'), segs = [].slice.call(prog.querySelectorAll('i'));
+  var cap = $('cap'), toast = $('toast'), pi = $('pi'), bh = $('bh'), hud = $('hud'), swipe = $('swipe');
+  var heart = $('heart'), hc = $('hc');
+  var cur = -1, st = null, tt = 0;
 
   function say(m) { toast.textContent = m; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 1800); }
+  function buzz(ms) { if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} } }
+  function fmt(ms) { var s = Math.max(0, Math.floor(ms / 1000)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
 
+  /* ---------- 장면 타임라인 ---------- */
+  function anims() {
+    if (!st) return [];
+    return st.sc.getAnimations({ subtree: true }).concat(segs[st.i].getAnimations({ subtree: true }));
+  }
+  function pos() { return st.playing ? performance.now() - st.t0 : st.hold; }
+  function clearTimers() { if (!st) return; clearTimeout(st.loop); st.tm.forEach(clearTimeout); st.tm = []; }
+  function arm(fromMs) {
+    clearTimers();
+    var sc = st.sc, i = st.i, seq = st.seq;
+    if (!st.ask) st.loop = setTimeout(function () { if (st && st.seq === seq) begin(sc, i); }, Math.max(50, st.T - fromMs));
+    (sc.dataset.hap || '').split(',').forEach(function (h) {
+      var t = +h; if (!t || t <= fromMs) return;
+      st.tm.push(setTimeout(function () { if (st && st.seq === seq && st.playing) buzz(18); }, t - fromMs));
+    });
+    st.tm.push(setTimeout(function () { if (st && st.seq === seq) swipe.classList.add('show'); }, Math.max(0, st.T * .72 - fromMs)));
+  }
   function begin(sc, i) {
-    clearTimeout(st && st.timer);
-    sc.classList.remove('play', 'paused', 'chosen');
+    if (st) clearTimers();
+    sc.classList.remove('play', 'rv');
+    swipe.classList.remove('show');
     void sc.offsetWidth;
     sc.classList.add('play');
-    var T = +sc.dataset.t;
-    st = { sc: sc, T: T, t0: performance.now(), rem: T, timer: setTimeout(function () { begin(sc, i); }, T) };
+    var ask = sc.dataset.mode === 'ask';
+    st = { sc: sc, i: i, T: +sc.dataset.t, t0: performance.now(), hold: 0, playing: true, tm: [], loop: 0, seq: (st ? st.seq : 0) + 1, ask: ask };
     segs.forEach(function (s, k) { s.classList.toggle('done', k < i); s.classList.remove('on'); });
     void phone.offsetWidth;
-    segs[i].style.setProperty('--T', T + 'ms');
-    segs[i].classList.add('on');
+    if (!ask) {
+      segs[i].style.setProperty('--T', st.T + 'ms'); segs[i].classList.add('on');
+      arm(0);
+    }
   }
   function end(sc) {
-    if (st && st.sc === sc) clearTimeout(st.timer);
-    sc.classList.remove('play', 'paused', 'chosen');
+    if (st && st.sc === sc) clearTimers();
+    sc.classList.remove('play', 'rv');
+    swipe.classList.remove('show');
   }
-  function setPause(p) {
-    if (!st) return;
-    paused = p;
-    phone.classList.toggle('paused', p);
-    st.sc.classList.toggle('paused', p);
-    if (p) { clearTimeout(st.timer); st.rem = st.T - (performance.now() - st.t0); }
-    else { st.t0 = performance.now() - (st.T - st.rem); var sc = st.sc, i = scenes.indexOf(sc); st.timer = setTimeout(function () { begin(sc, i); }, st.rem); }
-    pi.querySelector('svg').innerHTML = p ? '<path d="M7 4l13 8-13 8z"/>' : '<rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/>';
+  function pause(icon) {
+    if (!st || !st.playing) return;
+    st.hold = pos(); st.playing = false; clearTimers();
+    anims().forEach(function (a) { try { a.pause(); } catch (e) {} });
+    if (icon) flashIcon(true);
+  }
+  function resume(icon) {
+    if (!st || st.playing) return;
+    st.t0 = performance.now() - st.hold; st.playing = true;
+    anims().forEach(function (a) { try { a.play(); } catch (e) {} });
+    if (!st.ask || st.revealed) arm(st.hold);
+    if (icon) flashIcon(false);
+  }
+  function seek(ms) {
+    ms = Math.max(0, Math.min(st.T - 30, ms));
+    anims().forEach(function (a) { try { a.currentTime = ms; } catch (e) {} });
+    st.hold = ms;
+    swipe.classList.toggle('show', ms > st.T * .72);
+  }
+  function flashIcon(isPause) {
+    pi.querySelector('svg').innerHTML = isPause ? '<rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/>' : '<path d="M7 4l13 8-13 8z"/>';
     pi.classList.add('show'); setTimeout(function () { pi.classList.remove('show'); }, 450);
+  }
+
+  /* 4편: 답을 고르면 공개 장면이 시작된다 */
+  function reveal(sc, pick) {
+    if (st.revealed) return;
+    st.revealed = true;
+    $('echo').textContent = pick === 'y' ? '‘만들 수 있다’고 답하셨네요.' : '‘어렵다’고 답하셨네요.';
+    sc.classList.add('rv');
+    buzz(40);
+    st.T = 12500; st.t0 = performance.now(); st.playing = true; st.hold = 0;
+    var i = st.i; segs[i].style.setProperty('--T', '12500ms'); segs[i].classList.remove('on'); void segs[i].offsetWidth; segs[i].classList.add('on');
+    clearTimers();
+    st.tm.push(setTimeout(function () { swipe.classList.add('show'); }, 12000));
   }
 
   var io = new IntersectionObserver(function (es) {
@@ -366,70 +542,232 @@ a { color: inherit; }
       if (e.isIntersecting && e.intersectionRatio >= .6) {
         if (cur !== i) {
           if (cur >= 0) end(scenes[cur]);
-          cur = i; paused = false; phone.classList.remove('paused');
+          cur = i;
           phone.dataset.tone = e.target.dataset.tone;
           cap.textContent = e.target.dataset.cap;
           begin(e.target, i);
         }
-      } else if (!e.isIntersecting && cur === i) {
-        end(e.target); cur = -1;
-      }
+      } else if (!e.isIntersecting && cur === i) { end(e.target); cur = -1; }
     });
   }, { root: reel, threshold: [0, .6] });
   scenes.forEach(function (s) { io.observe(s); });
 
-  var io2 = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      var on = e.isIntersecting && e.intersectionRatio > .45;
+  /* 설명 글 구간에서는 릴스 겉틀을 숨긴다 */
+  var ticking = false;
+  function docCheck() {
+    ticking = false;
+    var on = reel.scrollTop > doc.offsetTop - reel.clientHeight * .5;
+    if (on !== phone.classList.contains('docmode')) {
       phone.classList.toggle('docmode', on);
-      if (on) { segs.forEach(function (s) { s.classList.add('done'); s.classList.remove('on'); }); }
-    });
-  }, { root: reel, threshold: [0, .45] });
-  io2.observe(doc);
+      if (on) segs.forEach(function (s) { s.classList.add('done'); s.classList.remove('on'); });
+    }
+  }
+  reel.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(docCheck); } }, { passive: true });
 
-  /* 탭: 일시정지, 두 번 탭: 좋아요 */
-  var lastTap = 0, tapTimer = 0;
+  /* ---------- 제스처: 탭=일시정지, 두 번 탭=좋아요, 가로로 끌면 되감기 ---------- */
+  var g = null, lastTap = 0, tapTimer = 0;
   function like() {
-    if (!heart.classList.contains('on')) { heart.classList.add('on'); hc.textContent = '4,321'; }
+    if (!heart.classList.contains('on')) { heart.classList.add('on'); hc.textContent = '4,321'; buzz(12); }
     bh.classList.remove('show'); void bh.getBoundingClientRect(); bh.classList.add('show');
   }
-  reel.addEventListener('click', function (e) {
-    if (e.target.closest('button, a, .doc')) return;
+  reel.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('button, a, input, textarea, .doc')) { g = null; return; }
+    g = { x: e.clientX, y: e.clientY, drag: false, was: false, base: 0, w: reel.clientWidth, t: Date.now() };
+  });
+  reel.addEventListener('pointermove', function (e) {
+    if (!g || !st || st.ask) return;
+    var dx = e.clientX - g.x, dy = e.clientY - g.y;
+    if (!g.drag && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+      g.drag = true; g.was = !st.playing; g.base = pos(); pause(false); hud.classList.add('show');
+    }
+    if (g.drag) {
+      seek(g.base + dx / g.w * st.T * 1.1);
+      hud.textContent = fmt(st.hold) + ' / ' + fmt(st.T);
+    }
+  });
+  function up(e) {
+    if (!g) return;
+    var gg = g; g = null;
+    if (gg.drag) { hud.classList.remove('show'); if (!gg.was) resume(false); return; }
+    if (Math.abs(e.clientX - gg.x) > 8 || Math.abs(e.clientY - gg.y) > 8 || e.type === 'pointercancel') return;
     var now = Date.now();
     if (now - lastTap < 320) { clearTimeout(tapTimer); lastTap = 0; like(); return; }
     lastTap = now;
-    tapTimer = setTimeout(function () { setPause(!paused); }, 320);
+    tapTimer = setTimeout(function () { if (!st || st.ask && !st.revealed) return; if (st.playing) pause(true); else resume(true); }, 320);
+  }
+  reel.addEventListener('pointerup', up);
+  reel.addEventListener('pointercancel', function () { if (g && g.drag) { hud.classList.remove('show'); if (!g.was) resume(false); } g = null; });
+
+  /* 진행 막대를 누르면 그 편으로 */
+  prog.addEventListener('click', function (e) {
+    var r = prog.getBoundingClientRect();
+    var k = Math.max(0, Math.min(3, Math.floor((e.clientX - r.left) / r.width * 4)));
+    scenes[k].scrollIntoView({ behavior: 'smooth' });
   });
-  heart.addEventListener('click', function () {
-    var on = heart.classList.toggle('on'); hc.textContent = on ? '4,321' : '4,320';
-  });
-  document.getElementById('cm').addEventListener('click', function () { say('3주 치 생각은 포스터 앞 발표자와 나눠 보세요'); });
-  document.getElementById('sh').addEventListener('click', function () {
+
+  heart.addEventListener('click', function () { var on = heart.classList.toggle('on'); hc.textContent = on ? '4,321' : '4,320'; if (on) buzz(12); });
+  $('fol').addEventListener('click', function () { var b = $('fol'); var on = b.classList.toggle('on'); b.textContent = on ? '팔로잉' : '팔로우'; });
+  $('sh').addEventListener('click', function () {
     var u = location.href;
     if (navigator.share) { navigator.share({ title: '생각의 방', url: u }).catch(function () {}); }
     else if (navigator.clipboard) { navigator.clipboard.writeText(u).then(function () { say('링크를 복사했어요'); }); }
   });
-  [].forEach.call(document.querySelectorAll('[data-pick]'), function (b) {
-    b.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var sc = b.closest('.scene');
-      document.getElementById('resTxt').textContent = b.dataset.pick === 'y' ? '좋아요. 3주 치 생각을 해 보세요.' : '그 망설임이 우리의 검증 질문입니다.';
-      sc.classList.add('chosen');
-      if (st && st.sc === sc) clearTimeout(st.timer);
-    });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === ' ' ) { e.preventDefault(); setPause(!paused); }
+
+  /* 댓글 시트 */
+  var sheet = $('sheet'), sbg = $('sheetbg'), cmList = $('cmList'), cc = $('cc'), wasPlaying = false;
+  function openSheet() { wasPlaying = st && st.playing; if (wasPlaying) pause(false); sheet.classList.add('show'); sbg.classList.add('show'); }
+  function closeSheet() { sheet.classList.remove('show'); sbg.classList.remove('show'); if (wasPlaying) resume(false); }
+  $('cm').addEventListener('click', openSheet);
+  sbg.addEventListener('click', closeSheet);
+  $('cmForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('cmIn').value.trim(); if (!v) return;
+    var li = document.createElement('li'); var b = document.createElement('b'); b.textContent = '나'; li.appendChild(b); li.appendChild(document.createTextNode(v));
+    cmList.insertBefore(li, cmList.firstChild); $('cmIn').value = ''; cc.textContent = String(cmList.children.length); buzz(10);
   });
 
-  /* 점검용: ?s=장면번호(0~3, 4=설명 글)&t=초 로 그 시점에 멈춘 화면을 본다 */
+  /* 4편 버튼 */
+  [].forEach.call(document.querySelectorAll('[data-pick]'), function (b) {
+    b.addEventListener('click', function (e) { e.stopPropagation(); reveal(b.closest('.scene'), b.dataset.pick); });
+  });
+  $('toLab').addEventListener('click', function () { $('lab').scrollIntoView({ behavior: 'smooth' }); });
+  $('toDoc').addEventListener('click', function () { doc.scrollIntoView({ behavior: 'smooth' }); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target.closest('input, textarea')) return;
+    if (!st || phone.classList.contains('docmode')) return;
+    if (e.key === ' ') { e.preventDefault(); if (st.playing) pause(true); else resume(true); }
+    else if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !st.ask) { var was = !st.playing; var b = pos(); pause(false); seek(b + (e.key === 'ArrowRight' ? 2000 : -2000)); if (!was) resume(false); }
+    else if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); reel.scrollBy({ top: reel.clientHeight, behavior: 'smooth' }); }
+    else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); reel.scrollBy({ top: -reel.clientHeight, behavior: 'smooth' }); }
+  });
+
+  /* ---------- 60초 생각 실험 ---------- */
+  var Q = {
+    gauss: { name: '가우스의 합', q: '1부터 100까지 모두 더하면 얼마일까요? 계산기 없이, 더 빠른 방법이 있을까요?', hints: ['맨 앞의 수와 맨 뒤의 수를 더해 보세요.', '그 합이 몇 번 나오는지 세어 보세요.'], ans: '<b>5,050</b>입니다. 1+100, 2+99, 3+98처럼 양 끝을 짝지으면 합이 모두 101이고, 그런 짝이 50쌍이라 101×50=5,050입니다.' },
+    paper: { name: '종이접기와 달', q: '두께 0.1mm 종이를 반으로 접으면 두께가 2배가 됩니다. 계속 접으면 몇 번째에 달(약 38만 km)에 닿을까요?', hints: ['한 번 접으면 2배, 두 번이면 4배, 세 번이면 8배가 됩니다.', '2를 10번 곱하면 약 1,000입니다. 이것을 이어 가 보세요.'], ans: '<b>42번</b>입니다. 0.1mm×2의 42제곱은 약 44만 km로 달까지의 거리를 넘고, 41번은 약 22만 km라 닿지 못합니다. (실제 종이는 이렇게 접히지 않습니다.)' },
+    ship: { name: '테세우스의 배', q: '낡은 배의 부품을 하나씩 모두 새것으로 바꿨습니다. 그 배는 처음의 그 배일까요?', hints: ['‘같다’의 기준이 재료인지, 모양인지, 이어진 역사인지 정해 보세요.', '내 기준이 다른 사람과 다르면 결론도 달라지는지 확인해 보세요.'], ans: '<b>정답은 없습니다.</b> 재료를 기준으로 삼으면 다른 배이고, 모양이나 이어짐을 기준으로 삼으면 같은 배입니다. 우리 팀은 정체성이 기억의 이어짐에 있다고 가정했습니다.' }
+  };
+  var qk = 'gauss', mode = '', traces = [], tStart = 0, tTimer = 0, hintN = 0, self = '', exAns = '', exStart = 0, exTimer = 0;
+  var steps = ['stPick', 'stThink', 'stReview', 'stAI', 'stWrap'];
+  function show(id) { steps.forEach(function (s) { $(s).hidden = (s !== id); }); }
+  function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
+  function setQ(k) {
+    qk = k;
+    [].forEach.call($('chips').children, function (c) { c.classList.toggle('on', c.dataset.k === k); });
+    $('qt').textContent = Q[k].q; $('qt2').textContent = Q[k].q; $('qt3').textContent = Q[k].q;
+  }
+  Object.keys(Q).forEach(function (k) {
+    var b = el('button', 'chip', Q[k].name); b.type = 'button'; b.dataset.k = k;
+    b.addEventListener('click', function () { setQ(k); });
+    $('chips').appendChild(b);
+  });
+  setQ('gauss');
+
+  function sec() { return Math.min(60, (Date.now() - tStart) / 1000); }
+  function addLog(ul, t, txt, cls) {
+    var li = el('li', cls || ''); li.appendChild(el('i', '', fmt(t * 1000))); li.appendChild(el('span', '', txt)); ul.appendChild(li);
+  }
+  function tick() {
+    var s = sec(), left = Math.max(0, 60 - s);
+    $('tn').textContent = Math.ceil(left);
+    $('rb').style.strokeDashoffset = String(282.74 * (s / 60));
+    if (left <= 0) finishThink();
+  }
+  function startThink() {
+    mode = 'think'; traces = []; hintN = 0;
+    $('liveLog').innerHTML = ''; $('hintLog').innerHTML = ''; $('bHint').textContent = '힌트 보기 (0/2)'; $('bHint').disabled = false;
+    show('stThink'); tStart = Date.now(); tick(); tTimer = setInterval(tick, 200);
+    setTimeout(function () { $('traceIn').focus({ preventScroll: true }); }, 50);
+  }
+  function finishThink() {
+    clearInterval(tTimer);
+    var pend = $('traceIn').value.trim();
+    if (pend) { traces.push({ t: sec(), k: 'w', x: pend }); $('traceIn').value = ''; }
+    renderReview(); show('stReview'); $('lab').scrollIntoView({ behavior: 'smooth' });
+  }
+  $('traceForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('traceIn').value.trim(); if (!v) return;
+    var t = sec(); traces.push({ t: t, k: 'w', x: v }); addLog($('liveLog'), t, v); $('traceIn').value = '';
+    $('liveLog').lastChild.scrollIntoView({ block: 'nearest' }); buzz(8);
+  });
+  $('bStuck').addEventListener('click', function () {
+    var t = sec(); traces.push({ t: t, k: 's', x: '여기서 막혔다' }); addLog($('liveLog'), t, '여기서 막혔다', 's'); buzz(20);
+  });
+  $('bHint').addEventListener('click', function () {
+    if (hintN >= 2) return;
+    var t = sec(), h = Q[qk].hints[hintN]; hintN++;
+    traces.push({ t: t, k: 'h', x: '힌트 ' + hintN + ': ' + h }); addLog($('hintLog'), t, '힌트 ' + hintN + ': ' + h, 'h');
+    $('bHint').textContent = '힌트 보기 (' + hintN + '/2)'; if (hintN >= 2) $('bHint').disabled = true;
+  });
+  $('bDone').addEventListener('click', finishThink);
+
+  function renderReview() {
+    var tl = $('tline'); tl.innerHTML = ''; $('reviewLog').innerHTML = '';
+    traces.forEach(function (r) {
+      var sp = el('span', r.k === 's' ? 's' : r.k === 'h' ? 'h' : ''); sp.style.left = (r.t / 60 * 100) + '%'; tl.appendChild(sp);
+      addLog($('reviewLog'), r.t, r.x, r.k === 's' ? 's' : r.k === 'h' ? 'h' : '');
+    });
+    var e0 = el('em', '', '0초'); e0.style.left = '0'; var e1 = el('em', '', '60초'); e1.style.right = '0'; tl.appendChild(e0); tl.appendChild(e1);
+    if (!traces.length) $('reviewLog').appendChild(el('li', '', '기록이 없습니다. 말없이 생각했다면 그것도 생각입니다. 풀이를 보고 비교해 보세요.'));
+    $('ansBox').hidden = true; $('selfBox').hidden = true; $('bReveal').hidden = false;
+  }
+  $('bReveal').addEventListener('click', function () {
+    $('ansBox').innerHTML = Q[qk].ans; $('ansBox').hidden = false; $('selfBox').hidden = false; $('bReveal').hidden = true;
+    $('ansBox').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+  [].forEach.call(document.querySelectorAll('[data-self]'), function (b) {
+    b.addEventListener('click', function () { self = b.dataset.self; wrap('think'); });
+  });
+
+  $('mThink').addEventListener('click', startThink);
+  $('mAI').addEventListener('click', function () {
+    mode = 'ai'; $('aiAns').innerHTML = Q[qk].ans; $('explain').value = ''; $('expT').textContent = '0';
+    show('stAI'); exStart = Date.now(); clearInterval(exTimer);
+    exTimer = setInterval(function () { $('expT').textContent = String(Math.floor((Date.now() - exStart) / 1000)); }, 500);
+  });
+  [].forEach.call(document.querySelectorAll('[data-ex]'), function (b) {
+    b.addEventListener('click', function () { clearInterval(exTimer); exAns = b.dataset.ex; wrap('ai'); });
+  });
+
+  function wrap(kind) {
+    show('stWrap');
+    var sum = $('wrapSum'); sum.innerHTML = '';
+    function box(n, l) { var d = el('div'); d.appendChild(el('b', '', n)); d.appendChild(el('span', '', l)); sum.appendChild(d); }
+    if (kind === 'think') {
+      var w = traces.filter(function (r) { return r.k === 'w'; }).length, s = traces.filter(function (r) { return r.k === 's'; }).length;
+      $('wrapT').textContent = '내 60초를 복기했습니다';
+      box(String(w), '생각 한 줄'); box(String(s), '막힌 곳'); box(String(hintN), '본 힌트');
+      $('wrapMsg').innerHTML = '방금 한 일이 생각의 방의 <b>복기</b>입니다. 생각을 기록하고, 막힌 곳을 표시하고, 거기서부터 다시 보는 것입니다. 우리 가정(3주를 1시간에)대로라면 방금 60초는 약 <b>8시간</b>의 생각에 해당합니다. 비교 결과는 ‘' + self + '’였습니다.';
+      $('bOther').textContent = 'AI에게 바로 묻는 쪽도 해 보기'; $('bOther').onclick = function () { $('mAI').click(); };
+    } else {
+      var secs = Math.max(1, Math.round((Date.now() - exStart) / 1000));
+      $('wrapT').textContent = '받은 답을 내 말로 옮겨 봤습니다';
+      box('1초', '답을 받는 데'); box(secs + '초', '설명을 쓰는 데'); box(exAns, '스스로 평가');
+      $('wrapMsg').innerHTML = '답을 받는 데는 1초였지만 <b>내 말로 옮기는 데는 ' + secs + '초</b>가 걸렸고, 평가는 ‘' + exAns + '’였습니다. 같은 질문을 <b>직접 생각</b>하는 쪽으로 해 보면 무엇이 다른지 비교해 보세요. 이것은 학술 실험이 아니라 체험입니다.';
+      $('bOther').textContent = '직접 생각하는 쪽도 해 보기'; $('bOther').onclick = function () { startThink(); };
+    }
+    $('lab').scrollIntoView({ behavior: 'smooth' });
+  }
+  $('bCopy').addEventListener('click', function () {
+    var lines = ['[생각의 방 · 60초 생각 실험] ' + Q[qk].name];
+    if (mode === 'think') { traces.forEach(function (r) { lines.push(fmt(r.t * 1000) + ' ' + r.x); }); }
+    else { lines.push('내 설명: ' + ($('explain').value || '(비어 있음)')); }
+    if (navigator.clipboard) navigator.clipboard.writeText(lines.join('\n')).then(function () { $('bCopy').textContent = '복사했어요'; setTimeout(function () { $('bCopy').textContent = '내 기록 복사하기'; }, 1500); });
+  });
+  $('bAgain').addEventListener('click', function () { clearInterval(tTimer); clearInterval(exTimer); show('stPick'); self = ''; exAns = ''; });
+  show('stPick');
+
+  /* 점검용: ?s=장면번호(0~3, 4=설명 글)&t=초 로 그 시점에 멈춘 화면을 본다. 4편은 &rv=1 로 공개 장면 */
   var m = location.search.match(/[?&]s=(\d)(?:&t=([\d.]+))?/);
   if (m) {
     var n = +m[1], secs = parseFloat(m[2] || '0');
     var target = n < scenes.length ? scenes[n] : doc;
     target.scrollIntoView({ behavior: 'instant' });
     setTimeout(function () {
-      if (st) clearTimeout(st.timer);
+      if (/[?&]rv=1/.test(location.search) && st && st.ask) reveal(st.sc, 'y');
+      if (st) clearTimers();
       document.getAnimations().forEach(function (a) { a.pause(); a.currentTime = secs * 1000; });
     }, 700);
   }
