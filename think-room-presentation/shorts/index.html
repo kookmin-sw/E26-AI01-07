@@ -24,6 +24,8 @@ a { color: inherit; }
 .scene { position: relative; height: 100%; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; container-type: size; color: #fff; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
 .scene.dk { color: var(--ink); }
 
+.scene > * { pointer-events: none; }
+.scene .choices, .scene .cta { pointer-events: auto; }
 .blk { position: absolute; left: 7cqw; right: 15cqw; }
 .h { font-weight: 900; letter-spacing: -.065em; line-height: 1.04; }
 .xl { font-size: 19cqw; } .lg { font-size: 12.5cqw; } .md { font-size: 9cqw; } .sm { font-size: 5cqw; letter-spacing: -.04em; font-weight: 700; line-height: 1.3; }
@@ -180,7 +182,7 @@ a { color: inherit; }
 @keyframes heartpop { 40% { transform: scale(1.35); } }
 .meta { position: absolute; left: 14px; right: 72px; bottom: calc(env(safe-area-inset-bottom, 0px) + 52px); font-size: 14px; line-height: 1.4; }
 .who { display: flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -.02em; }
-.av { width: 30px; height: 30px; border-radius: 50%; background: var(--cobalt); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; border: 1.5px solid currentColor; text-shadow: none; }
+.av { width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--lilac) url(img/av.webp) center / cover no-repeat; border: 2px solid currentColor; }
 .fol { margin-left: 2px; padding: 3px 10px; border: 1.5px solid currentColor; border-radius: 6px; font-size: 12px; font-weight: 800; }
 .fol.on { opacity: .7; }
 .cap { margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; letter-spacing: -.02em; }
@@ -514,7 +516,7 @@ a { color: inherit; }
       <button type="button" id="sh" aria-label="공유"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg><span>공유</span></button>
     </div>
     <div class="meta">
-      <div class="who"><span class="av">방</span>think.room<button type="button" class="fol" id="fol">팔로우</button></div>
+      <div class="who"><span class="av" role="img" aria-label="생각의 방 계정 프로필 사진"></span>think.room<button type="button" class="fol" id="fol">팔로우</button></div>
       <div class="cap" id="cap"></div>
       <div class="aud">소리 없이도 이해되는 영상</div>
     </div>
