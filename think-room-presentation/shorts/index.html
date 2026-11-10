@@ -132,6 +132,28 @@ a { color: inherit; }
 .cta a, .cta button { display: block; padding: 4.4cqw 4cqw; font-size: 5.6cqw; font-weight: 900; letter-spacing: -.04em; text-align: left; text-decoration: none; border: .8cqw solid var(--ink); }
 .cta .p { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
 
+/* 5편 */
+@keyframes growy { to { transform: scaleY(1); } }
+.tl5 { position: absolute; left: 7cqw; right: 15cqw; top: 20cqh; height: 52cqh; }
+.tl5 .ln { position: absolute; left: 3.4cqw; top: 3cqw; bottom: 3cqw; width: .9cqw; background: #fff; transform-origin: 50% 0; transform: scaleY(0); }
+.play .tl5 .ln { animation: growy 6.2s 3s linear both; }
+.nd { position: absolute; left: 0; right: 0; display: grid; grid-template-columns: 8cqw 1fr; column-gap: 4.5cqw; align-items: start; }
+.nd .dt { display: block; width: 7.8cqw; height: 7.8cqw; border-radius: 50%; background: var(--hi); border: .9cqw solid #fff; }
+.nd.as .dt { background: var(--ink); border-style: dashed; }
+.nd.go .dt { background: var(--cobalt); }
+.nd .yr { font-size: 9cqw; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+.nd .lb { margin-top: 1cqw; font-size: 5.2cqw; font-weight: 700; letter-spacing: -.04em; line-height: 1.3; }
+.nd .tg { display: inline-block; margin-left: 2cqw; padding: .3cqw 1.6cqw; border: .5cqw dashed var(--hi); font-size: 3.6cqw; font-weight: 800; letter-spacing: 0; color: var(--hi); vertical-align: middle; }
+.rw { position: absolute; left: 7cqw; right: 15cqw; display: flex; align-items: center; justify-content: space-between; }
+.rw .nm { font-size: 9cqw; font-weight: 900; letter-spacing: -.06em; }
+.flip { position: relative; width: 25cqw; height: 10cqw; }
+.flip b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 5.6cqw; font-weight: 900; letter-spacing: -.04em; color: #fff; }
+.flip .a { background: var(--ink); }
+.flip .c { background: var(--cobalt); opacity: 0; }
+.play .flip .c { animation: keep .01s calc(var(--s) + .9s) both; }
+.s5 .cta button { border-color: #fff; color: #fff; }
+.s5 .cta .p { border-color: var(--cobalt); }
+
 /* 릴스 겉틀 */
 .chrome { position: absolute; inset: 0; z-index: 5; pointer-events: none; color: #fff; transition: opacity .45s, color .25s; text-shadow: 0 0 14px rgba(0, 0, 0, .12); }
 .phone[data-tone="dark"] .chrome { color: var(--ink); text-shadow: none; }
@@ -195,6 +217,7 @@ a { color: inherit; }
 .doc ol.steps { margin-top: 14px; list-style: none; border-top: 2px solid var(--ink); }
 .doc ol.steps li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid #C9CFE0; font-size: 16px; line-height: 1.6; }
 .doc ol.steps li b { font-size: 20px; font-weight: 900; letter-spacing: -.05em; }
+.doc ol.steps.wide li { grid-template-columns: 92px 1fr; }
 .acts { margin-top: 40px; display: grid; gap: 10px; }
 .acts a { display: block; padding: 16px 18px; font-size: 17px; font-weight: 800; text-decoration: none; border: 2px solid var(--ink); }
 .doc .fine { margin-top: 36px; font-size: 13px; line-height: 1.65; color: #4A5468; }
@@ -211,7 +234,7 @@ a { color: inherit; }
 .lab .chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 .lab .chip { padding: 8px 14px; border: 2px solid var(--ink); font-size: 14px; }
 .lab .chip.on { background: var(--ink); color: #fff; }
-.lab .qt { margin-top: 14px; padding: 14px 16px; background: var(--lilac); font-size: 18px; font-weight: 800; line-height: 1.5; letter-spacing: -.03em; }
+.lab .qt { margin-top: 14px; padding: 14px 16px; background: var(--lilac); font-size: 16.5px; font-weight: 800; line-height: 1.5; letter-spacing: -.03em; }
 .lab .modes { margin-top: 14px; display: grid; gap: 10px; }
 .lab .mode { padding: 16px; text-align: left; border: 2px solid var(--ink); font-size: 17px; line-height: 1.35; }
 .lab .mode small { display: block; margin-top: 2px; font-size: 13px; font-weight: 600; color: #4A5468; }
@@ -320,7 +343,7 @@ a { color: inherit; }
     </section>
 
     <!-- 4편: 묻고, 인정하고, 직접 해 보게 한다 (행동) -->
-    <section class="scene dk s4" data-mode="ask" data-t="12500" data-tone="dark" data-cap="이거 만들 수 있을까요? 아직은 불가능합니다. 그래서 질문으로 남겼어요. 60초만 직접 생각해 볼까요?">
+    <section class="scene dk s4" data-mode="ask" data-t="12500" data-tone="dark" data-cap="이거 만들 수 있을까요? 아직은 불가능합니다. 그런데도 우리는 만들 수 있다고 생각합니다. 왜?">
       <div class="bg" style="background:var(--lilac)"></div>
       <div class="askgrp">
         <div class="keep blk" style="--s:0s;top:12cqh"><p class="h xl" style="font-size:20cqw">이거<br>만들 수<br>있을까요?</p></div>
@@ -333,11 +356,39 @@ a { color: inherit; }
       <div class="r-beat row4" style="--s:4.3s;--l:3.6s;top:34cqh"><div class="nm">쓰기</div><div class="st">감각은 일부, 기억은 초기 연구</div><div class="segs"><i class="f" style="--s:4.7s;--k:0"></i><i class="f" style="--s:4.7s;--k:1"></i><i class="n"></i><i class="n"></i></div></div>
       <div class="r-beat row4" style="--s:5.7s;--l:2.2s;top:55cqh"><div class="nm">복제·가속</div><div class="st">근거가 없는 가정</div><div class="segs as"><i class="n"></i><i class="n"></i><i class="n"></i><i class="n"></i></div></div>
       <div class="r-beat blk" style="--s:8.1s;--l:2.5s;top:15cqh"><p class="h lg">그래서 이건<br>완성품이 아니라<br>던져 보는<br>질문입니다.</p></div>
-      <div class="r-keep blk" style="--s:10.7s;top:12cqh"><p class="h lg">60초만,<br>직접 생각해<br>볼까요?</p></div>
-      <div class="r-keep cta" style="--s:11.3s;top:50cqh"><button class="p" type="button" id="toLab">60초 생각 실험 시작</button><button type="button" id="toDoc">설명 글 읽기</button></div>
+      <div class="r-keep blk" style="--s:10.7s;top:12cqh"><p class="h lg">그런데도<br>우리는<br>만들 수 있다고<br>생각한다.</p></div>
+      <div class="r-keep blk" style="--s:11.8s;top:62cqh"><p class="h xl" style="color:var(--cobalt)">왜?</p></div>
     </section>
 
-    <!-- 5: 인스타 UI 없이, 설명하는 글과 실험 -->
+    <!-- 5편: 왜 만들 수 있다고 생각하는가 -->
+    <section class="scene s5" data-t="23500" data-noloop="1" data-tone="light" data-tonemap="10000:dark,15600:light" data-hap="3100,4900,6700,8500,10900,16300,19600" data-cap="아직 불가능한데 왜 만들 수 있다고 생각할까? 2026년 임상에서 2045년까지, 문자와 스마트폰처럼 받아들여진 역사, 이미 시작된 신경 데이터 보호 약속.">
+      <div class="bg" style="background:var(--cobalt)"></div>
+      <div class="beat blk" style="--s:0s;--l:2.7s;top:14cqh"><p class="h lg">아직 불가능한데,</p><p class="h xl">왜</p><p class="h lg">만들 수 있다고<br>생각할까?</p></div>
+      <div class="bg cut" style="--s:2.7s;--l:7.3s;background:var(--ink)"></div>
+      <div class="beat blk" style="--s:2.8s;--l:7.2s;top:9cqh"><p class="h md">기술은 이렇게 온다</p></div>
+      <div class="tl5 beat" style="--s:2.8s;--l:7.2s">
+        <div class="ln"></div>
+        <div class="nd keep" style="--s:3.1s;top:0"><i class="dt"></i><div><div class="yr">2026</div><div class="lb">환자 대상 임상이 진행 중</div></div></div>
+        <div class="nd as keep" style="--s:4.9s;top:13cqh"><i class="dt"></i><div><div class="yr">2036경<span class="tg">가정</span></div><div class="lb">일상 기기로 확산</div></div></div>
+        <div class="nd as keep" style="--s:6.7s;top:26cqh"><i class="dt"></i><div><div class="yr">2040년대<span class="tg">가정</span></div><div class="lb">시대에 맞춘 규제와 정책</div></div></div>
+        <div class="nd go keep" style="--s:8.5s;top:39cqh"><i class="dt"></i><div><div class="yr">2045</div><div class="lb">생각의 방이 열린다</div></div></div>
+      </div>
+      <div class="bg cut" style="--s:10s;--l:5.6s;background:var(--hi)"></div>
+      <div class="beat blk" style="--s:10.1s;--l:5.4s;top:9cqh;color:var(--ink)"><p class="h lg">처음엔 모두<br>걱정이었다.</p></div>
+      <div class="beat rw" style="--s:10.9s;--l:4.6s;top:34cqh;color:var(--ink)"><span class="nm">문자</span><span class="flip"><b class="a">걱정</b><b class="c">일상</b></span></div>
+      <div class="beat rw" style="--s:11.8s;--l:3.7s;top:46cqh;color:var(--ink)"><span class="nm">스마트폰</span><span class="flip"><b class="a">걱정</b><b class="c">일상</b></span></div>
+      <div class="beat rw" style="--s:12.7s;--l:2.8s;top:58cqh;color:var(--ink)"><span class="nm">디지털 결제</span><span class="flip"><b class="a">걱정</b><b class="c">일상</b></span></div>
+      <div class="beat blk" style="--s:14.2s;--l:1.4s;top:70cqh;color:var(--ink)"><p class="h" style="font-size:5.8cqw">편익 + 안전장치 + 점진적 노출 = 일상</p></div>
+      <div class="beat blk" style="--s:15.7s;--l:3.7s;top:10cqh"><p class="h md">뇌 데이터를 지키는<br>약속은 이미 시작됐다</p></div>
+      <div class="beat say" style="--s:16.3s;--l:3.1s;top:30cqh"><p class="h" style="font-size:6.6cqw">칠레 헌법 개정</p><p class="sm" style="margin-top:1cqw">2021</p></div>
+      <div class="beat say" style="--s:17s;--l:2.4s;top:46cqh"><p class="h" style="font-size:6.6cqw">미국 콜로라도·캘리포니아<br>신경 데이터 보호법</p><p class="sm" style="margin-top:1cqw">2024</p></div>
+      <div class="beat say" style="--s:17.7s;--l:1.7s;top:66cqh"><p class="h" style="font-size:6.6cqw">유네스코<br>신경기술 윤리 권고</p><p class="sm" style="margin-top:1cqw">2025</p></div>
+      <div class="bg cut" style="--s:19.4s;--l:60s;background:var(--ink)"></div>
+      <div class="blk keep" style="--s:19.6s;top:11cqh"><p class="h lg">지금은<br>불가능해도,<br>묻고 검증할<br>가치가 있다.</p></div>
+      <div class="keep cta" style="--s:21.4s;top:56cqh"><button class="p" type="button" id="toLab">60초 생각 실험 시작</button><button type="button" id="toDoc">설명 글 읽기</button></div>
+    </section>
+
+    <!-- 6: 인스타 UI 없이, 설명하는 글과 실험 -->
     <article class="doc" id="doc">
       <div class="in">
         <h1>생각의 방</h1>
@@ -348,7 +399,7 @@ a { color: inherit; }
         <div class="lab" id="lab">
           <div class="k">직접 해 보기</div>
           <h2>60초 생각 실험</h2>
-          <p>AI에게 묻는 데는 1초, 직접 생각하는 데는 60초가 걸립니다. 어느 쪽이 내 것이 되는지 확인해 보세요. 쓴 내용은 이 기기 안에만 남고 어디로도 전송되지 않습니다.</p>
+          <p>AI에게 묻는 데는 1초, 직접 생각하는 데는 60초가 걸립니다. 어느 쪽이 내 것이 되는지 확인해 보세요. 질문은 일부러 어렵게 골랐습니다. 60초 안에 풀지 못해도 괜찮습니다. 정답이 아니라 <strong>막힌 곳</strong>을 남기는 것이 목적입니다. 쓴 내용은 이 기기 안에만 남고 어디로도 전송되지 않습니다.</p>
 
           <div id="stPick">
             <div class="chips" id="chips"></div>
@@ -407,6 +458,18 @@ a { color: inherit; }
         <h2>솔직히, 아직 없는 기술입니다</h2>
         <p>읽기는 마비 환자 대상 임상이 진행 중이며 승인된 기기는 아직 없습니다. 쓰기는 감각 신호 일부와 간질 환자 대상 초기 연구가 있을 뿐이고, 복제와 가속은 근거가 없는 가정입니다. 1회 최대 4시간, 사용 후 뇌 정보 삭제 같은 안전장치도 우리가 가정한 정책입니다. 우리는 2045년의 한 장면을 그려 보고, 무엇부터 검증해야 하는지를 질문으로 남겼습니다.</p>
 
+        <h2>그래도 만들 수 있다고 보는 이유</h2>
+        <p>기술은 이미 한쪽 끝에서 시작됐습니다. 2026년 지금 마비 환자를 위한 뇌-컴퓨터 인터페이스 임상이 진행 중이고, 우리는 이것이 2036년경 일상의 기기로 퍼지고 2040년대에 시대에 맞는 규제와 정책이 생기며 2045년에 생각의 방으로 이어진다고 가정했습니다. 사회가 받아들이는 방식에도 선례가 있습니다. 문자도, 스마트폰도, 디지털 결제도 처음에는 걱정의 대상이었지만 <strong>편익이 크고, 안전장치가 생기고, 천천히 익숙해지면서</strong> 일상이 됐습니다. 소크라테스는 문자를 비판적으로 보았지만 지금 모든 문명은 문자 위에 서 있습니다.</p>
+
+        <h2>사회적으로 고려한 것</h2>
+        <ol class="steps wide">
+          <li><b>뇌 정보</b><span>접속 중 읽은 뇌 정보는 사용 후 삭제하고, 본인만 열람하며, 최고 보안 등급으로 다룬다고 가정했습니다. 칠레 헌법 개정(2021), 미국 콜로라도·캘리포니아의 신경 데이터 보호법(2024), 유네스코 신경기술 윤리 권고(2025)가 이미 이 문제를 다루기 시작했습니다.</span></li>
+          <li><b>이용 시간</b><span>1회 최대 4시간으로 제한해 과몰입을 막는다고 가정했습니다.</span></li>
+          <li><b>정체성</b><span>복제본의 경험이 원본에 합쳐지는지 사라지는지는 열린 질문입니다. 우리 가설은 정체성이 기억의 연속에 있다는 것이며, 앞으로 가장 먼저 따져야 할 철학적 질문입니다.</span></li>
+          <li><b>받아들임</b><span>새 기술은 편익, 안전장치, 점진적 노출을 거쳐 일상이 되었습니다. 기술보다 사회의 속도가 더 오래 걸릴 수 있습니다.</span></li>
+          <li><b>남은 질문</b><span>비용과 접근성(생각할 시간이 돈으로 거래되면 격차가 생기지 않을까), 의존과 과사용, 동의와 미성년자 보호는 앞으로 더 검증할 질문으로 남겨 둡니다.</span></li>
+        </ol>
+
         <div class="acts">
           <a href="../deck.html">발표 슬라이드 보기</a>
           <a href="../poster/E26-AI01-07.pdf">포스터 PDF 보기</a>
@@ -420,7 +483,7 @@ a { color: inherit; }
 
   <!-- 릴스 겉틀 -->
   <div class="chrome" id="chrome">
-    <div class="prog" id="prog" aria-label="영상 이동"><i></i><i></i><i></i><i></i></div>
+    <div class="prog" id="prog" aria-label="영상 이동"><i></i><i></i><i></i><i></i><i></i></div>
     <div class="ttl">릴스</div>
     <div class="swipe" id="swipe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>밀어서 다음</div>
     <div class="rail">
@@ -468,11 +531,21 @@ a { color: inherit; }
     return st.sc.getAnimations({ subtree: true }).concat(segs[st.i].getAnimations({ subtree: true }));
   }
   function pos() { return st.playing ? performance.now() - st.t0 : st.hold; }
+  function toneAt(ms) {
+    var tone = st.sc.dataset.tone;
+    (st.sc.dataset.tonemap || '').split(',').forEach(function (p) { if (!p) return; var a = p.split(':'); if (+a[0] <= ms) tone = a[1]; });
+    phone.dataset.tone = tone;
+  }
   function clearTimers() { if (!st) return; clearTimeout(st.loop); st.tm.forEach(clearTimeout); st.tm = []; }
   function arm(fromMs) {
     clearTimers();
     var sc = st.sc, i = st.i, seq = st.seq;
-    if (!st.ask) st.loop = setTimeout(function () { if (st && st.seq === seq) begin(sc, i); }, Math.max(50, st.T - fromMs));
+    toneAt(fromMs);
+    (sc.dataset.tonemap || '').split(',').forEach(function (p) {
+      if (!p) return; var a = p.split(':'), t = +a[0]; if (t <= fromMs) return;
+      st.tm.push(setTimeout(function () { if (st && st.seq === seq) phone.dataset.tone = a[1]; }, t - fromMs));
+    });
+    if (!st.ask && !st.noloop) st.loop = setTimeout(function () { if (st && st.seq === seq) begin(sc, i); }, Math.max(50, st.T - fromMs));
     (sc.dataset.hap || '').split(',').forEach(function (h) {
       var t = +h; if (!t || t <= fromMs) return;
       st.tm.push(setTimeout(function () { if (st && st.seq === seq && st.playing) buzz(18); }, t - fromMs));
@@ -486,7 +559,7 @@ a { color: inherit; }
     void sc.offsetWidth;
     sc.classList.add('play');
     var ask = sc.dataset.mode === 'ask';
-    st = { sc: sc, i: i, T: +sc.dataset.t, t0: performance.now(), hold: 0, playing: true, tm: [], loop: 0, seq: (st ? st.seq : 0) + 1, ask: ask };
+    st = { sc: sc, i: i, T: +sc.dataset.t, t0: performance.now(), hold: 0, playing: true, tm: [], loop: 0, seq: (st ? st.seq : 0) + 1, ask: ask, noloop: sc.dataset.noloop === '1' };
     segs.forEach(function (s, k) { s.classList.toggle('done', k < i); s.classList.remove('on'); });
     void phone.offsetWidth;
     if (!ask) {
@@ -515,7 +588,7 @@ a { color: inherit; }
   function seek(ms) {
     ms = Math.max(0, Math.min(st.T - 30, ms));
     anims().forEach(function (a) { try { a.currentTime = ms; } catch (e) {} });
-    st.hold = ms;
+    st.hold = ms; toneAt(ms);
     swipe.classList.toggle('show', ms > st.T * .72);
   }
   function flashIcon(isPause) {
@@ -601,7 +674,7 @@ a { color: inherit; }
   /* 진행 막대를 누르면 그 편으로 */
   prog.addEventListener('click', function (e) {
     var r = prog.getBoundingClientRect();
-    var k = Math.max(0, Math.min(3, Math.floor((e.clientX - r.left) / r.width * 4)));
+    var k = Math.max(0, Math.min(4, Math.floor((e.clientX - r.left) / r.width * 5)));
     scenes[k].scrollIntoView({ behavior: 'smooth' });
   });
 
@@ -644,11 +717,12 @@ a { color: inherit; }
 
   /* ---------- 60초 생각 실험 ---------- */
   var Q = {
-    gauss: { name: '가우스의 합', q: '1부터 100까지 모두 더하면 얼마일까요? 계산기 없이, 더 빠른 방법이 있을까요?', hints: ['맨 앞의 수와 맨 뒤의 수를 더해 보세요.', '그 합이 몇 번 나오는지 세어 보세요.'], ans: '<b>5,050</b>입니다. 1+100, 2+99, 3+98처럼 양 끝을 짝지으면 합이 모두 101이고, 그런 짝이 50쌍이라 101×50=5,050입니다.' },
-    paper: { name: '종이접기와 달', q: '두께 0.1mm 종이를 반으로 접으면 두께가 2배가 됩니다. 계속 접으면 몇 번째에 달(약 38만 km)에 닿을까요?', hints: ['한 번 접으면 2배, 두 번이면 4배, 세 번이면 8배가 됩니다.', '2를 10번 곱하면 약 1,000입니다. 이것을 이어 가 보세요.'], ans: '<b>42번</b>입니다. 0.1mm×2의 42제곱은 약 44만 km로 달까지의 거리를 넘고, 41번은 약 22만 km라 닿지 못합니다. (실제 종이는 이렇게 접히지 않습니다.)' },
-    ship: { name: '테세우스의 배', q: '낡은 배의 부품을 하나씩 모두 새것으로 바꿨습니다. 그 배는 처음의 그 배일까요?', hints: ['‘같다’의 기준이 재료인지, 모양인지, 이어진 역사인지 정해 보세요.', '내 기준이 다른 사람과 다르면 결론도 달라지는지 확인해 보세요.'], ans: '<b>정답은 없습니다.</b> 재료를 기준으로 삼으면 다른 배이고, 모양이나 이어짐을 기준으로 삼으면 같은 배입니다. 우리 팀은 정체성이 기억의 이어짐에 있다고 가정했습니다.' }
+    tue: { name: '화요일에 태어난 아들', q: '한 가족에 아이가 둘 있습니다. 그중 적어도 한 명은 ‘화요일에 태어난 아들’입니다. 두 아이가 모두 아들일 확률은 얼마일까요? (성별과 요일은 모두 같은 확률이라고 봅니다.)', hints: ['아이 둘의 (성별, 요일) 조합을 모두 나열해 보세요. 한 아이당 14가지입니다.', '요일 정보 때문에 ‘두 아이 모두 해당하는 경우’가 줄어드는 점을 세어 보세요.'], ans: '<b>13/27 (약 48%)</b>입니다. 두 아이의 조합은 14×14=196가지이고, 적어도 한 명이 화요일 아들인 경우는 196−13²=27가지입니다. 그중 두 아이가 모두 아들인 경우가 13가지입니다. 요일을 말하지 않으면 1/3인데, 정보가 늘어날수록 확률이 1/2에 가까워집니다.' },
+    box: { name: '100명의 죄수', q: '죄수 100명에게 1~100번 번호가 주어지고, 1~100번 번호표가 무작위로 들어 있는 상자 100개가 있습니다. 각자 상자를 최대 50개까지 열어 자기 번호를 찾아야 하고, 한 명이라도 실패하면 모두 실패합니다. 시작 전에만 상의할 수 있다면, 모두 성공할 확률이 가장 높은 전략은 무엇일까요? (각자 무작위로 열면 거의 0입니다.)', hints: ['상자 안에서 나온 번호를 ‘다음에 열 상자의 번호’로 쓰면 어떨까요?', '이렇게 따라가면 상자들이 고리(순환)로 이어집니다. 가장 긴 고리가 50 이하일 확률을 생각해 보세요.'], ans: '<b>자기 번호의 상자부터 열고, 안에서 나온 번호의 상자를 이어서 여는 전략</b>입니다. 모두 성공하는 것은 무작위 배치의 가장 긴 순환 길이가 50 이하인 것과 같고, 그 확률은 약 <b>31%</b>입니다. 각자 따로 무작위로 열 때의 약 10의 −30제곱과는 비교할 수 없습니다.' },
+    clone: { name: '복제된 나의 3주', q: '내 뇌를 정확히 복제한 모델이 가상 공간에서 3주 동안 생각하고, 그 기억이 내 뇌에 기록됩니다. 그 3주를 ‘산’ 것은 나일까요, 복제본일까요? 복제본의 경험은 원본에 합쳐지는 걸까요, 사라지는 걸까요?', hints: ['‘나’를 정하는 기준이 뇌의 물질인지, 기억의 이어짐인지, 지금의 의식인지 하나를 고르세요.', '그 기준을 매일 하는 잠이나 전신마취에 적용해 보세요. 결론이 그대로인가요?'], ans: '<b>정답이 없는 열린 질문</b>입니다. 기억의 이어짐을 기준으로 삼으면 돌아온 기억은 내 것이고, 물질이나 의식의 연속성을 기준으로 삼으면 복제본의 경험일 뿐입니다. 우리 팀의 가설은 정체성이 기억의 연속에 있다는 것이지만, 아직 검증하지 못한 질문입니다.' },
+    verify: { name: '검증 병목 계산', q: '전문가 한 명이 증명 한 편을 이해하고 검증하는 데 일주일이 걸립니다. AI가 증명 원고를 하루 700편씩 매일 내놓는다면, 원고가 쌓이지 않게 하려면 전문가가 몇 명 필요할까요? 그리고 이 숫자는 무엇을 말해 줄까요?', hints: ['전문가 한 명이 하루에 처리하는 양은 1/7편입니다.', '하루에 들어오는 양 ÷ 한 명이 하루에 처리하는 양을 계산해 보세요.'], ans: '<b>4,900명</b>입니다. 700편 ÷ (1/7편)=4,900명이 쉬지 않고 일해야 합니다(가정치). 답을 만드는 속도는 순식간인데 이해하는 속도는 사람의 시간에 묶여 있다는 뜻이고, 생각의 방이 겨냥하는 병목이 바로 이것입니다.' }
   };
-  var qk = 'gauss', mode = '', traces = [], tStart = 0, tTimer = 0, hintN = 0, self = '', exAns = '', exStart = 0, exTimer = 0;
+  var qk = 'tue', mode = '', traces = [], tStart = 0, tTimer = 0, hintN = 0, self = '', exAns = '', exStart = 0, exTimer = 0;
   var steps = ['stPick', 'stThink', 'stReview', 'stAI', 'stWrap'];
   function show(id) { steps.forEach(function (s) { $(s).hidden = (s !== id); }); }
   function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
@@ -662,7 +736,7 @@ a { color: inherit; }
     b.addEventListener('click', function () { setQ(k); });
     $('chips').appendChild(b);
   });
-  setQ('gauss');
+  setQ('tue');
 
   function sec() { return Math.min(60, (Date.now() - tStart) / 1000); }
   function addLog(ul, t, txt, cls) {
