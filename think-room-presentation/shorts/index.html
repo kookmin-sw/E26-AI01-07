@@ -215,6 +215,20 @@ a { color: inherit; }
 .holdb { position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 64px); transform: translateX(-50%); padding: 6px 12px; background: rgba(10, 14, 31, .82); color: #fff; font-size: 13px; font-weight: 800; z-index: 7; opacity: 0; transition: opacity .15s; pointer-events: none; }
 .holdb.show { opacity: 1; }
 .scene { -webkit-touch-callout: none; }
+.sb { position: absolute; right: 50px; top: calc(env(safe-area-inset-top, 0px) + 18px); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: transform .12s; }
+.sb:active { transform: scale(.88); }
+.sb svg { width: 24px; height: 24px; fill: currentColor; }
+.cover { position: absolute; inset: 0; z-index: 30; background: var(--cobalt); color: #fff; container-type: size; transition: opacity .35s, visibility .35s; }
+.cover.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.cover .cv-img { position: absolute; left: 7cqw; top: 9cqh; width: 52cqw; aspect-ratio: 1; object-fit: cover; border: .8cqw solid #fff; box-shadow: 2.4cqw 2.4cqw 0 var(--hi); }
+.cover .cv-t { position: absolute; left: 7cqw; right: 7cqw; top: 40cqh; }
+.cover h1 { font-size: 20cqw; font-weight: 900; letter-spacing: -.065em; line-height: 1; }
+.cover .cv-l { margin-top: 2cqw; font-size: 7cqw; font-weight: 900; letter-spacing: -.05em; line-height: 1.15; }
+.cover .cv-s { margin-top: 3cqw; font-size: 4.2cqw; font-weight: 600; letter-spacing: -.02em; line-height: 1.5; opacity: .92; }
+.cover .cv-b { position: absolute; left: 7cqw; right: 7cqw; bottom: 8cqh; display: grid; gap: 2.4cqw; }
+.cover .cv-b button { padding: 4.6cqw 4cqw; font-size: 6cqw; font-weight: 900; letter-spacing: -.04em; text-align: left; border: .8cqw solid #fff; color: #fff; transition: transform .12s; }
+.cover .cv-b button:active { transform: scale(.97); }
+.cover .cv-b .p { background: #fff; color: var(--cobalt); }
 .sheetbg { position: absolute; inset: 0; background: rgba(4, 6, 13, .5); z-index: 10; opacity: 0; pointer-events: none; transition: opacity .25s; }
 .sheetbg.show { opacity: 1; pointer-events: auto; }
 .sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 11; background: #fff; color: var(--ink); padding: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 16px); transform: translateY(105%); transition: transform .32s cubic-bezier(.2, .8, .2, 1); max-height: 70%; display: flex; flex-direction: column; }
@@ -509,6 +523,7 @@ a { color: inherit; }
     <div class="prog" id="prog" aria-label="영상 이동"><i></i><i></i><i></i><i></i><i></i></div>
     <div class="ttl">릴스<small id="ord">1/5</small></div>
     <button type="button" class="pb" id="pb" aria-label="일시정지"></button>
+    <button type="button" class="sb" id="sb" aria-label="소리 끄기" aria-pressed="true"></button>
     <div class="swipe" id="swipe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l8-8 8 8"/></svg>밀어서 다음</div>
     <div class="rail">
       <button type="button" class="heart" id="heart" aria-label="좋아요"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="hc">4,320</span></button>
@@ -526,6 +541,11 @@ a { color: inherit; }
   <div class="holdb" id="holdb">꾹 누르는 동안 멈춤</div>
   <div class="pauseicon" id="pi"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg></div>
   <svg class="bigheart" id="bh" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+  <div class="cover" id="cover" role="dialog" aria-label="시작">
+    <img class="cv-img" src="img/c1.webp" alt="">
+    <div class="cv-t"><h1>생각의 방</h1><p class="cv-l">1시간 접속, 몇 주 치 생각.</p><p class="cv-s">약 90초 길이의 숏츠 5편과 직접 해 보는 실험입니다. 소리가 나오니 이어폰을 끼면 더 좋아요.</p></div>
+    <div class="cv-b"><button type="button" class="p" id="cvOn">소리 켜고 시작</button><button type="button" id="cvOff">소리 끄고 보기</button></div>
+  </div>
   <div class="toast" id="toast"></div>
   <div class="sheetbg" id="sheetbg"></div>
   <div class="sheet" id="sheet" role="dialog" aria-label="댓글">
@@ -539,6 +559,114 @@ a { color: inherit; }
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- 소리: 파일 없이 브라우저에서 합성하는 효과음 ---------- */
+  window.__sfx = { n: 0, last: '', err: '' };
+  function Synth(ac, out) {
+    var S = {}, nbuf = null;
+    function noiseBuf() {
+      if (nbuf) return nbuf;
+      var len = Math.floor(ac.sampleRate * 1.5); nbuf = ac.createBuffer(1, len, ac.sampleRate);
+      var d = nbuf.getChannelData(0); for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      return nbuf;
+    }
+    function env(t, a, d, peak) {
+      var n = ac.createGain(); n.gain.setValueAtTime(0.0001, t);
+      n.gain.exponentialRampToValueAtTime(Math.max(peak, 0.0002), t + a);
+      n.gain.exponentialRampToValueAtTime(0.0001, t + a + d); n.connect(out); return n;
+    }
+    function osc(type, f, t, a, d, peak, to) {
+      var o = ac.createOscillator(), n = env(t, a, d, peak); o.type = type; o.frequency.setValueAtTime(f, t);
+      if (to) o.frequency.exponentialRampToValueAtTime(to, t + a + d);
+      o.connect(n); o.start(t); o.stop(t + a + d + .05);
+    }
+    function nz(t, a, d, peak, ftype, f0, f1, q) {
+      var s = ac.createBufferSource(), fl = ac.createBiquadFilter(), n = env(t, a, d, peak);
+      s.buffer = noiseBuf(); fl.type = ftype; fl.frequency.setValueAtTime(f0, t);
+      if (f1) fl.frequency.exponentialRampToValueAtTime(f1, t + a + d);
+      fl.Q.value = q || 1; s.connect(fl); fl.connect(n); s.start(t, Math.random() * .5); s.stop(t + a + d + .05);
+    }
+    var PENTA = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24];
+    function note(base, i) { return base * Math.pow(2, PENTA[Math.max(0, Math.min(i, PENTA.length - 1))] / 12); }
+    S.tick = function (t, f) { osc('triangle', f || 1800, t, .002, .04, .12); nz(t, .001, .02, .06, 'highpass', 4000); };
+    S.tock = function (t) { osc('triangle', 700, t, .003, .07, .16, 500); };
+    S.cut = function (t) { nz(t, .01, .13, .16, 'bandpass', 800, 3500, .8); osc('sine', 300, t, .005, .06, .08, 120); };
+    S.swipe = function (t) { nz(t, .02, .16, .09, 'bandpass', 500, 1800, .7); };
+    S.whoosh = function (t) { nz(t, .15, .45, .18, 'bandpass', 300, 2600, .6); };
+    S.door = function (t) { nz(t, .2, .7, .2, 'lowpass', 2400, 300, .8); osc('sine', 95, t, .05, .5, .12, 60); };
+    S.ding = function (t, f) { f = f || 880; osc('sine', f, t, .004, .7, .18); osc('sine', f * 2, t, .004, .35, .06); osc('sine', f * 3, t, .004, .2, .03); };
+    S.chime = function (t, f) { var b = f || 523; [0, 4, 7, 12].forEach(function (st, i) { S.ding(t + i * .09, b * Math.pow(2, st / 12)); }); };
+    S.pop = function (t, f) { f = f || 600; osc('sine', f, t, .003, .09, .2, f * 1.7); };
+    S.pick = function (t) { S.pop(t, 520); S.ding(t + .05, 784); };
+    S.blip = function (t) { osc('square', 1100, t, .002, .05, .05); osc('square', 1650, t + .05, .002, .06, .05); };
+    S.click = function (t) { osc('square', 1300, t, .001, .018, .06); };
+    S.thud = function (t) { osc('sine', 130, t, .004, .38, .5, 40); nz(t, .002, .12, .12, 'lowpass', 600, 120); };
+    S.slam = function (t) { S.thud(t); nz(t, .001, .22, .3, 'lowpass', 3000, 300, .7); osc('sawtooth', 70, t, .002, .25, .1, 35); };
+    S.stamp = function (t) { osc('sine', 150, t, .003, .22, .3, 55); nz(t, .001, .08, .12, 'lowpass', 1200, 200); };
+    S.plink = function (t) { osc('sine', 1200 + Math.random() * 1000, t, .003, .18, .09); };
+    S.paper = function (t) { nz(t, .003, .07, .09, 'bandpass', 2500 + Math.random() * 3000, null, 1.2); };
+    S.tok = function (t, i) { osc('triangle', note(392, i | 0), t, .003, .16, .13); };
+    S.node = function (t, i) { S.ding(t, note(523, i | 0)); };
+    S.question = function (t) { osc('sine', 196, t, .1, .7, .1, 247); osc('sine', 294, t + .05, .1, .6, .05, 370); };
+    S.power = function (t) { osc('sawtooth', 80, t, .05, .9, .07, 240); nz(t, .1, .7, .05, 'lowpass', 300, 2000); };
+    S.flash = function (t) { S.whoosh(t); S.chime(t + .05, 659); };
+    S.unlock = function (t) { S.tick(t, 1200); };
+    S.play = function (name, arg, when) { var fn = S[name]; if (fn) fn(when == null ? ac.currentTime + .005 : when, arg); };
+    return S;
+  }
+  window.__Synth = Synth;
+
+  var ac = null, master = null, synth = null, soundOn = true, unlockEl = null;
+  try { soundOn = localStorage.getItem('tr-sound') !== '0'; } catch (e) {}
+  function ensureAudio() {
+    if (ac) return ac;
+    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+    ac = new AC(); master = ac.createGain(); master.gain.value = .6;
+    var comp = ac.createDynamicsCompressor(); master.connect(comp); comp.connect(ac.destination);
+    synth = Synth(ac, master); return ac;
+  }
+  function unlockAudio() {
+    ensureAudio();
+    if (ac && ac.state === 'suspended') { try { ac.resume(); } catch (e) {} }
+    try {
+      if (!unlockEl) { unlockEl = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA='); unlockEl.loop = true; }
+      var pr = unlockEl.play(); if (pr && pr.catch) pr.catch(function () {});
+    } catch (e) {}
+  }
+  function SFX(name, arg) {
+    if (!soundOn || !ac || !synth) return;
+    try { if (ac.state === 'suspended') ac.resume(); synth.play(name, arg); window.__sfx.n++; window.__sfx.last = name; }
+    catch (e) { window.__sfx.err = String(e); }
+  }
+  function duck(on) {
+    if (!master) return;
+    try { var t = ac.currentTime; master.gain.cancelScheduledValues(t); master.gain.setTargetAtTime(on ? 0.0001 : .6, t, .03); } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (!ac) return;
+    try { if (document.hidden) ac.suspend(); else if (soundOn) ac.resume(); } catch (e) {}
+  });
+
+  /* 장면별 소리 큐 [시작(ms), 이름, 값]. 장면 시간표와 맞춰 둔다 */
+  function seq(name, start, n, step, argf) { var a = []; for (var k = 0; k < n; k++) a.push([start + k * step, name, argf ? argf(k) : undefined]); return a; }
+  var CUES = [
+    [[0, 'swipe'], [2700, 'cut'], [4200, 'ding', 659], [5700, 'cut'], [8300, 'cut'], [9600, 'question'], [11700, 'door'], [12500, 'chime', 523], [13400, 'tick', 2200]],
+    [[0, 'cut'], [2200, 'tick', 1500], [2600, 'tick', 2000], [3200, 'tock'], [4130, 'tock'], [5060, 'tock'], [6500, 'slam'], [6900, 'tick'], [8700, 'cut'], [8800, 'tick', 1400], [9900, 'question'], [11600, 'whoosh'], [13900, 'ding', 784], [14900, 'tick'], [15400, 'pop', 500], [16900, 'pop', 420], [18400, 'ding', 523]]
+      .concat(seq('tok', 3250, 12, 230, function (k) { return k; }), seq('paper', 11650, 18, 120), seq('tick', 11800, 15, 140, function (k) { return 1200 + k * 60; })),
+    [[0, 'question'], [1800, 'power'], [9400, 'flash'], [10100, 'cut'], [13800, 'ding', 523]]
+      .concat(seq('tick', 3400, 24, 250, function () { return 900; }), seq('tok', 3500, 21, 240, function (k) { return k % 10; }), seq('plink', 9700, 8, 130)),
+    [[0, 'question'], [1400, 'blip']],
+    [[0, 'swipe'], [2700, 'cut'], [3100, 'node', 0], [4900, 'node', 1], [6700, 'node', 2], [8500, 'node', 3], [10000, 'cut'], [10900, 'tick', 1500], [11800, 'tick', 1500], [12700, 'tick', 1500], [14200, 'ding', 659], [15700, 'cut'], [16300, 'stamp'], [17000, 'stamp'], [17700, 'stamp'], [19400, 'cut'], [21400, 'chime', 523]]
+      .concat(seq('click', 11800, 3, 900))
+  ];
+  var REVCUES = [[0, 'thud'], [2900, 'tick', 1500], [3300, 'tok', 0], [3600, 'tok', 1], [3900, 'tok', 2], [4700, 'tok', 3], [5000, 'tok', 4], [5700, 'tick', 1200], [8100, 'cut'], [10700, 'ding', 523], [11800, 'blip']];
+  function scheduleCues(list, fromMs, seqId) {
+    (list || []).forEach(function (c) {
+      if (c[0] < fromMs) return;
+      st.tm.push(setTimeout(function () { if (st && st.seq === seqId && st.playing) SFX(c[1], c[2]); }, c[0] - fromMs));
+    });
+  }
+  var started = /[?&](s=\d|nocover)/.test(location.search), pendingIdx = -1;
   var phone = $('phone'), reel = $('reel');
   var scenes = [].slice.call(document.querySelectorAll('.scene'));
   var doc = $('doc');
@@ -581,6 +709,7 @@ a { color: inherit; }
       st.tm.push(setTimeout(function () { if (st && st.seq === seq && st.playing) buzz(18); }, t - fromMs));
     });
     st.tm.push(setTimeout(function () { if (st && st.seq === seq) swipe.classList.add('show'); }, Math.max(0, st.T * .72 - fromMs)));
+    scheduleCues(st.revealed ? REVCUES : CUES[i], fromMs, seq);
   }
   function begin(sc, i) {
     if (st) clearTimers();
@@ -596,6 +725,8 @@ a { color: inherit; }
     if (!ask) {
       segs[i].style.setProperty('--T', st.T + 'ms'); segs[i].classList.add('on');
       arm(0);
+    } else {
+      scheduleCues(CUES[i], 0, st.seq);
     }
   }
   function end(sc) {
@@ -605,13 +736,13 @@ a { color: inherit; }
   }
   function pause(icon) {
     if (!st || !st.playing) return;
-    st.hold = pos(); st.playing = false; clearTimers();
+    st.hold = pos(); st.playing = false; clearTimers(); duck(true);
     anims().forEach(function (a) { try { a.pause(); } catch (e) {} });
     syncPb(); if (icon) flashIcon(true);
   }
   function resume(icon) {
     if (!st || st.playing) return;
-    st.t0 = performance.now() - st.hold; st.playing = true;
+    st.t0 = performance.now() - st.hold; st.playing = true; duck(false);
     anims().forEach(function (a) { try { a.play(); } catch (e) {} });
     if (!st.ask || st.revealed) arm(st.hold);
     syncPb(); if (icon) flashIcon(false);
@@ -637,20 +768,25 @@ a { color: inherit; }
     st.T = 12500; st.t0 = performance.now(); st.playing = true; st.hold = 0;
     var i = st.i; segs[i].style.setProperty('--T', '12500ms'); segs[i].classList.remove('on'); void segs[i].offsetWidth; segs[i].classList.add('on');
     clearTimers();
+    SFX('pick');
+    scheduleCues(REVCUES, 0, st.seq);
     st.tm.push(setTimeout(function () { swipe.classList.add('show'); }, 12000));
   }
 
+  function activate(sc, i) {
+    if (cur === i) return;
+    if (cur >= 0) { end(scenes[cur]); SFX('swipe'); }
+    cur = i;
+    phone.dataset.tone = sc.dataset.tone;
+    cap.textContent = sc.dataset.cap;
+    begin(sc, i);
+  }
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       var i = scenes.indexOf(e.target);
       if (e.isIntersecting && e.intersectionRatio >= .6) {
-        if (cur !== i) {
-          if (cur >= 0) end(scenes[cur]);
-          cur = i;
-          phone.dataset.tone = e.target.dataset.tone;
-          cap.textContent = e.target.dataset.cap;
-          begin(e.target, i);
-        }
+        if (!started) { pendingIdx = i; return; }
+        activate(e.target, i);
       } else if (!e.isIntersecting && cur === i) { end(e.target); cur = -1; }
     });
   }, { root: reel, threshold: [0, .6] });
@@ -671,7 +807,7 @@ a { color: inherit; }
   /* ---------- 제스처: 탭=일시정지, 두 번 탭=좋아요, 가로로 끌면 되감기 ---------- */
   var g = null, lastTap = 0, tapTimer = 0;
   function like() {
-    if (!heart.classList.contains('on')) { heart.classList.add('on'); hc.textContent = '4,321'; buzz(12); }
+    if (!heart.classList.contains('on')) { heart.classList.add('on'); hc.textContent = '4,321'; buzz(12); SFX('pop', 900); }
     bh.classList.remove('show'); void bh.getBoundingClientRect(); bh.classList.add('show');
   }
   function canHold() { return st && st.playing && !(st.ask && !st.revealed); }
@@ -722,7 +858,7 @@ a { color: inherit; }
     scenes[k].scrollIntoView({ behavior: 'smooth' });
   });
 
-  heart.addEventListener('click', function () { var on = heart.classList.toggle('on'); hc.textContent = on ? '4,321' : '4,320'; if (on) buzz(12); });
+  heart.addEventListener('click', function () { var on = heart.classList.toggle('on'); hc.textContent = on ? '4,321' : '4,320'; if (on) { buzz(12); SFX('pop', 900); } });
   $('fol').addEventListener('click', function () { var b = $('fol'); var on = b.classList.toggle('on'); b.textContent = on ? '팔로잉' : '팔로우'; });
   $('sh').addEventListener('click', function () {
     var u = location.href;
@@ -789,6 +925,29 @@ a { color: inherit; }
     if (!sessionStorage.getItem('tr-hint')) { sessionStorage.setItem('tr-hint', '1'); setTimeout(function () { say('꾹 누르면 멈춰요. 아래 막대를 끌어 이동할 수 있어요'); }, 1600); }
   } catch (err) {}
 
+  /* ---------- 소리 버튼과 시작 화면 ---------- */
+  var sb = $('sb'), cover = $('cover');
+  var SPK_ON = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+  var SPK_OFF = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>';
+  function syncSb() { sb.innerHTML = soundOn ? SPK_ON : SPK_OFF; sb.setAttribute('aria-label', soundOn ? '소리 끄기' : '소리 켜기'); sb.setAttribute('aria-pressed', soundOn ? 'true' : 'false'); }
+  function saveSound() { try { localStorage.setItem('tr-sound', soundOn ? '1' : '0'); } catch (e) {} }
+  sb.addEventListener('click', function (e) {
+    e.stopPropagation();
+    soundOn = !soundOn; saveSound(); syncSb();
+    if (soundOn) { unlockAudio(); SFX('pop', 800); say('소리 켬'); } else { say('소리 끔'); }
+  });
+  function startNow(on) {
+    soundOn = on; saveSound(); syncSb();
+    if (on) { unlockAudio(); SFX('unlock'); }
+    cover.classList.add('gone'); started = true;
+    var i = pendingIdx >= 0 ? pendingIdx : 0;
+    setTimeout(function () { activate(scenes[i], i); }, 120);
+  }
+  $('cvOn').addEventListener('click', function () { startNow(true); });
+  $('cvOff').addEventListener('click', function () { startNow(false); });
+  if (started) { cover.classList.add('gone'); }
+  syncSb();
+
   /* ---------- 60초 생각 실험 ---------- */
   var Q = {
     tue: { name: '화요일에 태어난 아들', q: '한 가족에 아이가 둘 있습니다. 그중 적어도 한 명은 ‘화요일에 태어난 아들’입니다. 두 아이가 모두 아들일 확률은 얼마일까요? (성별과 요일은 모두 같은 확률이라고 봅니다.)', hints: ['아이 둘의 (성별, 요일) 조합을 모두 나열해 보세요. 한 아이당 14가지입니다.', '요일 정보 때문에 ‘두 아이 모두 해당하는 경우’가 줄어드는 점을 세어 보세요.'], ans: '<b>13/27 (약 48%)</b>입니다. 두 아이의 조합은 14×14=196가지이고, 적어도 한 명이 화요일 아들인 경우는 196−13²=27가지입니다. 그중 두 아이가 모두 아들인 경우가 13가지입니다. 요일을 말하지 않으면 1/3인데, 정보가 늘어날수록 확률이 1/2에 가까워집니다.' },
@@ -832,16 +991,16 @@ a { color: inherit; }
     clearInterval(tTimer);
     var pend = $('traceIn').value.trim();
     if (pend) { traces.push({ t: sec(), k: 'w', x: pend }); $('traceIn').value = ''; }
-    renderReview(); show('stReview'); $('lab').scrollIntoView({ behavior: 'smooth' });
+    SFX('chime', 659); renderReview(); show('stReview'); $('lab').scrollIntoView({ behavior: 'smooth' });
   }
   $('traceForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var v = $('traceIn').value.trim(); if (!v) return;
-    var t = sec(); traces.push({ t: t, k: 'w', x: v }); addLog($('liveLog'), t, v); $('traceIn').value = '';
+    var t = sec(); traces.push({ t: t, k: 'w', x: v }); addLog($('liveLog'), t, v); $('traceIn').value = ''; SFX('tick', 1700);
     $('liveLog').lastChild.scrollIntoView({ block: 'nearest' }); buzz(8);
   });
   $('bStuck').addEventListener('click', function () {
-    var t = sec(); traces.push({ t: t, k: 's', x: '여기서 막혔다' }); addLog($('liveLog'), t, '여기서 막혔다', 's'); buzz(20);
+    var t = sec(); traces.push({ t: t, k: 's', x: '여기서 막혔다' }); addLog($('liveLog'), t, '여기서 막혔다', 's'); buzz(20); SFX('thud');
   });
   $('bHint').addEventListener('click', function () {
     if (hintN >= 2) return;
@@ -862,13 +1021,14 @@ a { color: inherit; }
     $('ansBox').hidden = true; $('selfBox').hidden = true; $('bReveal').hidden = false;
   }
   $('bReveal').addEventListener('click', function () {
-    $('ansBox').innerHTML = Q[qk].ans; $('ansBox').hidden = false; $('selfBox').hidden = false; $('bReveal').hidden = true;
+    SFX('ding', 784); $('ansBox').innerHTML = Q[qk].ans; $('ansBox').hidden = false; $('selfBox').hidden = false; $('bReveal').hidden = true;
     $('ansBox').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   });
   [].forEach.call(document.querySelectorAll('[data-self]'), function (b) {
     b.addEventListener('click', function () { self = b.dataset.self; wrap('think'); });
   });
 
+  document.querySelector('.lab').addEventListener('click', function (e) { if (e.target.closest('button')) SFX('click'); });
   $('mThink').addEventListener('click', startThink);
   $('mAI').addEventListener('click', function () {
     mode = 'ai'; $('aiAns').innerHTML = Q[qk].ans; $('explain').value = ''; $('expT').textContent = '0';
@@ -880,7 +1040,7 @@ a { color: inherit; }
   });
 
   function wrap(kind) {
-    show('stWrap');
+    show('stWrap'); SFX('chime', 523);
     var sum = $('wrapSum'); sum.innerHTML = '';
     function box(n, l) { var d = el('div'); d.appendChild(el('b', '', n)); d.appendChild(el('span', '', l)); sum.appendChild(d); }
     if (kind === 'think') {
