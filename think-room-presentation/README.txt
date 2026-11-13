@@ -22,8 +22,11 @@
   주소 끝에 #5 를 붙이면 5번 슬라이드부터 시작한다.
 
 [폴더 구성]
-  index.html              모바일 소개 페이지(포스터 QR 이 가리키는 곳). 60초 생각 챌린지, 한눈에 보기, 링크.
-                          쓰는 글자가 바뀌면 assets/fonts/NotoSansKR-intro.woff 를 다시 만들어야 한다(없는 글자는 기본 글꼴로 나온다).
+  index.html              포스터 QR 이 가리키는 메인 페이지. 릴스 형식 숏츠 5편 + 60초 생각 실험 + 설명 글.
+                          소리는 브라우저에서 합성한다(파일 없음). 쓰는 글자가 바뀌면 assets/fonts/NotoSansKR-shorts.woff 를 다시 만든다.
+  intro.html              이전 모바일 소개 페이지(60초 챌린지 구버전). 지금은 메인이 아니다.
+  shorts/                 옛 주소(/shorts/). 메인으로 자동 이동한다.
+  assets/shorts/          숏츠에 쓰는 AI 이미지(WebP)
   deck.html               슬라이드 15장의 글과 구조. 글을 고칠 때는 여기만 본다.
   css/style.css           색, 글자 크기, 배치, 애니메이션. 색은 파일 위쪽 :root 에 있다.
   js/deck.js              넘김, 단계별 등장, 타자기 효과, 타이머 (외부 라이브러리 없음)

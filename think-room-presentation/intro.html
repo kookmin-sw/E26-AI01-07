@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>생각의 방 (Think Room) — 1시간 접속, 몇 주 치 생각</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AI가 답을 주는 시대, 스스로 생각할 시간을 되찾아 주는 생각 가속 공간. 국민대 유레카 프로젝트 E26-AI01-07 소개 페이지.">
+<meta property="og:title" content="생각의 방 (Think Room)">
+<meta property="og:description" content="1시간 접속, 몇 주 치 생각. 60초 생각 챌린지를 해 보세요.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://think-room.zanviq.dev/poster/Think-Room-preview.png">
+<meta name="theme-color" content="#080D18">
+<link rel="icon" href="data:,">
+<style>
+@font-face { font-family: 'Noto Sans KR'; src: url('assets/fonts/NotoSansKR-intro.woff') format('woff'); font-weight: 100 900; font-style: normal; font-display: swap; }
+:root { --paper: #F4F6FA; --ink: #0B1220; --grey: #5D677A; --rule: #D2D8E3; --accent: #2457FF; --accent-lt: #7C9BFF; --blue-pale: #E3EBFF; --dark: #080D18; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+em { font-style: normal; color: var(--accent); }
+a { color: inherit; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+.kk { font-size: 13px; font-weight: 700; letter-spacing: .2em; color: var(--accent); }
+h2 { font-size: 28px; font-weight: 800; letter-spacing: -.035em; line-height: 1.2; margin-top: 4px; }
+section { padding: 52px 0; }
+
+/* 첫 화면 */
+.hero { background: var(--dark); color: var(--paper); padding: 44px 0 40px; background-image: linear-gradient(rgba(124, 155, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 155, 255, .07) 1px, transparent 1px); background-size: 40px 40px; }
+.hero .top { font-size: 13px; color: #B9C3D8; letter-spacing: .02em; }
+.hero .top b { color: var(--accent-lt); }
+.hero h1 { margin-top: 18px; font-size: 76px; font-weight: 800; letter-spacing: -.055em; line-height: 1.02; }
+.hero h1 small { display: block; margin-top: 6px; font-size: 14px; font-weight: 700; letter-spacing: .5em; color: var(--accent-lt); }
+.hero .lead { margin-top: 18px; font-size: 34px; font-weight: 800; letter-spacing: -.045em; line-height: 1.2; }
+.hero .lead em { color: var(--accent-lt); }
+.hero .sub { margin-top: 14px; font-size: 16px; color: #B9C3D8; }
+.btns { margin-top: 26px; display: grid; gap: 10px; }
+.btn { display: block; padding: 15px 18px; font-size: 17px; font-weight: 800; text-align: center; text-decoration: none; border: 2px solid var(--accent); background: var(--accent); color: #fff; }
+.btn.ghost { background: transparent; border-color: #5A6788; color: var(--paper); font-weight: 700; }
+
+/* 60초 챌린지 */
+.chal { background: var(--accent); color: #fff; }
+.chal .kk { color: #CFDBFF; }
+.chal h2 { color: #fff; }
+.chal .q { margin-top: 16px; font-size: 22px; font-weight: 700; letter-spacing: -.03em; line-height: 1.4; min-height: 93px; }
+.ring { position: relative; width: 220px; height: 220px; margin: 26px auto 0; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 10; }
+.ring .bg { stroke: rgba(255, 255, 255, .25); }
+.ring .fg { stroke: #fff; stroke-linecap: butt; stroke-dasharray: 565.49; stroke-dashoffset: 0; transition: stroke-dashoffset .1s linear; }
+.ring .t { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring .n { font-size: 78px; font-weight: 800; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ring .u { font-size: 14px; letter-spacing: .3em; opacity: .85; }
+.cbtn { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 26px; }
+.cbtn button { font: inherit; font-size: 17px; font-weight: 800; padding: 15px 10px; border: 2px solid #fff; background: #fff; color: var(--accent); cursor: pointer; }
+.cbtn button.ghost { background: transparent; color: #fff; }
+.done { display: none; margin-top: 22px; padding: 18px 20px; background: var(--dark); color: var(--paper); font-size: 17px; line-height: 1.55; }
+.done.show { display: block; }
+.done b { color: var(--accent-lt); }
+.done small { display: block; margin-top: 8px; font-size: 13px; color: #98A4BC; }
+.hint { margin-top: 16px; font-size: 13px; text-align: center; opacity: .85; }
+
+/* 한눈에 */
+.card { margin-top: 20px; background: #fff; border: 2px solid var(--ink); padding: 20px; }
+.card .ck { font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--accent); }
+.card h3 { margin-top: 2px; font-size: 22px; font-weight: 800; letter-spacing: -.04em; line-height: 1.25; }
+.card p { margin-top: 8px; font-size: 16px; }
+.bar { margin-top: 14px; border-top: 2px solid var(--ink); }
+.bar div { display: flex; align-items: center; gap: 12px; height: 44px; border-bottom: 2px solid var(--ink); font-weight: 700; }
+.bar span { width: 96px; flex: none; font-size: 15px; }
+.bar i { display: block; height: 18px; background: var(--ink); }
+.bar i.long { background: var(--accent); }
+.bar em { margin-left: auto; font-size: 17px; font-weight: 800; color: var(--ink); }
+.big { margin-top: 12px; font-size: 48px; font-weight: 800; letter-spacing: -.05em; color: var(--accent); line-height: 1; }
+.users { margin-top: 14px; display: grid; gap: 8px; }
+.users div { border-left: 4px solid var(--accent); padding: 2px 0 2px 12px; font-size: 15px; }
+.users b { display: block; font-size: 17px; }
+.grid4 { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid4 figure img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 2px solid var(--ink); }
+.grid4 figure.v img { border-color: var(--accent); }
+.grid4 figcaption { margin-top: 6px; font-size: 14px; line-height: 1.4; font-weight: 600; }
+.grid4 figcaption i { font-style: normal; font-weight: 800; color: var(--accent); margin-right: 4px; }
+.steps { margin-top: 12px; display: grid; gap: 8px; }
+.steps div { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: baseline; padding: 10px 12px; border: 2px solid var(--ink); }
+.steps div.v { background: var(--blue-pale); border-color: var(--accent); }
+.steps b { font-size: 22px; font-weight: 800; letter-spacing: -.04em; }
+.steps span { font-size: 15px; color: var(--grey); line-height: 1.45; }
+.tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span { padding: 4px 12px; font-size: 14px; font-weight: 700; border: 2px solid var(--accent); background: #fff; }
+.note { margin-top: 10px; font-size: 13px; color: var(--grey); }
+.vq { margin-top: 12px; display: grid; gap: 10px; }
+.vq div { padding: 12px 14px; background: var(--blue-pale); font-size: 15px; line-height: 1.5; }
+.vq b { display: block; color: var(--accent); font-size: 13px; letter-spacing: .1em; }
+
+/* 링크·팀 */
+.links { margin-top: 18px; display: grid; gap: 10px; }
+.links a { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; background: #fff; border: 2px solid var(--ink); font-size: 17px; font-weight: 800; text-decoration: none; }
+.links a small { font-size: 13px; font-weight: 500; color: var(--grey); }
+.team { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.team div { border: 2px solid var(--ink); padding: 10px 12px; background: #fff; }
+.team b { display: block; font-size: 17px; }
+.team span { font-size: 14px; color: var(--accent); font-weight: 600; }
+.small { margin-top: 22px; font-size: 13px; line-height: 1.6; color: #4A5468; }
+.small b { color: var(--ink); }
+footer { background: var(--dark); color: #B9C3D8; padding: 28px 0 40px; font-size: 13px; line-height: 1.6; }
+footer b { color: var(--paper); }
+.reduce * { transition: none !important; }
+@media (min-width: 700px) { .hero h1 { font-size: 112px; } .hero .lead { font-size: 44px; } .chal .q { font-size: 26px; min-height: 110px; } .grid4 { grid-template-columns: repeat(4, 1fr); } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">2026 유레카 프로젝트 · 국민대학교 소프트웨어융합대학 · <b>팀 E26-AI01-07</b></div>
+    <h1>생각의 방<small>THINK ROOM</small></h1>
+    <p class="lead">1시간 접속,<br><em>몇 주 치 생각.</em></p>
+    <p class="sub">AI가 답을 주는 시대, 사람이 스스로 생각할 시간을 되찾아 주는 ‘생각 가속 공간’ 이야기입니다.</p>
+    <div class="btns">
+      <a class="btn" href="#challenge">60초 생각 챌린지 해 보기</a>
+      <a class="btn ghost" href="#story">한눈에 보기</a>
+    </div>
+  </div>
+</header>
+
+<section class="chal" id="challenge">
+  <div class="wrap">
+    <div class="kk">60-SECOND CHALLENGE</div>
+    <h2>AI 없이, 딱 60초만.</h2>
+    <p class="q" id="q"></p>
+    <div class="ring">
+      <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="fg" cx="100" cy="100" r="90"/></svg>
+      <div class="t"><div class="n" id="n">60</div><div class="u">SEC</div></div>
+    </div>
+    <div class="cbtn">
+      <button type="button" id="go">시작</button>
+      <button type="button" class="ghost" id="next">다른 질문</button>
+    </div>
+    <div class="done" id="done" aria-live="polite">
+      <b>60초 끝.</b> 생각의 방에서는 이런 시간을 ‘몇 주’ 동안 이어 갈 수 있다는 것이 우리의 가정입니다. 떠올린 답을 포스터 앞 발표자에게 들려주세요.
+      <small>이 챌린지는 기록이나 전송 없이 이 화면 안에서만 동작합니다.</small>
+    </div>
+    <p class="hint">휴대폰을 내려놓고, 질문만 보며 생각해 보세요.</p>
+  </div>
+</section>
+
+<section id="story">
+  <div class="wrap">
+    <div class="kk">AT A GLANCE</div>
+    <h2>포스터를 한눈에</h2>
+
+    <div class="card">
+      <div class="ck">① 문제</div>
+      <h3>게으른 것이 아니라 효율적인 선택. 그러나 효과적이지는 않다.</h3>
+      <div class="bar">
+        <div><span>AI에게 묻기</span><i style="width:6px"></i><em>1분</em></div>
+        <div><span>직접 생각하기</span><i class="long" style="width:calc(100% - 190px)"></i><em>약 3일</em></div>
+      </div>
+      <p>3일(4,320분)이 걸린다고 가정하면 AI에게 묻는 1분이 이만큼 효율적입니다.</p>
+      <div class="big">4,320배</div>
+      <p>수학 논문(arXiv 수학 분야)은 2025년 한 해 46,225편이었고, 2026년은 1~10월만 57,255편이 올라와 이미 2025년 전체를 넘었습니다.</p>
+      <div class="users">
+        <div>진리를 탐구하는 사람<b>수학자 서윤(39)</b></div>
+        <div>진짜 바쁜 사람<b>스타트업 대표 도현(44)</b></div>
+        <div>마음이 힘든 사람<b>회사원 하은(31)</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ck">② 미래 장면 · 2045년, 수학자 서윤의 하루</div>
+      <div class="grid4">
+        <figure><img src="assets/img/panel1.jpg" alt="밤의 연구실에서 증명을 이해하지 못해 머리를 감싼 수학자" loading="lazy" width="400" height="400"><figcaption><i>01</i>밤, 연구실. AI가 낸 증명을 이해하지 못한다</figcaption></figure>
+        <figure><img src="assets/img/panel2.jpg" alt="안락한 의자에서 헤드밴드를 쓰고 접속하는 수학자" loading="lazy" width="400" height="400"><figcaption><i>02</i>아침 9시, 생각의 방에 접속한다</figcaption></figure>
+        <figure class="v"><img src="assets/img/panel3.jpg" alt="가상 공간의 칠판 앞에서 증명을 따라가는 수학자" loading="lazy" width="400" height="400"><figcaption><i>03</i>가상 공간에서 몇 주 동안 직접 씨름한다</figcaption></figure>
+        <figure><img src="assets/img/panel4.jpg" alt="돌아와 학생들에게 칠판으로 설명하는 수학자" loading="lazy" width="400" height="400"><figcaption><i>04</i>돌아와 학생들에게 내 말로 설명한다</figcaption></figure>
+      </div>
+      <p>눈을 떴을 때 몇 주 동안 씨름한 기억이 남아 있고, <b>“내가 이해했다”</b>고 느끼는 순간. 그것이 핵심 경험입니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="ck">③ 어떻게 작동하는가</div>
+      <div class="steps">
+        <div><b>읽기</b><span>헤드밴드가 뇌 신호를 측정하고 AI가 해독한다</span></div>
+        <div class="v"><b>가속</b><span>내 뇌를 모사한 모델이 가상 공간에서 몇 주를 1시간으로 압축한다</span></div>
+        <div><b>귀환</b><span>생각한 과정이 결론과 함께 내 기억으로 돌아온다</span></div>
+        <div><b>복기</b><span>생각이 글·영상으로 남아, 막힌 곳부터 다시 본다</span></div>
+      </div>
+      <div class="tags"><span>1회 최대 4시간</span><span>사용 후 뇌 정보 삭제</span><span>최고 보안 등급</span><span>본인만 열람</span></div>
+      <p class="note">안전장치는 우리가 가정한 정책입니다. 칠레 헌법(2021), 미국 콜로라도·캘리포니아 신경 데이터법(2024), 유네스코 권고(2025)처럼 이미 논의가 시작됐습니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="ck">④ 앞으로 검증할 질문</div>
+      <div class="vq">
+        <div><b>기술</b>솔직히 아직은 구현할 수 없습니다. ‘읽기’는 마비 환자 대상 임상이 진행 중이고, ‘쓰기’는 일부, ‘복제·가속’은 현재 근거가 없는 가정입니다.</div>
+        <div><b>철학 · 테세우스의 배</b>컴퓨터 속의 나는 ‘나’일까요? 우리의 가설은 정체성이 기억의 연속에 있다는 것입니다.</div>
+        <div><b>사회</b>문자도, 스마트폰도, 디지털 결제도 처음에는 걱정의 대상이었습니다. 편익, 안전장치, 점진적 노출이 일상을 만듭니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="kk">MORE</div>
+    <h2>더 보기</h2>
+    <div class="links">
+      <a href="deck.html">발표 슬라이드<small>15장 · 키보드 → 로 넘기기</small></a>
+      <a href="poster/">포스터 웹 버전<small>구역을 눌러 확대</small></a>
+      <a href="poster/E26-AI01-07.pdf">포스터 PDF (A0)<small>PDF</small></a>
+      <a href="https://github.com/kookmin-sw/E26-AI01-07">GitHub 저장소<small>README · 과정 기록</small></a>
+    </div>
+
+    <div class="team">
+      <div><b>서재민</b><span>퍼실리테이터</span></div>
+      <div><b>송채원</b><span>사용자 관찰자</span></div>
+      <div><b>하준서</b><span>기록자</span></div>
+      <div><b>윤서후</b><span>시각화 담당</span></div>
+    </div>
+
+    <p class="small"><b>참고자료</b> 인간수학협회(AHM) 성명(2026.10.7) · OpenAI 증명 원고 공개(2026.10.6) · arXiv 수학 분야 연도별 통계 · 플라톤 『파이드로스』 · 뇌-컴퓨터 인터페이스 임상 연구 동향 · 해마 기억 보철 연구(2018·2022) · 칠레 헌법 개정(2021) · 콜로라도·캘리포니아 신경 데이터 보호법(2024) · 유네스코 신경기술 윤리 권고(2025)</p>
+    <p class="small"><b>AI 활용</b> 삽화는 Google Gemini로 생성했고 문안 정리에 생성형 AI를 보조로 사용했습니다. 내용의 판단과 결정은 팀이 했습니다.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>생각의 방 (Think Room)</b> · 팀 E26-AI01-07<br>
+    2026.11.13 전시 · 4층 자율주행스튜디오(429호) · 이 페이지는 개인정보를 수집하지 않습니다.
+  </div>
+</footer>
+
+<script>
+(function () {
+  var QS = [
+    'AI가 모든 답을 알려주는 세상에서, 나는 무엇만큼은 직접 생각하고 싶은가?',
+    '내가 마지막으로 ‘끝까지’ 스스로 생각해 본 문제는 무엇이었나?',
+    '3주 치 생각을 1시간에 할 수 있다면, 나는 어떤 문제에 쓰겠는가?',
+    '이해하지 못한 채 AI의 답을 그대로 받아들인 적은 언제였나?'
+  ];
+  var qi = 0, TOTAL = 60000, C = 565.49;
+  var q = document.getElementById('q'), n = document.getElementById('n'), fg = document.getElementById('fg');
+  var go = document.getElementById('go'), nx = document.getElementById('next'), done = document.getElementById('done');
+  var raf = 0, t0 = 0, running = false;
+
+  function show() { q.textContent = QS[qi]; }
+  function paint(left) {
+    var s = Math.ceil(left / 1000);
+    n.textContent = s;
+    fg.style.strokeDashoffset = String(C * (1 - left / TOTAL));
+  }
+  function reset() {
+    clearInterval(raf); running = false;
+    go.textContent = '시작'; paint(TOTAL); done.classList.remove('show');
+  }
+  function tick() {
+    var left = TOTAL - (Date.now() - t0);
+    if (left <= 0) {
+      clearInterval(raf);
+      paint(0); n.textContent = '0'; running = false; go.textContent = '다시'; done.classList.add('show');
+      if (navigator.vibrate) { try { navigator.vibrate(200); } catch (e) {} }
+      return;
+    }
+    paint(left);
+  }
+  go.addEventListener('click', function () {
+    if (running) { reset(); return; }
+    reset(); running = true; go.textContent = '멈추기';
+    t0 = Date.now(); raf = setInterval(tick, 100);
+  });
+  nx.addEventListener('click', function () { qi = (qi + 1) % QS.length; show(); reset(); });
+  show(); paint(TOTAL);
+})();
+</script>
+</body>
+</html>
